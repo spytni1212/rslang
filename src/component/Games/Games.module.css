@@ -1,0 +1,32 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gamesContainer {
+    max-width: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 50px;
+    background-color: rgb(193, 164, 221);
+}
+
+.gameContainer {
+    display: flex;
+    align-items: center;
+    column-gap: 30px;
+}
+
+.gameIcon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: brown;
+}
+
+.gameDescription {
+    display: flex;
+    flex-direction: column;
+}
