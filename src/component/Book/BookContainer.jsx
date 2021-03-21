@@ -1,13 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import * as axios from 'axios'
-import { setWords } from '../../redux/book-reducer'
+import { setWords, setCurrentPage } from '../../redux/book-reducer'
 import Book from './Book';
 
 class BookContainer extends React.Component {
 
     componentDidMount() {
-        axios.get(`https://react-learn-words.herokuapp.com/words?group=0&page=0`)
+        let currentPage = this.props.currentPage - 1
+        axios.get(`https://react-learn-words.herokuapp.com/words?group=0&page=${currentPage}`)
+        .then(response => {
+            console.log(response)
+           this.props.setWords(response.data)
+           
+        })
+    }
+
+    onPageChanged = (pageNumber) => {
+        this.props.setCurrentPage(pageNumber)
+        let currentPage = pageNumber - 1
+        axios.get(`https://react-learn-words.herokuapp.com/words?group=0&page=${currentPage}`)
         .then(response => {
             console.log(response)
            this.props.setWords(response.data)
@@ -20,6 +32,9 @@ class BookContainer extends React.Component {
         return (
             <Book
                 words={this.props.words}
+                totalPages={this.props.totalPages}
+                onPageChanged={this.onPageChanged}
+                currentPage = {this.props.currentPage}
             />
         )
     }
@@ -27,9 +42,11 @@ class BookContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        words: state.book.words
+        words: state.book.words,
+        totalPages: state.book.totalPages,
+        currentPage: state.book.currentPage
     }
 }
 
 
-export default connect(mapStateToProps, {setWords})(BookContainer);
+export default connect(mapStateToProps, {setWords, setCurrentPage})(BookContainer);

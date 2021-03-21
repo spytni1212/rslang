@@ -1,7 +1,63 @@
+.book {
+    height: 100%;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+
 .wordsContainer {
+    max-height: 500px;
+    max-width: 700px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    max-width: 300px;
     row-gap: 30px;
+    overflow-y: scroll;
+}
+
+.wordContainer {
+    display: flex;
+    align-items: center;
+    column-gap: 30px;
+}
+
+.wordImage {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.wordDescription {
+    display: flex;
+    flex-direction: column;
+}
+
+.paginationContainer {
+    display: flex;
+    column-gap: 5px;
+}
+
+.pageNumberContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.page {
+    padding: 0 3px;
+    cursor: pointer;
+}
+
+.page:hover {
+    background-color: lavenderblush;
+}
+
+.currentPage {
+    background-color: lavenderblush;
 }
