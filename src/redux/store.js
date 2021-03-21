@@ -1,6 +1,8 @@
 import { combineReducers, createStore, compose } from 'redux';
+import bookReducer from './book-reducer';
 
 let reducers = combineReducers({
+    book: bookReducer,
 
 })
 

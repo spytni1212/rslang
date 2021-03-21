@@ -5,7 +5,7 @@ import Header from './component/Header/Header';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Main from './component/Main/Main'
 import Footer from './component/Footer/Footer'
-import Words from './component/Words/Words'
+import BookContainer from './component/Book/BookContainer'
 import Games from './component/Games/Games'
 import Statistics from './component/Statistics/Statistics';
 import AudioCall from './component/Games/AudioCall/AudioCall'
@@ -20,7 +20,7 @@ function App() {
 				<CssBaseline>
 					<Header />
 					<Route path='/' component={Main} exact />
-					<Route path='/words' component={Words} />
+					<Route path='/book' component={BookContainer} />
 					<Route path='/games' component={Games} exact/>
 					<Route path='/games/savanna' component={Savanna} />
 					<Route path='/games/audioCall' component={AudioCall} />
