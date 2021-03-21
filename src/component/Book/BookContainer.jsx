@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import * as axios from 'axios'
-import { setWords, setCurrentPage, setCurrentGroup } from '../../redux/book-reducer'
+import { Howl, Howler } from 'howler' 
+import { setWords, setCurrentPage, setCurrentGroup, } from '../../redux/book-reducer'
 import Book from './Book';
 
 class BookContainer extends React.Component {
@@ -40,6 +41,13 @@ class BookContainer extends React.Component {
         })
     }
 
+    clickAudioHandler = (src) => {
+        const sound = new Howl({
+            src
+        })
+        sound.play()
+    }
+
     render() {
         return (
             <Book
@@ -50,6 +58,7 @@ class BookContainer extends React.Component {
                 totalGroup={this.props.totalGroup}
                 currentGroup={this.props.currentGroup}
                 onGroupChanged={this.onGroupChanged}
+                clickAudioHandler={this.clickAudioHandler}
             />
         )
     }
@@ -61,7 +70,7 @@ let mapStateToProps = (state) => {
         totalPages: state.book.totalPages,
         currentPage: state.book.currentPage,
         totalGroup: state.book.totalGroup,
-        currentGroup: state.book.currentGroup
+        currentGroup: state.book.currentGroup,
     }
 }
 

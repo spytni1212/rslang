@@ -7,7 +7,8 @@ let initialState = {
     totalPages: 30,
     currentPage: 1,
     totalGroup: 6,
-    currentGroup: 1
+    currentGroup: 1,
+    isAudioPlay: false
 
 }
 

@@ -38,8 +38,14 @@
     flex-direction: column;
 }
 
-.pageContainer {
-    
+.wordTranscription {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.audioButton {
+    text-decoration: none;
 }
 
 .paginationContainer {
