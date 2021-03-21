@@ -38,12 +38,29 @@ const Book = (props) => {
             </div>
     })
 
+    let groupCount = props.totalGroup;
+    let groups = []
+
+    for (let i = 1; i <= groupCount; i++) {
+        groups.push(i)
+    }
+
+    let options = groups.map(group => {
+        return <option key={group} value={group}>{group}</option>
+    })
+
     return (
         <div className={s.book}>
             <div className={`wrapper ${s.wrapper}`}>
-                <div className={s.paginationContainer}>{pagination}</div>
-                <div className={s.wordsContainer}>
-                    {words}
+                <div>
+                    <select value={props.currentGroup} onChange={(e) => props.onGroupChanged(e.currentTarget.value)}>{options}</select>
+                </div>
+                <div className={s.pageContainer}>
+                    <div className={s.paginationContainer}>{pagination}</div>
+                    <div className={s.wordsContainer}>
+                        {words}
+                    </div>
+                    <div className={s.paginationContainer}>{pagination}</div>
                 </div>
             </div>
         </div>

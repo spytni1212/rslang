@@ -4,8 +4,7 @@
 
 .wrapper {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: space-around;
     height: 100%;
 }
 
@@ -39,7 +38,12 @@
     flex-direction: column;
 }
 
+.pageContainer {
+    
+}
+
 .paginationContainer {
+    margin: 10px 0 5px;
     display: flex;
     column-gap: 5px;
 }
@@ -55,9 +59,9 @@
 }
 
 .page:hover {
-    background-color: lavenderblush;
+    background-color: rgb(161, 159, 160);
 }
 
 .currentPage {
-    background-color: lavenderblush;
+    background-color: rgb(161, 159, 160);
 }
