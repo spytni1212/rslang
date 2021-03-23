@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
 import Header from './component/Header/Header';
+import LoginContainer from './component/Login/LoginContainer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Main from './component/Main/Main'
 import Footer from './component/Footer/Footer'
@@ -20,6 +21,7 @@ function App() {
 				<CssBaseline>
 					<Header />
 					<Route path='/' component={Main} exact />
+					<Route path='/login' component={LoginContainer} />
 					<Route path='/book' component={BookContainer} />
 					<Route path='/games' component={Games} exact/>
 					<Route path='/games/savanna' component={Savanna} />
