@@ -2,17 +2,16 @@ const SET_USER_DATA = 'SET_USER_DATA'
 const SET_TOKEN = 'SET_TOKEN'
 
 let initialState = {
-    email: null,
     userId: null,
     name: null,
     token: null,
-    isAuth: false
+    isLogin: false
 }
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER_DATA:
-            return { ...state, ...action.data }
+            return { ...state, ...action.data, isLogin: true }
         case SET_TOKEN:
         return { ...state, token: action.token }
         default:
@@ -20,7 +19,7 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-export const setUserData = (email, userId, name) => ({ type: SET_USER_DATA, data: {email, userId, name} })
+export const setUserData = (userId, name) => ({ type: SET_USER_DATA, data: {userId, name} })
 export const setToken = (token) => ({ type: SET_TOKEN, token })
 
 

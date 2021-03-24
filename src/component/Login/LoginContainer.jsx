@@ -1,22 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as axios from 'axios'
-import { setUserData, setToken} from '../../redux/auth-reducer';
+import { setUserData, setToken } from '../../redux/auth-reducer';
 import Login from './Login'
 
 class LoginContainer extends React.Component {
 
-    onSubmit = (formData) => {
-        axios.post(`https://react-learn-words.herokuapp.com/users`, formData)
+
+    onSubmit = (LoginFormData) => {
+        axios.post(`https://react-learn-words.herokuapp.com/signin`, LoginFormData)
         .then(response => {
-            let { email, id, name } = response.data;
-            this.props.setUserData(email, id, name)
-            console.log(response)
-            axios.post(`https://react-learn-words.herokuapp.com/signin`, {email: formData.email, password: formData.password})
-            .then(response => {
-                console.log(response);
-                setToken(response.data.token)
-            })
+            let { userId, name, token} = response.data
+            this.props.setUserData(userId, name)
+            this.props.setToken(token)
+            console.log(response.data)
         })
     }
 

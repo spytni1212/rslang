@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
 import Header from './component/Header/Header';
+import RegistrationContainer from './component/Registration/RegistrationContainer';
 import LoginContainer from './component/Login/LoginContainer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Main from './component/Main/Main'
@@ -21,6 +22,7 @@ function App() {
 				<CssBaseline>
 					<Header />
 					<Route path='/' component={Main} exact />
+					<Route path='/registration' component={RegistrationContainer} />
 					<Route path='/login' component={LoginContainer} />
 					<Route path='/book' component={BookContainer} />
 					<Route path='/games' component={Games} exact/>

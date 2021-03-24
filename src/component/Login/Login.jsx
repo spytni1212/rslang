@@ -6,7 +6,7 @@ const Login = (props) => {
     return (
         <div>
             <div className={`wrapper`}>
-                <h2>Login</h2>
+                <h2>войти в аккаунт</h2>
                 <LoginForm  onSubmit={props.onSubmit}/>
             </div>
         </div>

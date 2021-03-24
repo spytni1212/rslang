@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form'
 
-const LoginForm = (props) => {
+const RegistrationForm = (props) => {
     return (
         <Form
             onSubmit={props.onSubmit}
@@ -9,6 +9,14 @@ const LoginForm = (props) => {
             {(props) => (
                 
                 <form onSubmit={props.handleSubmit}>
+                    <div>
+                        <Field 
+                            name='name'
+                            component='input'
+                            type='text'
+                            placeholder='введите имя' 
+                        />
+                    </div>
                     <div>
                         <Field 
                             name='email'
@@ -29,7 +37,7 @@ const LoginForm = (props) => {
                         <button
                             type='submit'
                         >
-                            войти
+                            создать
                         </button>
                     </div>
                 </form>
@@ -39,4 +47,4 @@ const LoginForm = (props) => {
 }
 
 
-export default LoginForm;
+export default RegistrationForm;
