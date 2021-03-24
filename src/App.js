@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
-import Header from './component/Header/Header';
+import HeaderContainer from './component/Header/HeaderContainer';
 import RegistrationContainer from './component/Registration/RegistrationContainer';
 import LoginContainer from './component/Login/LoginContainer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -20,7 +20,7 @@ function App() {
   	<div className="app">
 		  <BrowserRouter>
 				<CssBaseline>
-					<Header />
+					<HeaderContainer />
 					<Route path='/' component={Main} exact />
 					<Route path='/registration' component={RegistrationContainer} />
 					<Route path='/login' component={LoginContainer} />

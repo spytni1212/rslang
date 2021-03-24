@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect'
+import { compose } from "redux";
 import * as axios from 'axios'
 import { setUserData, setToken } from '../../redux/auth-reducer';
 import Login from './Login'
@@ -25,4 +27,7 @@ class LoginContainer extends React.Component {
 
 }
 
-export default connect(null, { setUserData, setToken })(LoginContainer);
+export default compose(
+    connect(null, { setUserData, setToken }),
+    withAuthRedirect
+)(LoginContainer);
