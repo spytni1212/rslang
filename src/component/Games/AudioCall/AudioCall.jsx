@@ -6,6 +6,7 @@ const AudioCall = () => {
         <div>
             <div className={`wrapper ${s.wrapper}`}>
                 здесь будет игра Аудиовызов
+                <button>Начать</button>
             </div>
         </div>
     )

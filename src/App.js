@@ -8,7 +8,7 @@ import Footer from './component/Footer/Footer'
 import Words from './component/Words/Words'
 import Games from './component/Games/Games'
 import Statistics from './component/Statistics/Statistics';
-import AudioCall from './component/Games/AudioCall/AudioCall'
+import AudioCallContainer from './component/Games/AudioCall/AudioCallContainer'
 import AuthorGame from './component/Games/AuthorGame/AuthorGame'
 import Savanna from './component/Games/Savanna/Savanna'
 import Sprint from './component/Games/Sprint/Sprint'
@@ -23,7 +23,7 @@ function App() {
 					<Route path='/words' component={Words} />
 					<Route path='/games' component={Games} exact/>
 					<Route path='/games/savanna' component={Savanna} />
-					<Route path='/games/audioCall' component={AudioCall} />
+					<Route path='/games/audioCall' component={AudioCallContainer} />
 					<Route path='/games/Sprint' component={Sprint} />
 					<Route path='/games/authorGame' component={AuthorGame} />
 					<Route path='/statistics' component={Statistics} />

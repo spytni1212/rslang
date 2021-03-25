@@ -1,7 +1,8 @@
 import { combineReducers, createStore, compose } from 'redux';
+import audioCallReducer from './audioCall-reducer';
 
 let reducers = combineReducers({
-
+    audioCall: audioCallReducer
 })
 
 let store = createStore(reducers, compose(
