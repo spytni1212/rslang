@@ -1,11 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
-import Header from './component/Header/Header';
+import HeaderContainer from './component/Header/HeaderContainer';
+import RegistrationContainer from './component/Registration/RegistrationContainer';
+import LoginContainer from './component/Login/LoginContainer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Main from './component/Main/Main'
 import Footer from './component/Footer/Footer'
-import Words from './component/Words/Words'
+import BookContainer from './component/Book/BookContainer'
 import Games from './component/Games/Games'
 import Statistics from './component/Statistics/Statistics';
 import AudioCallContainer from './component/Games/AudioCall/AudioCallContainer'
@@ -18,9 +20,11 @@ function App() {
   	<div className="app">
 		  <BrowserRouter>
 				<CssBaseline>
-					<Header />
+					<HeaderContainer />
 					<Route path='/' component={Main} exact />
-					<Route path='/words' component={Words} />
+					<Route path='/registration' component={RegistrationContainer} />
+					<Route path='/login' component={LoginContainer} />
+					<Route path='/book' component={BookContainer} />
 					<Route path='/games' component={Games} exact/>
 					<Route path='/games/savanna' component={Savanna} />
 					<Route path='/games/audioCall' component={AudioCallContainer} />

@@ -7,7 +7,7 @@ const AudioCall = ({handlerButtonStart}) => {
             <div className={`wrapper ${s.wrapper}`}>
                 <button onClick={handlerButtonStart}>Начать</button>
             </div>
-        </div>
+        </div> 
     )
 }
 
