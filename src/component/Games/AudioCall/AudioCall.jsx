@@ -1,12 +1,11 @@
 import React from 'react';
 import s from './AudioCall.module.css'
 
-const AudioCall = () => {
+const AudioCall = ({handlerButtonStart}) => {
     return (
         <div>
             <div className={`wrapper ${s.wrapper}`}>
-                здесь будет игра Аудиовызов
-                <button>Начать</button>
+                <button onClick={handlerButtonStart}>Начать</button>
             </div>
         </div>
     )
