@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './AudioCall.module.css'
 import CardLevel from './CardLevel';
-import Play from "./Play"
+import  GameProcess from "./ GameProcess"
 
 const AudioCall = ({levels, ...props}) => {
 
@@ -11,7 +11,7 @@ const AudioCall = ({levels, ...props}) => {
     return (
         <div>
             <div className={`wrapper ${s.wrapper}`}>
-                {!start ? levelCard : <Play {...props}/>}
+                {!start ? levelCard : <GameProcess {...props}/>}
             </div>
         </div> 
     )

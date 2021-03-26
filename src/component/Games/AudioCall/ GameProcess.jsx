@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import GameResult from "./GameResult";
 
-const Play = ({ ...props }) => {
+const GameProcess = ({ ...props }) => {
 
   useEffect(() => {
     props.funLevelMove();
@@ -13,6 +14,7 @@ const Play = ({ ...props }) => {
 
   return (
     <div>
+      {props.indexSelectWord === 19 && <GameResult/>}
         <p>{props.indexSelectWord}/19</p>
       {props.selectWord.word}
       {buttonsSelection}
@@ -28,4 +30,4 @@ let mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {})(Play);
+export default connect(mapStateToProps, {})(GameProcess);

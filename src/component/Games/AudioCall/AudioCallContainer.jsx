@@ -3,7 +3,9 @@ import AudioCall from "./AudioCall";
 import axios from "axios";
 import { connect } from "react-redux";
 import {
-    setIndexSelectWord,
+  setAddCorrectWord,
+  setAddWrongWord,
+  setIndexSelectWord,
   setLevelArr,
   setLevelMove,
   setStartGame,
@@ -33,8 +35,20 @@ const AudioCallContainer = ({ ...props }) => {
 
   const buttonChoseWord = (word) => {
         if(props.levelGame.indexSelectWord === 19){
-          return alert('end')
+          return 
         }
+        
+        if(word !== props.selectWord.word){
+          const wrongWords = [...props.wrongWords, word]  
+          props.setAddWrongWord(wrongWords)
+        }
+
+
+        if(word === props.selectWord.word){
+          const correctWords = [...props.correctWords, word]  
+          props.setAddCorrectWord(correctWords)
+        }
+
         props.setIndexSelectWord({
             indexSelectWord: props.levelGame.indexSelectWord + 1
         })
@@ -50,7 +64,7 @@ const AudioCallContainer = ({ ...props }) => {
       })
       .then(() => props.setStartGame(true));
   };
-
+  
   return (
     <AudioCall
       handlerButtonStart={handlerButtonStart}
@@ -68,7 +82,11 @@ let mapStateToProps = (state) => {
     start: state.audioCall.gameStart,
     levelArr: state.audioCall.levelArr,
     levelMove: state.audioCall.levelMove,
-    levelGame: state.audioCall.levelGame
+    levelGame: state.audioCall.levelGame,
+    selectWord: state.audioCall.levelMove.selectWord,
+    wrongWords: state.audioCall.levelResult.wrongWords,
+    correctWords: state.audioCall.levelResult.correctWords,
+    
   };
 };
 
@@ -77,4 +95,6 @@ export default connect(mapStateToProps, {
   setLevelArr,
   setLevelMove,
   setIndexSelectWord,
+  setAddWrongWord,
+  setAddCorrectWord,
 })(AudioCallContainer);
