@@ -1,0 +1,65 @@
+.answersList {
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin: 5px;
+}
+
+.answer {
+    margin: 0 1px;
+    list-style: none;
+    border-radius: 50%;
+    border: 1px solid black;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+}
+
+.correct {
+    background-color: green;
+}
+
+.scoreInfo {
+    background-color: #cb6e89;
+}
+
+.score {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 36px;
+}
+
+.points {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 36px;
+}
+
+.comparedWords {
+    display: flex;
+    justify-content: space-around;
+}
+
+.comparedWords>p {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 36px;
+    background-color: white;
+}
+
+.answerButtons {
+    display: flex;
+    justify-content: space-around;
+    cursor: pointer;
+}
+
+.correctButton, .wrongButton {
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.correctButton {
+    background-color: #3f6b33;
+}
+
+.wrongButton {
+    background-color: #8f3421;
+}

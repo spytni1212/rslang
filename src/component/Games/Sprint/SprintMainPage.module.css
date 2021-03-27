@@ -1,0 +1,22 @@
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.mainPage {
+    margin: 0 auto;
+    width: 500px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    border: 3px solid #e0deda;
+}
+
+.startButton {
+    background-color: pink;
+    font-size: 48px;
+    cursor: pointer;
+}

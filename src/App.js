@@ -11,7 +11,7 @@ import Statistics from './component/Statistics/Statistics';
 import AudioCall from './component/Games/AudioCall/AudioCall'
 import AuthorGame from './component/Games/AuthorGame/AuthorGame'
 import Savanna from './component/Games/Savanna/Savanna'
-import Sprint from './component/Games/Sprint/Sprint'
+import Sprint from './component/Games/Sprint/SprintMainPage'
 
 function App() {
   return (
