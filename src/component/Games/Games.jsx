@@ -11,7 +11,7 @@ const Games = () => {
                    <div className={s.gameContainer}>
                        <div className={s.gameIcon}></div>
                        <div className={s.gameDescription}>
-                           <NavLink to='/games/savanna'><div className={s.gameName}>Саванна</div></NavLink>
+                           <NavLink to='/games/savannah'><div className={s.gameName}>Саванна</div></NavLink>
                            <div className={s.description}>Описание игры</div>
                        </div>
                    </div>

@@ -1,0 +1,29 @@
+.header {
+    background-color: aqua;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+}
+
+.levelsContainer{
+    margin: 0 auto;
+}
+
+.levelButton{
+    width:100px;
+    margin:10px;
+    padding:10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.levelButton:hover{
+    transform: scale(1.1);
+}

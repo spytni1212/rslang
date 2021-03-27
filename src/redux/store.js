@@ -1,7 +1,8 @@
 import { combineReducers, createStore, compose } from 'redux';
+import savannahReducer from './savannahReducer/savannahReducer'
 
 let reducers = combineReducers({
-
+    savannah:savannahReducer,
 })
 
 let store = createStore(reducers, compose(
