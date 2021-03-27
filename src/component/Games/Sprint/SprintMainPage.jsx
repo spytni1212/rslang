@@ -1,35 +1,19 @@
 import React, { Component } from 'react';
+import SprintGameStart from './SprintGameStart';
 import SprintGamePage from './SprintGamePage';
 import SprintGameResult from './SprintGameResult';
 import { setSprintGameStart } from '../../../redux/sprint-reducer';
 import { connect } from 'react-redux';
 import style from './SprintMainPage.module.css';
 
-class SprintMainPage extends Component {
-    state = {
-        style: {
-            display: 'block'
-        }
-    }
-
-    handleStartGame = () => {
-        this.props.setSprintGameStart();
-        this.setState({
-            style: {
-                display: 'none'
-            }
-        });
-    }
-    
-    render() {
-        return (
-            <div className={style.mainPage}>
-                <button className={style.startButton} style={this.state.style} onClick={this.handleStartGame}>Начать</button>
-                {this.props.sprintGameStart && <SprintGamePage />}
-                {this.props.sprintGameEnd && <SprintGameResult />}
-            </div>
-        )
-    }
+const SprintMainPage = (props) => {    
+    return (
+        <div className={style.mainPage}>
+            {!props.sprintGameStart && !props.sprintGameEnd && <SprintGameStart />}
+            {props.sprintGameStart && <SprintGamePage />}
+            {props.sprintGameEnd && <SprintGameResult />}
+        </div>
+    )
 }
 
 const mapStateToProps = (state) => ({

@@ -3,6 +3,7 @@ import {words} from '../../../redux/sprint-reducer';
 import style from './SprintGamePage.module.css';
 import { setSprintGameEnd } from '../../../redux/sprint-reducer';
 import { connect } from 'react-redux';
+import * as axios from 'axios';
 
 class SprintGamePage extends Component {
     state = {
