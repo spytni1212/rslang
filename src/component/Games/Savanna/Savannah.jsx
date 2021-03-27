@@ -20,14 +20,23 @@ const useStyles = makeStyles({
         rowGap: '1em',
         flexWrap: 'wrap'
     },
+    title: {
+        marginBottom: '1.2em',
+    },
     checkButton:{
         margin: '0 auto',
-        width: '120px'
+        background: '#d69eadf5',
+        "&:hover": {
+            background: '#d69eadf !important'
+        }
     },
     word: {
         padding: '0.8em',
-        border: '2px black solid',
+        background: '#f3d7e6',
+        boxShadow: '2px 2px 7px 2px #b4b4c7',
+        border: '2px #0000002b solid',
         borderRadius: '10px',
+        outline: 'none',
         cursor: 'pointer',
         "&:hover": {
             transform: 'scale(1.1)'
@@ -43,21 +52,29 @@ const useStyles = makeStyles({
     }
 });
 
+const getRandomNumbers = () => {
+    const arr = [0, 1, 2, 3];
+    const randArr = arr.sort(() => 0.5 - Math.random());
+    console.log(randArr);
+    return randArr;
+};
+let randomNumbersArray = getRandomNumbers(); 
+
 const Savannah = (props) =>{
     const classes = useStyles()
     const history = useHistory();
 
     const words = props.words
     const translations = props.translations
+    console.log(words)
     let wordToCheck;
     let translationToCheck; 
     const dataArray = words.map(function (value, index){
         return [value, translations[index]]
-    })
+    }).sort(() => Math.random() - 0.5)
     const [wordsArray, setWordsArr] = useState(dataArray)
     dataArray[0] ? wordToCheck = wordsArray[0][0] : wordToCheck = null
     dataArray[0] ? translationToCheck = wordsArray[0][1] : translationToCheck = null
-    const translationsGroup = wordsArray.map(x => x[1]).slice(0, 4)
 
     const [buttonDisabled, setButtonDisabled] = useState(true)
     const [step, setStep] = useState(0)
@@ -87,33 +104,35 @@ const Savannah = (props) =>{
         setStep(prev => prev + 1)
     }
     const handleNext = () => {
-        if (step === 20) {
-            setOpen(true)
+        if (step === 5) {
+            handleOpen()
+        } else {
+            const buttons = Array.from(buttonsContainer.current.children)
+            buttons.map((btn) => btn.classList.remove(classes.correct, classes.wrong))
+            randomNumbersArray = getRandomNumbers();
+            showNewWords(wordsArray, setWordsArr)
+            setButtonDisabled(true)
         }
-        const buttons = Array.from(buttonsContainer.current.children)
-        buttons.map((btn) => btn.classList.remove(classes.correct, classes.wrong))
-        showNewWords(wordsArray, setWordsArr)
-        setButtonDisabled(true)
     }
     return (    
-        <Box className={classes.container}>
+        <Box className={classes.container} p={3}>
             <EndOfGamePopUp 
                 open={open}
                 handleClose={handleClose}
                 points={points}
             />
-            <h3> Выбери верный перевод слова "{wordToCheck}" </h3>
+            <h3 className={classes.title}> Выбери верный перевод слова "{wordToCheck}" </h3>
             <Box className={classes.gameContainer} mb={4} ref={buttonsContainer}>
-                {translationsGroup.map((word, index)=>{
+                {randomNumbersArray.map((randomNumber, index) => {
                     return (
                         <button 
                             key={index} 
                             className={classes.word} 
-                            data-id={word} 
+                            data-id={wordsArray[randomNumber][1]} 
                             onClick={handleCheck}
                             disabled={!buttonDisabled}
                         >
-                            {word}
+                            {wordsArray[randomNumber][1]}
                         </button>
                     )
                 })}

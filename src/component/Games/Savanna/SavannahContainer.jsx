@@ -4,7 +4,7 @@ import { setWords, setTranslations, setWordToCheck, setCurrentPage} from '../../
 import * as axios from 'axios'
 // import { Howl, Howler } from 'howler' 
 import Savannah from './Savannah';
-import SavannahStart from './SavannahStart'
+import ChooseLevel from './ChooseLevel'
 
 const SavannahContainer = (props) => {
     const [onLevelChoice, setOnLevelChoice] = useState(true)
@@ -21,7 +21,7 @@ const SavannahContainer = (props) => {
     const setWords = props.setWords
     const setTranslations = props.setTranslations
     useEffect(() => {
-        if (currentGroup !== '') {
+        if (currentGroup !== undefined) {
             axios.get(`https://react-learn-words.herokuapp.com/words?group=${currentGroup}&page=${getRandomPage()}`)
                 .then(response => {
                     const newData = response.data.map(resp => resp.word  &&  resp.wordTranslate)
@@ -30,13 +30,12 @@ const SavannahContainer = (props) => {
                     const words = response.data.map(resp => resp.word)
                     setWords(words)
                     setTranslations(translations)
-                    console.log(words)
                 })
         }
-    }, [currentGroup])
+    }, [currentGroup, setTranslations, setWords])
     return (
         onLevelChoice ? 
-        <SavannahStart setLevel = {handleCurrentGroupChange} setOnLevelChoice={setOnLevelChoice} />
+        <ChooseLevel setLevel = {handleCurrentGroupChange} setOnLevelChoice={setOnLevelChoice} />
         :   
         ( props.words.length && props.translations.length ? 
         <Savannah
