@@ -7,7 +7,6 @@ import style from './SprintMainPage.module.css';
 
 class SprintMainPage extends Component {
     state = {
-        endGame: false,
         style: {
             display: 'block'
         }
@@ -27,14 +26,15 @@ class SprintMainPage extends Component {
             <div className={style.mainPage}>
                 <button className={style.startButton} style={this.state.style} onClick={this.handleStartGame}>Начать</button>
                 {this.props.sprintGameStart && <SprintGamePage />}
-                {this.state.endGame && <SprintGameResult />}
+                {this.props.sprintGameEnd && <SprintGameResult />}
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-    sprintGameStart: state.sprint.sprintGameStart
+    sprintGameStart: state.sprint.sprintGameStart,
+    sprintGameEnd: state.sprint.sprintGameEnd
 })
 
 const mapDispatchToProps = (dispatch) => ({
