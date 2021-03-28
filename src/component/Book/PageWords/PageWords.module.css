@@ -1,0 +1,62 @@
+.wordsContainer {
+    max-height: 500px;
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    overflow-y: scroll;
+}
+
+.wordContainer {
+    display: flex;
+    align-items: center;
+    column-gap: 30px;
+}
+
+.wordImage {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.wordDescription {
+    display: flex;
+    flex-direction: column;
+}
+
+.wordTranscription {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.audioButton {
+    text-decoration: none;
+}
+
+.paginationContainer {
+    margin: 10px 0 5px;
+    display: flex;
+    column-gap: 5px;
+}
+
+.pageNumberContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.page {
+    padding: 0 3px;
+    cursor: pointer;
+}
+
+.page:hover {
+    background-color: rgb(161, 159, 160);
+}
+
+.currentPage {
+    background-color: rgb(161, 159, 160);
+}
