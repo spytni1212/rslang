@@ -12,7 +12,7 @@ const BookNavigation = (props) => {
     }
 
     groups = groups.map(group => {
-        return <li key={group.id}><NavLink to={`/book/group/${group}`} onClick={()=> props.onGroupChanged(group)}>Раздел {group}</NavLink></li>
+        return <li key={group}><NavLink to={`/book/textBook`} onClick={()=> props.onGroupChanged(group)}>Раздел {group}</NavLink></li>
     })
 
     return (

@@ -28,6 +28,7 @@ class PageWordsContainer extends React.Component {
                this.props.setWords(response.data)           
             })
         }
+        console.log('сработал компонент дид  маунт')
     }
 
     onPageChanged = (pageNumber) => {
@@ -68,7 +69,6 @@ class PageWordsContainer extends React.Component {
             onPageChanged={this.onPageChanged}
             totalGroup={this.props.totalGroup}
             currentGroup={this.props.currentGroup}
-            onGroupChanged={this.onGroupChanged}
             clickAudioHandler={this.clickAudioHandler}/>
         )
     }
@@ -88,7 +88,4 @@ let mapStateToProps = (state) => {
 }
 
 
-export default compose(
-    connect(mapStateToProps, {setWords, setUserWords, setCurrentPage, setCurrentGroup}),
-    withRouter
-)(PageWordsContainer)
+export default connect(mapStateToProps, {setWords, setUserWords, setCurrentPage})(PageWordsContainer)
