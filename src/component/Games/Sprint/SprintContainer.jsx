@@ -33,10 +33,10 @@ class SprintContainer extends Component {
             this.props.setSprintGameStart();
             this.props.setSprintGameEnd();
             this.props.setTotalScore(this.state.score);
-        }, 7000)
+        }, 61000)
 
         return this.setState({
-            timeLeft: 6, timer: timer
+            timeLeft: 60, timer: timer
         });
     }
 
