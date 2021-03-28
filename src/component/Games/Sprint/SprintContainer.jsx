@@ -1,11 +1,9 @@
-import React, { Component, Fragment } from 'react';
-import {words} from '../../../redux/sprint-reducer';
-import style from './SprintGamePage.module.css';
-import { setSprintGameEnd } from '../../../redux/sprint-reducer';
+import React, { Component } from 'react';
+import style from './SprintContainer.module.css';
+import { setSprintGameStart, setSprintGameEnd, setTotalScore, setResultInfo } from '../../../redux/sprint-reducer';
 import { connect } from 'react-redux';
-import * as axios from 'axios';
 
-class SprintGamePage extends Component {
+class SprintContainer extends Component {
     state = {
         timeLeft: null,
         timer: null,
@@ -31,10 +29,14 @@ class SprintGamePage extends Component {
             })
         }, 1000)
 
-        setTimeout(() => this.props.setSprintGameEnd(), 3000)
+        setTimeout(() => {
+            this.props.setSprintGameStart();
+            this.props.setSprintGameEnd();
+            this.props.setTotalScore(this.state.score);
+        }, 7000)
 
         return this.setState({
-            timeLeft: 2, timer: timer
+            timeLeft: 6, timer: timer
         });
     }
 
@@ -43,8 +45,13 @@ class SprintGamePage extends Component {
     }
 
     showNextPair = () => {
-        const first = words[Math.floor(Math.random() * words.length)];
-        const second = words[Math.floor(Math.random() * words.length)];
+        let first, second;
+        if (Math.ceil(Math.random() * 2) === 1) {
+            first = second = this.props.wordsInfo[Math.floor(Math.random() * this.props.wordsInfo.length)];
+        } else {
+            first = this.props.wordsInfo[Math.floor(Math.random() * this.props.wordsInfo.length)];
+            second = this.props.wordsInfo[Math.floor(Math.random() * this.props.wordsInfo.length)];
+        }
         this.setState({
             firstWord: first,
             secondWord: second
@@ -58,6 +65,8 @@ class SprintGamePage extends Component {
 
         if ((firstWord.id === secondWord.id && e.target.id === 'correct') ||
             (firstWord.id !== secondWord.id && e.target.id === 'wrong')) {
+            
+            this.props.setResultInfo({firstWord: firstWord.word, secondWord: secondWord.wordTranslate, result: true});
             
             this.ul.children[answerItem].style.backgroundColor = 'green';
 
@@ -85,6 +94,8 @@ class SprintGamePage extends Component {
                 });
             }
         } else {
+            this.props.setResultInfo({firstWord: firstWord.word, secondWord: secondWord.wordTranslate, result: false});
+
             for (let i = 0; i <= 3; i++) {
                 this.ul.children[i].style.backgroundColor = 'white';
             }
@@ -111,8 +122,8 @@ class SprintGamePage extends Component {
                     </ul>
                 </div>
                 <div className={style.comparedWords}>
-                    <p id={`${this.state.firstWord.id}`}>{this.state.firstWord.eng}</p>
-                    <p id={`${this.state.secondWord.id}`}>{this.state.secondWord.rus}</p>
+                    <p id={`${this.state.firstWord.id}`}>{this.state.firstWord.word}</p>
+                    <p id={`${this.state.secondWord.id}`}>{this.state.secondWord.wordTranslate}</p>
                 </div>
                 <div className={style.answerButtons}>
                     <button id='correct' className={style.correctButton} onClick={(e) => this.answerChecker(e)}>Правильно</button>
@@ -123,8 +134,15 @@ class SprintGamePage extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    setSprintGameEnd: () => dispatch(setSprintGameEnd())
+const mapStateToProps = (state) => ({
+    wordsInfo: state.sprint.wordsInfo
 })
 
-export default connect(null, mapDispatchToProps)(SprintGamePage)
+const mapDispatchToProps = (dispatch) => ({
+    setSprintGameStart: () => dispatch(setSprintGameStart()),
+    setSprintGameEnd: () => dispatch(setSprintGameEnd()),
+    setTotalScore: (totalScore) => dispatch(setTotalScore(totalScore)),
+    setResultInfo: (resultInfo) => dispatch(setResultInfo(resultInfo))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SprintContainer)
