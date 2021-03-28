@@ -29,6 +29,10 @@ const PageWords = (props) => {
                             {word.textExampleTranslate}
                         </span>
                     </div>
+                    <div className={s.buttonsContainer}>
+                        <Button variant="contained" color="primary">сложное слово</Button>
+                        <Button variant="contained" color="secondary">удалить слово</Button>
+                    </div>
                 </div>
     })
 
@@ -48,14 +52,12 @@ const PageWords = (props) => {
 
     
     return (
-        <div>
-            <div className={s.pageContainer}>
-                    <div className={s.paginationContainer}>{pagination}</div>
-                    <div className={s.wordsContainer}>
-                        {words}
-                    </div>
-                    <div className={s.paginationContainer}>{pagination}</div>
-                </div>
+        <div className={s.pageContainer}>
+            <div className={s.paginationContainer}>{pagination}</div>
+            <div className={s.wordsContainer}>
+                {words}
+            </div>
+            <div className={s.paginationContainer}>{pagination}</div>
         </div>
     )
 }

@@ -1,17 +1,25 @@
-.wordsContainer {
-    max-height: 500px;
-    max-width: 700px;
-    margin: 0 auto;
+.pageContainer {
     display: flex;
     flex-direction: column;
-    row-gap: 30px;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.wordsContainer {
+    margin: 0 auto;
     overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 20px;
 }
 
 .wordContainer {
+    width: 300px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    column-gap: 30px;
+    border: 2px solid black;
 }
 
 .wordImage {
@@ -28,9 +36,9 @@
 }
 
 .wordTranscription {
+    margin: auto;
     display: flex;
     align-items: center;
-    column-gap: 10px;
 }
 
 .audioButton {
@@ -59,4 +67,10 @@
 
 .currentPage {
     background-color: rgb(161, 159, 160);
+}
+
+.buttonsContainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
 }
