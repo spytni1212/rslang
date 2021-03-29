@@ -7,13 +7,11 @@ const AudioCall = ({levels, ...props}) => {
 
     const {start} = {...props}
 
-    const levelCard = levels.map((level)=><CardLevel {...level} {...props} key={level.page}/>);
+    const levelCard = levels.map((level)=><CardLevel {...level} {...props} key={level.group}/>);
     return (
-        <div>
             <div className={`wrapper ${s.wrapper}`}>
-                {!start ? levelCard : <GameProcess {...props}/>}
+                {!start ? <div className={s.cardList}>{levelCard}</div> : <GameProcess {...props}/>}               
             </div>
-        </div> 
     )
 }
 

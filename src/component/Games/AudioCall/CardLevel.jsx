@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import styleCard from './CardLevel.module.css'
 
-const CardLevel = ({handlerButtonStart, name, page}) => {
+const CardLevel = ({handlerButtonStart, name, group, pages}) => {
+    
+
+
     return (
         <div className={styleCard.card}>
             {name}
-            <button onClick={()=>handlerButtonStart(page)}>Начать</button>
+            <button onClick={()=>handlerButtonStart(group)}>Начать</button>
         </div> 
     )
 }

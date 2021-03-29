@@ -5,32 +5,33 @@ const SET_LEVEL_MOVE = "SET_LEVEL_MOVE";
 const SET_INDEX_SELECT_WORD = "SET_INDEX_SELECT_WORD";
 const SET_ADD_WRONG_WORD = "SET_ADD_WRONG_WORD";
 const SET_ADD_CORRECT_WORD = "SET_ADD_CORRECT_WORD";
+const SET_ANSWER = "SET_ANSWER"
 
 let initialState = {
   levelsGame: [
     {
       name: "Level1",
-      page: 0,
+      group: 0,
     },
     {
       name: "Level2",
-      page: 1,
+      group: 1,
     },
     {
       name: "Level3",
-      page: 2,
+      group: 2,
     },
     {
       name: "Level4",
-      page: 3,
+      group: 3,
     },
     {
       name: "Level5",
-      page: 4,
+      group: 4,
     },
     {
       name: "Level6",
-      page: 5,
+      group: 5,
     },
   ],
   gameStart: false,
@@ -40,7 +41,8 @@ let initialState = {
   },
   levelMove: {
     selectWord: {},
-    arrSelectWords: []
+    arrSelectWords: [],
+    answer: null
   },
   levelResult: {
     correctWords: [],
@@ -71,6 +73,9 @@ const audioCallReducer = (state = initialState, action) => {
     case SET_ADD_CORRECT_WORD:{
       return {...state, levelResult: {...state.levelResult, correctWords: action.words}}
     }
+    case SET_ANSWER:{
+      return {...state, levelMove: {...state.levelMove, answer: action.value}}
+    }
     default:
       return state;
   }
@@ -83,5 +88,6 @@ export const setLevelMove = (object) => ({type: SET_LEVEL_MOVE, object});
 export const setIndexSelectWord = (object) => ({type: SET_INDEX_SELECT_WORD, object});
 export const setAddWrongWord = (words) => ({type: SET_ADD_WRONG_WORD, words});
 export const setAddCorrectWord = (words) => ({type: SET_ADD_CORRECT_WORD, words});
+export const setAnswer = (value) => ({type: SET_ANSWER, value});
 
 export default audioCallReducer;
