@@ -19,6 +19,8 @@ class SprintContainer extends Component {
     }
 
     componentDidMount() {
+        document.addEventListener('keydown', this.answerChecker);
+
         let timer = setInterval(() => {
             let timeLeft = this.state.timeLeft - 1;
             if (timeLeft === 0) {
@@ -41,6 +43,7 @@ class SprintContainer extends Component {
     }
 
     componentWillUnmount() {
+        document.removeEventListener('keydown', this.answerChecker);
         clearInterval(this.state.timer);
     }
 
@@ -64,7 +67,9 @@ class SprintContainer extends Component {
         const { firstWord, secondWord, score, answerItem, points } = this.state;
 
         if ((firstWord.id === secondWord.id && e.target.id === 'correct') ||
-            (firstWord.id !== secondWord.id && e.target.id === 'wrong')) {
+            (firstWord.id === secondWord.id && e.key === 'ArrowLeft') ||
+            (firstWord.id !== secondWord.id && e.target.id === 'wrong') ||
+            (firstWord.id !== secondWord.id && e.key === 'ArrowRight')) {
             
             this.props.setResultInfo({firstWord: firstWord.word, secondWord: secondWord.wordTranslate, result: true});
             
