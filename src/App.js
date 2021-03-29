@@ -12,7 +12,7 @@ import Games from './component/Games/Games'
 import Statistics from './component/Statistics/Statistics';
 import AudioCallContainer from './component/Games/AudioCall/AudioCallContainer'
 import AuthorGame from './component/Games/AuthorGame/AuthorGame'
-import Savanna from './component/Games/Savanna/Savanna'
+import SavannahContainer from './component/Games/Savanna/SavannahContainer'
 import Sprint from './component/Games/Sprint/Sprint'
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
 					<Route path='/login' component={LoginContainer} />
 					<Route path='/book' component={BookContainer} />
 					<Route path='/games' component={Games} exact/>
-					<Route path='/games/savanna' component={Savanna} />
+					<Route path='/games/savannah' component={SavannahContainer} />
 					<Route path='/games/audioCall' component={AudioCallContainer} />
 					<Route path='/games/Sprint' component={Sprint} />
 					<Route path='/games/authorGame' component={AuthorGame} />
