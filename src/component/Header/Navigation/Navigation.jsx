@@ -13,7 +13,7 @@ const Navigation = () => {
                     <div>
                         <SchoolIcon />
                     </div>
-                   <NavLink to='/words'>Учебник</NavLink>
+                   <NavLink to='/book'>Учебник</NavLink>
                 </div>
                 <div className={s.navContainer}>
                     <div>
