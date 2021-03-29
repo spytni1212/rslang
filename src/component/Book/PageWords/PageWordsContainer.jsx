@@ -1,10 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { compose } from "redux";
-import { withRouter } from 'react-router-dom';
 import { Howl } from 'howler' 
 import * as axios from 'axios'
-import { setWords, setUserWords, setCurrentPage, setCurrentGroup, } from '../../../redux/book-reducer'
+import { setWords, setUserWords, setCurrentPage, deleteWordInUserWords } from '../../../redux/book-reducer'
 import PageWords from './PageWords'
 
 class PageWordsContainer extends React.Component {
@@ -12,6 +10,7 @@ class PageWordsContainer extends React.Component {
     componentDidMount() {
         let currentGroup = this.props.currentGroup - 1
         let currentPage = this.props.currentPage - 1
+        console.log(this.props)
 
         if(this.props.user.isLogin) {
             axios.get(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/aggregatedWords?group=${currentGroup}&page=${currentPage}`,{
@@ -28,7 +27,6 @@ class PageWordsContainer extends React.Component {
                this.props.setWords(response.data)           
             })
         }
-        console.log('сработал компонент дид  маунт')
     }
 
     onPageChanged = (pageNumber) => {
@@ -53,6 +51,16 @@ class PageWordsContainer extends React.Component {
         }
     }
 
+    deleteWordClickHandler = (wordId) => {   
+        this.props.deleteWordInUserWords(wordId)
+        axios.post(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/words/${wordId}`,{
+            optional: {"delete": true}
+        }, 
+        {
+            headers: {"Authorization": `Bearer ${this.props.user.token}`}
+        }) 
+    }
+
     clickAudioHandler = (src) => {
         const sound = new Howl({
             src
@@ -69,7 +77,8 @@ class PageWordsContainer extends React.Component {
             onPageChanged={this.onPageChanged}
             totalGroup={this.props.totalGroup}
             currentGroup={this.props.currentGroup}
-            clickAudioHandler={this.clickAudioHandler}/>
+            clickAudioHandler={this.clickAudioHandler}
+            deleteWordClickHandler={this.deleteWordClickHandler}/>
         )
     }
 }
@@ -88,4 +97,4 @@ let mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {setWords, setUserWords, setCurrentPage})(PageWordsContainer)
+export default connect(mapStateToProps, {setWords, setUserWords, setCurrentPage, deleteWordInUserWords})(PageWordsContainer)

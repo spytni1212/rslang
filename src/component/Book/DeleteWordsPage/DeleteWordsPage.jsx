@@ -1,14 +1,14 @@
-import React from 'react'
+import React from 'react';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import Button from '@material-ui/core/Button';
-import s from './PageWords.module.css'
+import s from './DeleteWordsPage.module.css'
 
-const PageWords = (props) => {
+const DeleteWordsPage = (props) => {
 
     const apiUrl = 'https://react-learn-words.herokuapp.com'
 
-    let words = props.words.map((word, index) => {
-        return <div key={index} className={s.wordContainer}>
+    let deleteWords = props.deleteWords.map(word => {
+        return <div key={word.id} className={s.wordContainer}>
                     <div className={s.wordImage} style={{backgroundImage: `url('${apiUrl}/${word.image}')`}}>
                     </div>
                     <div className={s.wordDescription}>
@@ -29,37 +29,22 @@ const PageWords = (props) => {
                             {word.textExampleTranslate}
                         </span>
                     </div>
-                    <div className={s.buttonsContainer}>
+                    {/* <div className={s.buttonsContainer}>
                         <Button variant="contained" color="primary">сложное слово</Button>
-                        <Button variant="contained" color="secondary" onClick={()=>props.deleteWordClickHandler(word._id, index)}>удалить слово</Button>
-                    </div>
+                        <Button variant="contained" color="secondary" onClick={()=>props.deleteWordClickHandler(word._id)}>удалить слово</Button>
+                    </div> */}
                 </div>
     })
 
-    let pagesCount = props.totalPages;
-    let pages = []
-
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
-
-    let pagination = pages.map(page => {
-        return <div className={s.pageNumberContainer} key={page}>
-                <span className={`${s.page} ${props.currentPage === page && s.currentPage}`}  onClick={() => {props.onPageChanged(page)}}>{page}</span>
-            </div>
-    })
 
 
-    
     return (
         <div className={s.pageContainer}>
-            <div className={s.paginationContainer}>{pagination}</div>
             <div className={s.wordsContainer}>
-                {words}
+                {deleteWords}
             </div>
-            <div className={s.paginationContainer}>{pagination}</div>
         </div>
     )
 }
 
-export default PageWords
+export default DeleteWordsPage
