@@ -4,7 +4,7 @@ import { setSprintGameEnd, setResetWordsInfo, setResetTotalScore, setResetResult
 import { connect } from 'react-redux';
 import style from './SprintResult.module.css';
 
-function SprintResult(props) {
+const SprintResult = (props) => {
 
     let history = useHistory();
 
