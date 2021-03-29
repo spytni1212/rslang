@@ -53,8 +53,7 @@ const ChooseLevel = (props) => {
     const levels = [0, 1, 2, 3, 4, 5]
     const handleClick = (e) => {
         const level = e.target.dataset.id
-        props.setLevel(level)
-        props.setOnLevelChoice(false)
+        props.getWordsInfo(level)
     }
     return (
         <Box className={classes.levelsContainer} p={3}>

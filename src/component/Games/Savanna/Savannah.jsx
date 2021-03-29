@@ -1,10 +1,12 @@
 import React, { useState, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { setCorrectWords, setWrongWords } from '../../../redux/savannahReducer/savannahReducer'
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import EndOfGamePopUp from './EndOfGamePopUp';
-import showNewWords  from './showNewWords'
+import showNewWords from './showNewWords'
 
 const useStyles = makeStyles({
     container: {
@@ -23,7 +25,7 @@ const useStyles = makeStyles({
     title: {
         marginBottom: '1.2em',
     },
-    checkButton:{
+    checkButton: {
         margin: '0 auto',
         background: '#d69eadf5',
         "&:hover": {
@@ -43,7 +45,7 @@ const useStyles = makeStyles({
         }
     },
     correct: {
-        borderColor: '#1f841f',     
+        borderColor: '#1f841f',
         background: '#97e697'
     },
     wrong: {
@@ -55,26 +57,20 @@ const useStyles = makeStyles({
 const getRandomNumbers = () => {
     const arr = [0, 1, 2, 3];
     const randArr = arr.sort(() => 0.5 - Math.random());
-    console.log(randArr);
     return randArr;
 };
-let randomNumbersArray = getRandomNumbers(); 
+let randomNumbersArray = getRandomNumbers();
 
-const Savannah = (props) =>{
+const Savannah = (props) => {
     const classes = useStyles()
     const history = useHistory();
+    console.log({props})
+    const wordsInfo = props.wordsInfo
+    let wordToCheck, translationToCheck;
 
-    const words = props.words
-    const translations = props.translations
-    console.log(words)
-    let wordToCheck;
-    let translationToCheck; 
-    const dataArray = words.map(function (value, index){
-        return [value, translations[index]]
-    }).sort(() => Math.random() - 0.5)
-    const [wordsArray, setWordsArr] = useState(dataArray)
-    dataArray[0] ? wordToCheck = wordsArray[0][0] : wordToCheck = null
-    dataArray[0] ? translationToCheck = wordsArray[0][1] : translationToCheck = null
+    const [wordsArray, setWordsArr] = useState(wordsInfo)
+    wordsInfo[0] ? wordToCheck = wordsArray[0].word: wordToCheck = null
+    wordsInfo[0] ? translationToCheck = wordsArray[0].wordTranslate : translationToCheck = null
 
     const [buttonDisabled, setButtonDisabled] = useState(true)
     const [step, setStep] = useState(0)
@@ -97,8 +93,10 @@ const Savannah = (props) =>{
         if (wordClicked === translationToCheck) {
             target.classList.add(classes.correct)
             setPoints(prev => prev + 10)
+            props.setCorrectWords(wordClicked)
         } else {
             target.classList.add(classes.wrong)
+            props.setWrongWords(wordClicked)
         }
         setButtonDisabled(false)
         setStep(prev => prev + 1)
@@ -114,9 +112,9 @@ const Savannah = (props) =>{
             setButtonDisabled(true)
         }
     }
-    return (    
+    return (
         <Box className={classes.container} p={3}>
-            <EndOfGamePopUp 
+            <EndOfGamePopUp
                 open={open}
                 handleClose={handleClose}
                 points={points}
@@ -125,21 +123,21 @@ const Savannah = (props) =>{
             <Box className={classes.gameContainer} mb={4} ref={buttonsContainer}>
                 {randomNumbersArray.map((randomNumber, index) => {
                     return (
-                        <button 
-                            key={index} 
-                            className={classes.word} 
-                            data-id={wordsArray[randomNumber][1]} 
+                        <button
+                            key={index}
+                            className={classes.word}
+                            data-id={wordsArray[randomNumber].wordTranslate}
                             onClick={handleCheck}
                             disabled={!buttonDisabled}
                         >
-                            {wordsArray[randomNumber][1]}
+                            {wordsArray[randomNumber].wordTranslate}
                         </button>
                     )
                 })}
             </Box>
-            <Button 
-                variant="contained" 
-                className={classes.checkButton} 
+            <Button
+                variant="contained"
+                className={classes.checkButton}
                 disabled={buttonDisabled}
                 onClick={handleNext}
             >
@@ -148,4 +146,11 @@ const Savannah = (props) =>{
         </Box>
     )
 }
-export default Savannah;
+
+const mapStateToProps = (state) => {
+    return {
+        correctWords: state.savannah.correctWords,
+        wrongWords: state.savannah.wrongWords,
+    }
+}
+export default connect(mapStateToProps, { setCorrectWords, setWrongWords })(Savannah);
