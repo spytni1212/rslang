@@ -15,6 +15,7 @@ const SavannahContainer = ({ ...props }) => {
     }
 
     const getWordsInfo = (currentGroup) => {
+        console.log(currentGroup)
         axios.get(`https://react-learn-words.herokuapp.com/words?group=${currentGroup}&page=${getRandomPage()}`)
             .then(response => {
                 const wordsInfo = response.data.map(res => ({
@@ -24,8 +25,8 @@ const SavannahContainer = ({ ...props }) => {
                 }))
                 props.setWordsInfo(wordsInfo)
                 console.log(wordsInfo)
+                setOnLevelChoice(false)
             })
-        setOnLevelChoice(false)
     }
     return (
         onLevelChoice ?

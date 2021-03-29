@@ -51,8 +51,7 @@ const getlevelPosition = (level) => {
 const ChooseLevel = (props) => {
     const classes = useStyles()
     const levels = [0, 1, 2, 3, 4, 5]
-    const handleClick = (e) => {
-        const level = e.target.dataset.id
+    const handleClick = (level) => {
         props.getWordsInfo(level)
     }
     return (
@@ -62,8 +61,7 @@ const ChooseLevel = (props) => {
                 return (
                     <Box 
                         key={index} 
-                        data-id={level} 
-                        onClick={(e) => handleClick(e)} 
+                        onClick={() => handleClick(level)} 
                         className={classes.levelButton}
                         style={{alignSelf: getlevelPosition(level)}}
                     >
