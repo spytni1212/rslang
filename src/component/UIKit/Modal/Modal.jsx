@@ -1,9 +1,8 @@
-import React, { Children } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import s from "./GameResult.module.css";
+import s from "./Modal.module.css";
 
-const GameResult = ({ ...props }) => {
+const Modal = ({ ...props }) => {
 
   const modalVariant = {
     initial: { opacity: 0 },
@@ -37,10 +36,4 @@ const GameResult = ({ ...props }) => {
   );
 };
 
-let mapStateToProps = (state) => {
-  return {
-   
-  };
-};
-
-export default connect(mapStateToProps, {})(GameResult);
+export default Modal;

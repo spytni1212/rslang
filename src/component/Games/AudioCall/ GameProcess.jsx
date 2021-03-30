@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Howl } from "howler";
-import GameResult from "./GameResult";
+import Modal from "../../UIKit/Modal/Modal";
 import s from "./GameProcess.module.css";
 import ProgressBar from "./ProgressBar";
 
@@ -43,9 +43,7 @@ const GameProcess = ({ ...props }) => {
       }`}
     >
 
-
-
-      <GameResult isOpen={props.indexSelectWord > 19 && true} {...props} >
+      <Modal isOpen={props.indexSelectWord > 19 && true}>
 
         <div className={s.wrapperList}>
               <div className={s.list}>
@@ -59,7 +57,7 @@ const GameProcess = ({ ...props }) => {
             </div>
         <button onClick={props.buttonEndGame}>OK</button>
         
-      </GameResult>
+      </Modal>
 
 
       <ProgressBar completed={props.indexSelectWord} />
