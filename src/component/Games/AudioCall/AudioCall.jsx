@@ -1,13 +1,17 @@
 import React from 'react';
 import s from './AudioCall.module.css'
+import  GameProcess from "./ GameProcess"
+import LevelMenu from '../../UIKit/LevelMenu/LevelMenu'
 
-const AudioCall = () => {
+const AudioCall = ({levels, ...props}) => {
+
+    const {start} = {...props}
+
     return (
-        <div>
             <div className={`wrapper ${s.wrapper}`}>
-                здесь будет игра Аудиовызов
+                <h2>Аудиовызов</h2>
+                {!start ? <LevelMenu funClickButton={props.handlerButtonStart} /> : <GameProcess {...props}/>}  
             </div>
-        </div> 
     )
 }
 

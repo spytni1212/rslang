@@ -1,0 +1,31 @@
+.field {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+.wrong {
+    background: rgb(255,0,0);
+    background: linear-gradient(0deg, rgba(255,0,0,0.36738445378151263) 0%, rgba(255,255,255,0) 50%, rgba(255,0,0,0.5578606442577031) 100%);
+}
+
+.right {
+    background: rgb(5,255,0);
+    background: linear-gradient(0deg, rgba(5,255,0,0.36738445378151263) 0%, rgba(255,255,255,0) 50%, rgba(5,255,0,1) 100%)
+}
+
+
+.wrapperList {
+    display: flex;
+    justify-content: center;
+  }
+  
+  
+  .list {
+    padding: 15px;
+  }
+  
+  .list li{
+    list-style: none
+  }

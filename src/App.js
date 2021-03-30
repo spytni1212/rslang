@@ -10,9 +10,9 @@ import Footer from './component/Footer/Footer'
 import Book from './component/Book/Book'
 import Games from './component/Games/Games'
 import Statistics from './component/Statistics/Statistics';
-import AudioCall from './component/Games/AudioCall/AudioCall'
+import AudioCallContainer from './component/Games/AudioCall/AudioCallContainer'
 import AuthorGame from './component/Games/AuthorGame/AuthorGame'
-import Savanna from './component/Games/Savanna/Savanna'
+import SavannahContainer from './component/Games/Savanna/SavannahContainer'
 import Sprint from './component/Games/Sprint/Sprint'
 
 function App() {
@@ -26,8 +26,8 @@ function App() {
 					<Route path='/login' component={LoginContainer} />
 					<Route path='/book' component={Book} />
 					<Route path='/games' component={Games} exact/>
-					<Route path='/games/savanna' component={Savanna} />
-					<Route path='/games/audioCall' component={AudioCall} />
+					<Route path='/games/savannah' component={SavannahContainer} />
+					<Route path='/games/audioCall' component={AudioCallContainer} />
 					<Route path='/games/Sprint' component={Sprint} />
 					<Route path='/games/authorGame' component={AuthorGame} />
 					<Route path='/statistics' component={Statistics} />
