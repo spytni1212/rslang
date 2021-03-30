@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { setWordsInfo } from '../../../redux/savannahReducer/savannahReducer'
 import * as axios from 'axios'
 import Savannah from './Savannah';
-import ChooseLevel from './ChooseLevel'
+import LevelMenu from '../../UIKit/LevelMenu/LevelMenu'
 
 const SavannahContainer = ({ ...props }) => {
     const [onLevelChoice, setOnLevelChoice] = useState(true)
@@ -30,7 +30,7 @@ const SavannahContainer = ({ ...props }) => {
     }
     return (
         onLevelChoice ?
-            <ChooseLevel getWordsInfo={getWordsInfo} />
+            <LevelMenu funClickButton={getWordsInfo} />
             :
             (props.wordsInfo ?
 
