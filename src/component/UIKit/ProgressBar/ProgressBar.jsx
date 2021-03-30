@@ -1,4 +1,5 @@
-const ProgressBar = ({ completed }) => {
+const ProgressBar = ({ number }) => {
+
   const containerStyles = {
     height: 20,
     width: '50%',
@@ -10,7 +11,7 @@ const ProgressBar = ({ completed }) => {
 
   const fillerStyles = {
     height: "100%",
-    width: `${completed*100/20}%`,
+    width: `${number*100/20}%`,
     background: `rgb(5,255,0)`,
     background: `linear-gradient(0deg, rgba(84,255,152,1) 0%, rgba(35,191,41,1) 40%, rgba(38,195,47,1) 54%, rgba(84,255,152,1) 100%)`,
     borderRadius: "inherit",

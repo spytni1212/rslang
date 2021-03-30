@@ -2,15 +2,16 @@ import React from 'react';
 import s from './AudioCall.module.css'
 import CardLevel from './CardLevel';
 import  GameProcess from "./ GameProcess"
+import LevelMenu from '../../UIKit/LevelMenu/LevelMenu'
 
 const AudioCall = ({levels, ...props}) => {
 
     const {start} = {...props}
 
-    const levelCard = levels.map((level)=><CardLevel {...level} {...props} key={level.group}/>);
     return (
             <div className={`wrapper ${s.wrapper}`}>
-                {!start ? <div className={s.cardList}>{levelCard}</div> : <GameProcess {...props}/>}               
+                <h2>Аудиовызов</h2>
+                {!start ? <LevelMenu funClickButton={props.handlerButtonStart} /> : <GameProcess {...props}/>}  
             </div>
     )
 }

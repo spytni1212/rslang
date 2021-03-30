@@ -4,6 +4,7 @@ import Box from '@material-ui/core/Box';
 import DoneIcon from '@material-ui/icons/Done';
 
 const useStyles = makeStyles(({
+
     levelsContainer: {
         display: 'flex',
         flexDirection: 'column',
@@ -48,22 +49,18 @@ const getlevelPosition = (level) => {
 }
 
 
-const ChooseLevel = (props) => {
-    const classes = useStyles()
-    const levels = [0, 1, 2, 3, 4, 5]
+const LevelMenu = ({funClickButton}) => {
+    const classes = useStyles();
+    const arrLevels = [0, 1, 2, 3, 4, 5];
 
-    const handleClick = (level) => {
-        props.getWordsInfo(level)
-    }
-    
     return (
         <Box className={classes.levelsContainer} p={3}>
             <h3 className={classes.title}>Выбери уровень сложности </h3>
-            {levels.map((level, index) => {
+            {arrLevels.map((level, index) => {
                 return (
                     <Box 
                         key={index} 
-                        onClick={() => handleClick(level)} 
+                        onClick={() => funClickButton(level)} 
                         className={classes.levelButton}
                         style={{alignSelf: getlevelPosition(level)}}
                     >
@@ -75,4 +72,4 @@ const ChooseLevel = (props) => {
         </Box>
     )
 }
-export default ChooseLevel;
+export default LevelMenu;
