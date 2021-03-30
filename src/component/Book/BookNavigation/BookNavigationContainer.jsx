@@ -1,24 +1,32 @@
 import React from 'react';
 import * as axios from 'axios';
 import { connect } from 'react-redux';
-import {setCurrentGroup, setWords, setUserWords} from '../../../redux/book-reducer'
+import {setCurrentGroup, setWords, setUserWords, setTotalUserCount, setCurrentPage} from '../../../redux/book-reducer'
 import BookNavigation from './BookNavigation'
 
 class BookNavigationContainer extends React.Component {
 
     onGroupChanged = (groupNumber) => {
+        let pageNumber = 1
+        this.props.setCurrentPage(pageNumber)
         this.props.setCurrentGroup(groupNumber)
-        let currentPage = this.props.currentPage - 1
+
         let currentGroup = groupNumber - 1
+        let currentPage = pageNumber - 1
 
         if(this.props.user.isLogin) {
-            axios.get(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/aggregatedWords?group=${currentGroup}&page=${currentPage}`,{
+            axios.get(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/aggregatedWords`,{
                 headers: {'Authorization': `Bearer ${this.props.user.token}`},
-                params: { filter: {"userWord.optional.delete":{"$not": {"$eq": true}}}
+                params: { 
+                    group: currentGroup,
+                    page: currentPage,
+                    wordsPerPage: 20,
+                    filter: {"userWord.optional.delete":{"$not": {"$eq": true}}}
                 }           
             })
             .then(response => {
                 this.props.setUserWords(response.data[0].paginatedResults)
+                this.props.setTotalUserCount(response.data[0].totalCount[0].count)
             })
         } else {
             axios.get(`https://react-learn-words.herokuapp.com/words?group=${currentGroup}&page=${currentPage}`)
@@ -49,5 +57,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-
-export default connect(mapStateToProps, {setCurrentGroup, setWords, setUserWords})(BookNavigationContainer);
+export default connect(mapStateToProps, {setCurrentGroup, setWords, setUserWords, setTotalUserCount, setCurrentPage})(BookNavigationContainer);

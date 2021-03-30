@@ -37,20 +37,18 @@ const PageWords = (props) => {
                 </div>
     })
 
-    let pagesCount = props.totalPages;
+    let pagesCount
     let pages = []
+
+    if (props.totalUserCount === 0) {
+        pagesCount = props.totalPages
+    } else {
+        pagesCount = Math.ceil(props.totalUserCount / props.wordsPerPage)
+    }
 
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-
-    // let pagination = pages.map(page => {
-    //     return <div className={s.pageNumberContainer} key={page}>
-    //             <span className={`${s.page} ${props.currentPage === page && s.currentPage}`}  onClick={() => {props.onPageChanged(page)}}>{page}</span>
-    //         </div>
-    // })
-
-
     
     return (
         <div className={s.pageContainer}>
@@ -60,11 +58,9 @@ const PageWords = (props) => {
                 boundaryCount={2} 
                 onChange={(e, value) => {props.onPageChanged(value)}}
             />
-            {/* <div className={s.paginationContainer}>{pagination}</div> */}
             <div className={s.wordsContainer}>
                 {words}
             </div>
-            {/* <div className={s.paginationContainer}>{pagination}</div> */}
         </div>
     )
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { Howl } from 'howler' 
 import * as axios from 'axios'
-import { setWords, setUserWords, setCurrentPage, deleteWordInUserWords } from '../../../redux/book-reducer'
+import { setWords, setUserWords, setCurrentPage, deleteWordInUserWords, setTotalUserCount } from '../../../redux/book-reducer'
 import PageWords from './PageWords'
 
 class PageWordsContainer extends React.Component {
@@ -10,7 +10,6 @@ class PageWordsContainer extends React.Component {
     componentDidMount() {
         let currentGroup = this.props.currentGroup - 1
         let currentPage = this.props.currentPage - 1
-        console.log(this.props)
 
         if(this.props.user.isLogin) {
             axios.get(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/aggregatedWords`,{
@@ -18,19 +17,18 @@ class PageWordsContainer extends React.Component {
                 params: { 
                     group: currentGroup,
                     page: currentPage,
-                    // wordsPerPage: 20,
+                    wordsPerPage: 20,
                     filter: {"userWord.optional.delete":{"$not": {"$eq": true}}}
                 }           
             })
             .then(response => {
                 this.props.setUserWords(response.data[0].paginatedResults)
-                console.log(response)
+                this.props.setTotalUserCount(response.data[0].totalCount[0].count)
             })
         } else {
             axios.get(`https://react-learn-words.herokuapp.com/words?group=${currentGroup}&page=${currentPage}`)
             .then(response => {
-               this.props.setWords(response.data)     
-               console.log(response.data)      
+               this.props.setWords(response.data)   
             })
         }
     }
@@ -46,19 +44,18 @@ class PageWordsContainer extends React.Component {
                 params: { 
                     group: currentGroup,
                     page: currentPage,
-                    // wordsPerPage: 20,
+                    wordsPerPage: 20,
                     filter: {"userWord.optional.delete":{"$not": {"$eq": true}}}
                 }           
             })
             .then(response => {
                 this.props.setUserWords(response.data[0].paginatedResults)
-                console.log(response.data[0].paginatedResults)
+                this.props.setTotalUserCount(response.data[0].totalCount[0].count)
             })
         } else {
             axios.get(`https://react-learn-words.herokuapp.com/words?group=${currentGroup}&page=${currentPage}`)
             .then(response => {
-               this.props.setWords(response.data)   
-               console.log(response.data)        
+               this.props.setWords(response.data)     
             })
         }
     }
@@ -84,7 +81,9 @@ class PageWordsContainer extends React.Component {
         return (
             <PageWords 
             words={this.props.user.isLogin ? this.props.userWords : this.props.words}
+            totalUserCount={this.props.totalUserCount}
             totalPages={this.props.totalPages}
+            wordsPerPage = {this.props.wordsPerPage}
             currentPage = {this.props.currentPage}
             onPageChanged={this.onPageChanged}
             totalGroup={this.props.totalGroup}
@@ -101,6 +100,8 @@ let mapStateToProps = (state) => {
         userWords: state.book.userWords,
         words: state.book.words,
         totalPages: state.book.totalPages,
+        totalUserCount: state.book.totalUserCount,
+        wordsPerPage: state.book.wordsPerPage,
         currentPage: state.book.currentPage,
         totalGroup: state.book.totalGroup,
         currentGroup: state.book.currentGroup,
@@ -109,4 +110,4 @@ let mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {setWords, setUserWords, setCurrentPage, deleteWordInUserWords})(PageWordsContainer)
+export default connect(mapStateToProps, {setWords, setUserWords, setCurrentPage, deleteWordInUserWords, setTotalUserCount})(PageWordsContainer)

@@ -8,22 +8,30 @@ class DeleteWordsPageContainer extends React.Component {
 
     componentDidMount() {
 
-        axios.get(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/aggregatedWords`,{
-                headers: {'Authorization': `Bearer ${this.props.user.token}`},
-                params: { filter: {"userWord.optional.delete":{"$eq": true}}
-                }           
-            })
-            .then(response => {
-                this.props.setDeleteWords(response.data[0].paginatedResults)
-            })
-
+        if (this.props.user.isLogin) {
+            axios.get(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/aggregatedWords`,{
+                    headers: {'Authorization': `Bearer ${this.props.user.token}`},
+                    params: { filter: {"userWord.optional.delete":{"$eq": true}}
+                    }           
+                })
+                .then(response => {
+                    this.props.setDeleteWords(response.data[0].paginatedResults)
+                })
+        }
     }
 
     render() {
+
+        if (this.props.user.isLogin) {
+            return (
+                <DeleteWordsPage 
+                    deleteWords={this.props.deleteWords}    
+                />
+            )
+        }
+
         return (
-            <DeleteWordsPage 
-                deleteWords={this.props.deleteWords}    
-            />
+            <div>Вы не зарегистрированы</div>
         )
     }
 }
