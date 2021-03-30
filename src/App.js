@@ -7,7 +7,7 @@ import LoginContainer from './component/Login/LoginContainer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Main from './component/Main/Main'
 import Footer from './component/Footer/Footer'
-import BookContainer from './component/Book/BookContainer'
+import Book from './component/Book/Book'
 import Games from './component/Games/Games'
 import Statistics from './component/Statistics/Statistics';
 import AudioCallContainer from './component/Games/AudioCall/AudioCallContainer'
@@ -24,7 +24,7 @@ function App() {
 					<Route path='/' component={Main} exact />
 					<Route path='/registration' component={RegistrationContainer} />
 					<Route path='/login' component={LoginContainer} />
-					<Route path='/book' component={BookContainer} />
+					<Route path='/book' component={Book} />
 					<Route path='/games' component={Games} exact/>
 					<Route path='/games/savannah' component={SavannahContainer} />
 					<Route path='/games/audioCall' component={AudioCallContainer} />
