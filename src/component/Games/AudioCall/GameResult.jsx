@@ -37,10 +37,4 @@ const GameResult = ({ ...props }) => {
   );
 };
 
-let mapStateToProps = (state) => {
-  return {
-   
-  };
-};
-
-export default connect(mapStateToProps, {})(GameResult);
+export default connect(mapStateToProps, )(GameResult);
