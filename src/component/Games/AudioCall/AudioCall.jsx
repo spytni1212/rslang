@@ -1,6 +1,5 @@
 import React from 'react';
 import s from './AudioCall.module.css'
-import CardLevel from './CardLevel';
 import  GameProcess from "./ GameProcess"
 import LevelMenu from '../../UIKit/LevelMenu/LevelMenu'
 
