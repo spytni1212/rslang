@@ -1,6 +1,7 @@
 import React from 'react'
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import Button from '@material-ui/core/Button';
+import { Pagination } from '@material-ui/lab';
 import s from './PageWords.module.css'
 
 const PageWords = (props) => {
@@ -43,21 +44,27 @@ const PageWords = (props) => {
         pages.push(i)
     }
 
-    let pagination = pages.map(page => {
-        return <div className={s.pageNumberContainer} key={page}>
-                <span className={`${s.page} ${props.currentPage === page && s.currentPage}`}  onClick={() => {props.onPageChanged(page)}}>{page}</span>
-            </div>
-    })
+    // let pagination = pages.map(page => {
+    //     return <div className={s.pageNumberContainer} key={page}>
+    //             <span className={`${s.page} ${props.currentPage === page && s.currentPage}`}  onClick={() => {props.onPageChanged(page)}}>{page}</span>
+    //         </div>
+    // })
 
 
     
     return (
         <div className={s.pageContainer}>
-            <div className={s.paginationContainer}>{pagination}</div>
+            <Pagination 
+                count={pages.length} 
+                page={props.currentPage} 
+                boundaryCount={2} 
+                onChange={(e, value) => {props.onPageChanged(value)}}
+            />
+            {/* <div className={s.paginationContainer}>{pagination}</div> */}
             <div className={s.wordsContainer}>
                 {words}
             </div>
-            <div className={s.paginationContainer}>{pagination}</div>
+            {/* <div className={s.paginationContainer}>{pagination}</div> */}
         </div>
     )
 }

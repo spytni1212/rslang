@@ -13,18 +13,24 @@ class PageWordsContainer extends React.Component {
         console.log(this.props)
 
         if(this.props.user.isLogin) {
-            axios.get(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/aggregatedWords?group=${currentGroup}&page=${currentPage}`,{
+            axios.get(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/aggregatedWords`,{
                 headers: {'Authorization': `Bearer ${this.props.user.token}`},
-                params: { filter: {"userWord.optional.delete":{"$not": {"$eq": true}}}
+                params: { 
+                    group: currentGroup,
+                    page: currentPage,
+                    // wordsPerPage: 20,
+                    filter: {"userWord.optional.delete":{"$not": {"$eq": true}}}
                 }           
             })
             .then(response => {
                 this.props.setUserWords(response.data[0].paginatedResults)
+                console.log(response)
             })
         } else {
             axios.get(`https://react-learn-words.herokuapp.com/words?group=${currentGroup}&page=${currentPage}`)
             .then(response => {
-               this.props.setWords(response.data)           
+               this.props.setWords(response.data)     
+               console.log(response.data)      
             })
         }
     }
@@ -35,18 +41,24 @@ class PageWordsContainer extends React.Component {
         let currentGroup = this.props.currentGroup - 1
 
         if(this.props.user.isLogin) {
-            axios.get(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/aggregatedWords?group=${currentGroup}&page=${currentPage}`,{
+            axios.get(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/aggregatedWords`,{
                 headers: {'Authorization': `Bearer ${this.props.user.token}`},
-                params: { filter: {"userWord.optional.delete":{"$not": {"$eq": true}}}
+                params: { 
+                    group: currentGroup,
+                    page: currentPage,
+                    // wordsPerPage: 20,
+                    filter: {"userWord.optional.delete":{"$not": {"$eq": true}}}
                 }           
             })
             .then(response => {
                 this.props.setUserWords(response.data[0].paginatedResults)
+                console.log(response.data[0].paginatedResults)
             })
         } else {
             axios.get(`https://react-learn-words.herokuapp.com/words?group=${currentGroup}&page=${currentPage}`)
             .then(response => {
-               this.props.setWords(response.data)           
+               this.props.setWords(response.data)   
+               console.log(response.data)        
             })
         }
     }
