@@ -1,6 +1,7 @@
 import React from 'react';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import Button from '@material-ui/core/Button';
+import { Pagination } from '@material-ui/lab';
 import s from './DeleteWordsPage.module.css'
 
 const DeleteWordsPage = (props) => {
@@ -36,10 +37,22 @@ const DeleteWordsPage = (props) => {
                 </div>
     })
 
+    let pagesCount
+    let pages = []
 
+    pagesCount = Math.ceil(props.totalUserCount / props.wordsPerPage)
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
+    }
 
     return (
         <div className={s.pageContainer}>
+            <Pagination 
+                count={pages.length} 
+                page={props.currentPage} 
+                boundaryCount={2} 
+                onChange={(e, value) => {props.onPageChanged(value)}}
+            />          
             <div className={s.wordsContainer}>
                 {deleteWords}
             </div>

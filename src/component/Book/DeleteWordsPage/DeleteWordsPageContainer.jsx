@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as axios from 'axios';
-import { setDeleteWords } from '../../../redux/book-reducer';
+import { setDeleteWords, setTotalUserCount, setCurrentPage } from '../../../redux/book-reducer';
 import DeleteWordsPage from './DeleteWordsPage';
 
 class DeleteWordsPageContainer extends React.Component {
@@ -15,9 +15,35 @@ class DeleteWordsPageContainer extends React.Component {
                     }           
                 })
                 .then(response => {
-                    this.props.setDeleteWords(response.data[0].paginatedResults)
+                    if (response.data[0].totalCount.length === 0) {
+                        this.props.setTotalUserCount(0)
+                    } else {
+                        this.props.setDeleteWords(response.data[0].paginatedResults)
+                        console.log(response)
+                        this.props.setTotalUserCount(response.data[0].totalCount[0].count)
+                    }
+                    
                 })
         }
+    }
+
+    onPageChanged = (pageNumber) => {
+        this.props.setCurrentPage(pageNumber)
+        let currentPage = pageNumber - 1
+ 
+        axios.get(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/aggregatedWords`,{
+            headers: {'Authorization': `Bearer ${this.props.user.token}`},
+            params: { 
+                page: currentPage,
+                wordsPerPage: this.props.wordsPerPage,
+                filter: {"userWord.optional.delete":{"$eq": true}}
+            }           
+        })
+        .then(response => {
+            this.props.setDeleteWords(response.data[0].paginatedResults)
+            this.props.setTotalUserCount(response.data[0].totalCount[0].count)
+        })
+        
     }
 
     render() {
@@ -25,11 +51,13 @@ class DeleteWordsPageContainer extends React.Component {
         if (this.props.user.isLogin) {
             return (
                 <DeleteWordsPage 
-                    deleteWords={this.props.deleteWords}    
+                    deleteWords={this.props.deleteWords}
+                    totalUserCount={this.props.totalUserCount}
+                    wordsPerPage = {this.props.wordsPerPage}    
+                    onPageChanged= {this.onPageChanged}
                 />
             )
         }
-
         return (
             <div>Вы не зарегистрированы</div>
         )
@@ -39,8 +67,10 @@ class DeleteWordsPageContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         deleteWords: state.book.deleteWords,
+        totalUserCount: state.book.totalUserCount,
+        wordsPerPage: state.book.wordsPerPage,
         user: state.auth
     }
 }
 
-export default connect(mapStateToProps, {setDeleteWords})(DeleteWordsPageContainer);
+export default connect(mapStateToProps, {setDeleteWords, setTotalUserCount, setCurrentPage})(DeleteWordsPageContainer);
