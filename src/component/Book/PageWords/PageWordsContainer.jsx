@@ -70,6 +70,17 @@ class PageWordsContainer extends React.Component {
         }) 
     }
 
+    difficultWordClickHandler = (wordId) => {   
+        axios.post(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/words/${wordId}`,{
+            optional: {"difficult": true}
+        }, 
+        {
+            headers: {"Authorization": `Bearer ${this.props.user.token}`}
+        })
+    }
+
+
+
     clickAudioHandler = (src) => {
         const sound = new Howl({
             src
@@ -89,7 +100,10 @@ class PageWordsContainer extends React.Component {
             totalGroup={this.props.totalGroup}
             currentGroup={this.props.currentGroup}
             clickAudioHandler={this.clickAudioHandler}
-            deleteWordClickHandler={this.deleteWordClickHandler}/>
+            deleteWordClickHandler={this.deleteWordClickHandler}
+            difficultWordClickHandler={this.difficultWordClickHandler}
+        />
+            
         )
     }
 }
