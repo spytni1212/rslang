@@ -1,9 +1,26 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
+import SettingsIcon from '@material-ui/icons/Settings';
 import s from './BookNavigation.module.css'
 
-const BookNavigation = (props) => {
+const useStyles = makeStyles({
+    title: {
+        fontFamily: "'Kiwi Maru', serif",
+        fontSize: '20px'
 
+    },
+    img: {
+        width: '40px'
+    },
+    list: {
+        fontSize: '16px'
+    }
+})
+
+const BookNavigation = (props) => {
+    const classes = useStyles()
     let groupCount = props.totalGroup;
     let groups = []
 
@@ -12,23 +29,26 @@ const BookNavigation = (props) => {
     }
 
     groups = groups.map(group => {
-        return <li key={group}><NavLink to={`/book/textBook`} onClick={()=> props.onGroupChanged(group)}>Раздел {group}</NavLink></li>
+        return <li key={group}><NavLink to={`/book/textBook`} onClick={() => props.onGroupChanged(group)}>Раздел {group}</NavLink></li>
     })
 
     return (
         <div className={s.BookNavigation}>
             <div className={s.navigationContainer}>
-                <span>Электронный учебник</span>
-                <ul>
+                <h3 className={classes.title}>Электронный учебник</h3>
+                <ul className={classes.list}>
                     {groups}
                 </ul>
-                <span>Словарь</span>
-                <ul>
+                <h3 className={classes.title}>Словарь</h3>
+                <ul className={classes.list}>
                     <li>Изучаемые слова</li>
                     <li>Сложные слова</li>
                     <li><NavLink to={`/book/deleteWords`}>Удаленные слова</NavLink></li>
                 </ul>
-                <span>Настройки</span>
+                <Box>
+                    <SettingsIcon />
+                    <h4>Настройки</h4>
+                </Box>
             </div>
         </div>
     )

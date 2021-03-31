@@ -1,7 +1,11 @@
 .header {
-    background-color: aqua;
+    background: linear-gradient(45deg,#6ecccc,#d5f4f4);
+    height: 60px;
+    padding: 0.8em;
 }
-
+h1 {
+    font-family: 'Kiwi Maru', serif;
+}
 .wrapper {
     display: flex;
     align-items: center;

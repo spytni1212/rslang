@@ -5,11 +5,6 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const useStyles = makeStyles((theme) => ({
   popUp: {
-    // position: 'absolute',
-    // top: '35%',
-    // left: '50%',
-    // transform: 'translate(-50%, -50%)',
-    // width: 400,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

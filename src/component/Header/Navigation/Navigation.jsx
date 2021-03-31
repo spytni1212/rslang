@@ -1,36 +1,39 @@
 import React from 'react';
-import { NavLink } from "react-router-dom";
 import SchoolIcon from '@material-ui/icons/School';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import TimelineIcon from '@material-ui/icons/Timeline';
+import NavigationButton from './NavigationButton'
 import s from './Navigation.module.css'
 
 const Navigation = () => {
+    const navData = [
+        {
+            name: "Учебник",
+            icon: <SchoolIcon />,
+            link: "book"
+        },
+        {
+            name: "Мини-игры",
+            icon: <SportsEsportsIcon />,
+            link: "games"
+        },
+        {
+            name: "Статистика",
+            icon: <TimelineIcon />,
+            link: "statistics"
+        }
+    ]
+
     return (
-        <div className={s.navigation}>            
-            <nav>
-                <div className={s.navContainer}>
-                    <div>
-                        <SchoolIcon />
-                    </div>
-                   <NavLink to='/book'>Учебник</NavLink>
-                </div>
-                <div className={s.navContainer}>
-                    <div>
-                        <SportsEsportsIcon />
-                    </div>
-                    <NavLink to='/games'>Мини-игры</NavLink>
-                </div>
-                <div className={s.navContainer}>
-                    <div>
-                        <TimelineIcon />
-                    </div>
-                    <NavLink to='/statistics'>Статистика</NavLink>
-                </div>
+        <div>
+            <nav className={s.navigation}>
+                {navData.map((navDatum) => {
+                    return <NavigationButton navDatum= {navDatum} />
+                })}
             </nav>
         </div>
-            
-        
+
+
     )
 }
 
