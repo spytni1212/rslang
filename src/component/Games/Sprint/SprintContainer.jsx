@@ -36,6 +36,7 @@ class SprintContainer extends Component {
         setTimeout(() => {
             this.analysisResults();
             this.props.setSprintGameEnd();
+            document.removeEventListener('keydown', this.answerChecker);
         }, 61000)
 
         return this.setState({
@@ -44,7 +45,6 @@ class SprintContainer extends Component {
     }
 
     componentWillUnmount() {
-        document.removeEventListener('keydown', this.answerChecker);
         clearInterval(this.state.timer);
     }
 
@@ -82,6 +82,10 @@ class SprintContainer extends Component {
     getListRef = (node) => {this.ul = node};
 
     answerChecker = (e) => {
+        if (e.key && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') {
+            return;
+        }
+
         const { firstWord, secondWord, score, answerItem, points } = this.state;
 
         if ((firstWord.id === secondWord.id && e.target.id === 'correct') ||
@@ -178,8 +182,8 @@ class SprintContainer extends Component {
                     <p id={`${this.state.secondWord.id}`}>{this.state.secondWord.wordTranslate}</p>
                 </div>
                 <div className={style.answerButtons}>
-                    <button id='correct' className={style.correctButton} onClick={(e) => this.answerChecker(e)}>Правильно</button>
-                    <button id='wrong' className={style.wrongButton} onClick={(e) => this.answerChecker(e)}>Неправильно</button>
+                    <button id='correct' className={style.correctButton} tabIndex={this.props.sprintGameEnd ? -1 : 0} onClick={(e) => this.answerChecker(e)}>Правильно</button>
+                    <button id='wrong' className={style.wrongButton} tabIndex={this.props.sprintGameEnd ? -1 : 0} onClick={(e) => this.answerChecker(e)}>Неправильно</button>
                 </div>
             </div>
         )
