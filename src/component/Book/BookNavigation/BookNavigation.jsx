@@ -25,10 +25,10 @@ const BookNavigation = (props) => {
                 <span>Словарь</span>
                 <ul>
                     <li>Изучаемые слова</li>
-                    <li>Сложные слова</li>
+                    <li><NavLink to={`/book/difficultWords`}>Сложные слова</NavLink></li>
                     <li><NavLink to={`/book/deleteWords`}>Удаленные слова</NavLink></li>
                 </ul>
-                <span>Настройки</span>
+                <span><NavLink to={`/book/settings`}>Настройки</NavLink></span>
             </div>
         </div>
     )
