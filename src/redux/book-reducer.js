@@ -5,11 +5,15 @@ const DELETE_WORD_IN_USER_WORDS = 'DELETE_WORD_IN_USER_WORDS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_CURRENT_GROUP = 'SET_CURRENT_GROUP';
 const SET_TOTAL_USER_COUNT = 'SET_TOTAL_USER_COUNT';
+const SET_DIFFICULT_WORDS = 'SET_DIFFICULT_WORDS';
+const REMOVE_DIFFICULT_WORD = 'REMOVE_DIFFICULT_WORD';
+const REMOVE_DELETE_WORD = 'REMOVE_DELETE_WORD';
 
 let initialState = {
     words: [],
     userWords:[],
     deleteWords: [],
+    difficultWords: [],
     totalPages: 30,
     wordsPerPage: 20,
     totalUserCount: 0,
@@ -29,8 +33,10 @@ const bookReducer = (state = initialState, action) => {
         case SET_DELETE_WORDS: {
             return {...state, deleteWords: action.deleteWords}
         }
-        case DELETE_WORD_IN_USER_WORDS: {
-            
+        case SET_DIFFICULT_WORDS: {
+            return {...state, difficultWords: action.difficultWords}
+        }
+        case DELETE_WORD_IN_USER_WORDS: {            
             return {...state, userWords: state.userWords.filter(word=> word._id !== action.wordId)}
         }
         case SET_CURRENT_PAGE: {
@@ -42,6 +48,13 @@ const bookReducer = (state = initialState, action) => {
         case SET_TOTAL_USER_COUNT: {
             return { ...state, totalUserCount: action.totalUserCount }
         }
+        case REMOVE_DIFFICULT_WORD: {            
+            return {...state, difficultWords: state.difficultWords.filter(word=> word._id !== action.wordId)}
+        }
+        case REMOVE_DELETE_WORD: {            
+            return {...state, deleteWords: state.deleteWords.filter(word=> word._id !== action.wordId)}
+        }
+        
         default:
             return state
     }
@@ -50,9 +63,12 @@ const bookReducer = (state = initialState, action) => {
 export const setWords = (words) => ({ type: SET_WORDS, words })
 export const setUserWords = (userWords) => ({ type: SET_USER_WORDS, userWords })
 export const setDeleteWords = (deleteWords) => ({ type: SET_DELETE_WORDS, deleteWords })
+export const setDifficultWords = (difficultWords) => ({ type: SET_DIFFICULT_WORDS, difficultWords })
 export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage })
 export const setCurrentGroup = (currentGroup) => ({ type: SET_CURRENT_GROUP, currentGroup })
 export const setTotalUserCount = (totalUserCount) => ({ type: SET_TOTAL_USER_COUNT, totalUserCount })
 export const deleteWordInUserWords = (wordId) => ({ type: DELETE_WORD_IN_USER_WORDS, wordId })
+export const removeDifficultWord = (wordId) => ({ type: REMOVE_DIFFICULT_WORD, wordId })
+export const removeDeleteWord = (wordId) => ({ type: REMOVE_DELETE_WORD, wordId })
 
 export default bookReducer;

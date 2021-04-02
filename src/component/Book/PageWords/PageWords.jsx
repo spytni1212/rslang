@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) =>
         },
         volumeBtn: {
             minWidth: 0,
-            minHeight:0
+            minHeight: 0
         },
         deleteBtn: {
             background: theme.palette.error.main,
@@ -65,9 +65,12 @@ const PageWords = (props) => {
                         startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
                     />
                 </span>
-                <span className={s.textMeaningTranslate}>
-                    {word.textMeaningTranslate}
-                </span>
+                {props.settings.isShowTranslate ?
+                    <span className={s.textMeaningTranslate}>
+                        {word.textMeaningTranslate}
+                    </span>
+                    : null
+                }
                 <span className={s.textExample}>
                     {word.textExample}
                     <Button
@@ -75,28 +78,34 @@ const PageWords = (props) => {
                         startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
                     />
                 </span>
-                <span className={s.textExampleTranslate}>
-                    {word.textExampleTranslate}
-                </span>
+                {props.settings.isShowTranslate ?
+                    <span className={s.textExampleTranslate}>
+                        {word.textExampleTranslate}
+                    </span>
+                    : null
+                }
             </div>
-            <div className={s.buttonsContainer}>
-                <Button
-                    variant="contained"
-                    className={classes.difficultBtn}
-                    color="error"
-                    startIcon={<WarningIcon />}
-                >
-                    сложное слово
+            {props.settings.isShowButtons ?
+                <div className={s.buttonsContainer}>
+                    <Button
+                        variant="contained"
+                        className={classes.difficultBtn}
+                        color="error"
+                        startIcon={<WarningIcon />}
+                    >
+                        сложное слово
                 </Button>
-                <Button
-                    variant="contained"
-                    className={classes.deleteBtn}
-                    startIcon={<DeleteIcon />}
-                    onClick={() => props.deleteWordClickHandler(word._id, index)}
-                >
-                    удалить слово
+                    <Button
+                        variant="contained"
+                        className={classes.deleteBtn}
+                        startIcon={<DeleteIcon />}
+                        onClick={() => props.deleteWordClickHandler(word._id, index)}
+                    >
+                        удалить слово
                 </Button>
-            </div>
+                </div>
+                : null
+            }
         </div>
     })
 

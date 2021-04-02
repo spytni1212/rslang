@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     },
     arrow: {
         width: '16px',
-        cursor:'pointer'
+        cursor: 'pointer'
     }
 })
 
@@ -45,7 +45,7 @@ const BookNavigation = (props) => {
         return (
             <li key={group}>
                 <Box className={classes.container}>
-                    <ArrowBackIosIcon className={classes.arrow} o={`/book/textBook`} onClick={() => props.onGroupChanged(group)}/>
+                    <ArrowBackIosIcon className={classes.arrow} o={`/book/textBook`} onClick={() => props.onGroupChanged(group)} />
                     <NavLink to={`/book/textBook`} onClick={() => props.onGroupChanged(group)}>
                         Раздел {group}
                     </NavLink>
@@ -69,7 +69,9 @@ const BookNavigation = (props) => {
                     </Box>
                     <Box className={classes.container}>
                         <WarningIcon />
-                        <h4>Сложные слова</h4>
+                        <NavLink to={`/book/difficultWords`}>
+                            <h4>Сложные слова</h4>
+                        </NavLink>
                     </Box>
                     <Box className={classes.container}>
                         <DeleteIcon />
@@ -79,7 +81,9 @@ const BookNavigation = (props) => {
                     </Box>
                 </Box>
                 <Box className={classes.container}>
-                    <h3 className={classes.title}>Настройки</h3>
+                    <NavLink to={`/book/settings`}>
+                        <h3 className={classes.title}>Настройки</h3>
+                    </NavLink>
                 </Box>
             </div>
         </div>
