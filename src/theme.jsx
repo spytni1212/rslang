@@ -1,21 +1,21 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
-const colorPrimaryMain = '#45d0d0';
-const colorSecondaryMain = '#95fdfd';
+const colorPrimaryMain = '#b790a4';
+const colorSecondaryMain = '#dcabc4';
 const DefaultThemeOptions = {
     palette: {
         primary: {
             main: colorPrimaryMain,
-            dark: '#36a6a6',
+            dark: '#ab6689',
         },
         secondary: {
             main: colorSecondaryMain,
         },
-        error:{
-            main: '#e04b44',
+        error: {
+            main: '#de726c',
         },
         warning: {
-            main: '#FF3D3D'
+            main: '#f1c684fa'
         }
     },
     components: {
@@ -25,7 +25,7 @@ const DefaultThemeOptions = {
                   minWidth: 0
               }
           }
-      }
+      },
     }
 };
 

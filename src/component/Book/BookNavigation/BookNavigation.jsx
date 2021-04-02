@@ -2,7 +2,10 @@ import React from 'react';
 import { NavLink } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import SettingsIcon from '@material-ui/icons/Settings';
+import SchoolIcon from '@material-ui/icons/School';
+import DeleteIcon from '@material-ui/icons/Delete';
+import WarningIcon from '@material-ui/icons/Warning';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import s from './BookNavigation.module.css'
 
 const useStyles = makeStyles({
@@ -14,8 +17,18 @@ const useStyles = makeStyles({
     img: {
         width: '40px'
     },
+    container: {
+        margin: '10px 0',
+        display: 'flex',
+        columnGap: '7px',
+    },
     list: {
-        fontSize: '16px'
+        fontSize: '16px',
+        listStyleType: 'none'
+    },
+    arrow: {
+        width: '16px',
+        cursor:'pointer'
     }
 })
 
@@ -29,25 +42,44 @@ const BookNavigation = (props) => {
     }
 
     groups = groups.map(group => {
-        return <li key={group}><NavLink to={`/book/textBook`} onClick={() => props.onGroupChanged(group)}>Раздел {group}</NavLink></li>
+        return (
+            <li key={group}>
+                <Box className={classes.container}>
+                    <ArrowBackIosIcon className={classes.arrow} o={`/book/textBook`} onClick={() => props.onGroupChanged(group)}/>
+                    <NavLink to={`/book/textBook`} onClick={() => props.onGroupChanged(group)}>
+                        Раздел {group}
+                    </NavLink>
+                </Box>
+            </li>
+        )
     })
 
     return (
-        <div className={s.BookNavigation}>
+        <div className={s.bookNavigation}>
             <div className={s.navigationContainer}>
                 <h3 className={classes.title}>Электронный учебник</h3>
                 <ul className={classes.list}>
                     {groups}
                 </ul>
                 <h3 className={classes.title}>Словарь</h3>
-                <ul className={classes.list}>
-                    <li>Изучаемые слова</li>
-                    <li>Сложные слова</li>
-                    <li><NavLink to={`/book/deleteWords`}>Удаленные слова</NavLink></li>
-                </ul>
                 <Box>
-                    <SettingsIcon />
-                    <h4>Настройки</h4>
+                    <Box className={classes.container}>
+                        <SchoolIcon />
+                        <h4>Изучаемые слова</h4>
+                    </Box>
+                    <Box className={classes.container}>
+                        <WarningIcon />
+                        <h4>Сложные слова</h4>
+                    </Box>
+                    <Box className={classes.container}>
+                        <DeleteIcon />
+                        <NavLink to={`/book/deleteWords`}>
+                            <h4>Удаленные слова</h4>
+                        </NavLink>
+                    </Box>
+                </Box>
+                <Box className={classes.container}>
+                    <h3>Настройки</h3>
                 </Box>
             </div>
         </div>

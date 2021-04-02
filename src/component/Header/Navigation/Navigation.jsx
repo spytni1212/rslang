@@ -9,17 +9,17 @@ const Navigation = () => {
     const navData = [
         {
             name: "Учебник",
-            icon: <SchoolIcon />,
+            icon: <SchoolIcon style={{ color: '#414954' }} />,
             link: "book"
         },
         {
             name: "Мини-игры",
-            icon: <SportsEsportsIcon />,
+            icon: <SportsEsportsIcon style={{ color: '#414954' }} />,
             link: "games"
         },
         {
             name: "Статистика",
-            icon: <TimelineIcon />,
+            icon: <TimelineIcon style={{ color: '#414954' }} />,
             link: "statistics"
         }
     ]
@@ -28,7 +28,7 @@ const Navigation = () => {
         <div>
             <nav className={s.navigation}>
                 {navData.map((navDatum) => {
-                    return <NavigationButton navDatum= {navDatum} />
+                    return <NavigationButton navDatum={navDatum} />
                 })}
             </nav>
         </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -8,17 +8,33 @@ import Button from '@material-ui/core/Button';
 import { Pagination } from '@material-ui/lab';
 import s from './PageWords.module.css'
 
-const useStyles = makeStyles({
-    pagination: {
-        margin: '1em',
-    },
-    titleContainer: {
-        display: 'flex',
-    },
-    volumeBtn: {
-        minWidth: 0
-    }
-})
+const useStyles = makeStyles((theme) =>
+    createStyles({
+        pagination: {
+            margin: '1em',
+        },
+        titleContainer: {
+            display: 'flex',
+        },
+        volumeBtn: {
+            minWidth: 0,
+            minHeight:0
+        },
+        deleteBtn: {
+            background: theme.palette.error.main,
+            color: '#fffbfbde',
+            '&:hover': {
+                background: '#c1625d',
+            }
+        },
+        difficultBtn: {
+            background: theme.palette.warning.main,
+            color: 'rgb(84 35 35 / 87%)',
+            '&:hover': {
+                background: '#ecba6bfa',
+            }
+        }
+    }))
 
 const PageWords = (props) => {
     const classes = useStyles()
@@ -34,29 +50,29 @@ const PageWords = (props) => {
                         <h3 className={s.wordTranscription}>
                             {word.word} {word.transcription}
                         </h3>
-                        <Button 
-                            size='small' 
-                            className={classes.volumeBtn} 
+                        <Button
+                            size='small'
+                            className={classes.volumeBtn}
                             onClick={() => props.clickAudioHandler(`${apiUrl}/${word.audio}`)}
-                            startIcon={<VolumeUpIcon />}
+                            startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
                         />
                     </Box>
                 </Box>
                 <span className={s.textMeaning}>
-                    {word.textMeaning} 
-                    <Button 
+                    {word.textMeaning}
+                    <Button
                         onClick={() => props.clickAudioHandler(`${apiUrl}/${word.audioMeaning}`)}
-                        startIcon={<VolumeUpIcon />}
+                        startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
                     />
                 </span>
                 <span className={s.textMeaningTranslate}>
                     {word.textMeaningTranslate}
                 </span>
                 <span className={s.textExample}>
-                    {word.textExample} 
-                    <Button 
+                    {word.textExample}
+                    <Button
                         onClick={() => props.clickAudioHandler(`${apiUrl}/${word.audioExample}`)}
-                        startIcon={<VolumeUpIcon />}
+                        startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
                     />
                 </span>
                 <span className={s.textExampleTranslate}>
@@ -66,6 +82,7 @@ const PageWords = (props) => {
             <div className={s.buttonsContainer}>
                 <Button
                     variant="contained"
+                    className={classes.difficultBtn}
                     color="error"
                     startIcon={<WarningIcon />}
                 >
@@ -73,7 +90,7 @@ const PageWords = (props) => {
                 </Button>
                 <Button
                     variant="contained"
-                    color="warning"
+                    className={classes.deleteBtn}
                     startIcon={<DeleteIcon />}
                     onClick={() => props.deleteWordClickHandler(word._id, index)}
                 >
