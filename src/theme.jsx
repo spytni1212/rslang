@@ -19,13 +19,13 @@ const DefaultThemeOptions = {
         }
     },
     components: {
-      MuiButton: {
-          styleOverrides: {
-              root:{
-                  minWidth: 0
-              }
-          }
-      },
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    minWidth: 0
+                }
+            }
+        },
     }
 };
 

@@ -79,7 +79,7 @@ const BookNavigation = (props) => {
                     </Box>
                 </Box>
                 <Box className={classes.container}>
-                    <h3>Настройки</h3>
+                    <h3 className={classes.title}>Настройки</h3>
                 </Box>
             </div>
         </div>
