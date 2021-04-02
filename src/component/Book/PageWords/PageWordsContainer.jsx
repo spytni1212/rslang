@@ -62,21 +62,41 @@ class PageWordsContainer extends React.Component {
 
     deleteWordClickHandler = (wordId) => {   
         this.props.deleteWordInUserWords(wordId)
-        axios.post(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/words/${wordId}`,{
-            optional: {"delete": true}
-        }, 
-        {
-            headers: {"Authorization": `Bearer ${this.props.user.token}`}
-        }) 
+        let wordData = this.props.userWords.filter(word => word._id === wordId)[0]
+        if (wordData.userWord === undefined) {
+                axios.post(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/words/${wordId}`,{
+                optional: {"delete": true}
+            }, 
+            {
+                headers: {"Authorization": `Bearer ${this.props.user.token}`}
+            })
+        } else {
+                axios.put(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/words/${wordId}`,{
+                optional: {"delete": true}
+            }, 
+            {
+                headers: {"Authorization": `Bearer ${this.props.user.token}`}
+            })
+        }
     }
 
     difficultWordClickHandler = (wordId) => {   
-        axios.post(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/words/${wordId}`,{
-            optional: {"difficult": true}
-        }, 
-        {
-            headers: {"Authorization": `Bearer ${this.props.user.token}`}
-        })
+        let wordData = this.props.userWords.filter(word => word._id === wordId)[0]
+        if (wordData.userWord === undefined) {
+                axios.post(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/words/${wordId}`,{
+                optional: {"difficult": true}
+            }, 
+            {
+                headers: {"Authorization": `Bearer ${this.props.user.token}`}
+            })
+        } else {
+                axios.put(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/words/${wordId}`,{
+                optional: {"difficult": true}
+            }, 
+            {
+                headers: {"Authorization": `Bearer ${this.props.user.token}`}
+            })
+        }
     }
 
 

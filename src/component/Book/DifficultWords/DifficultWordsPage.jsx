@@ -30,10 +30,9 @@ const DifficultWordsPage = (props) => {
                             {word.textExampleTranslate}
                         </span>
                     </div>
-                    {/* <div className={s.buttonsContainer}>
-                        <Button variant="contained" color="primary">сложное слово</Button>
-                        <Button variant="contained" color="secondary" onClick={()=>props.deleteWordClickHandler(word._id)}>удалить слово</Button>
-                    </div> */}
+                    <div className={s.buttonsContainer}>
+                        <Button variant="contained" color="primary" onClick={()=> props.removeWordClickHandler(word._id)}>восстановить</Button>
+                    </div> 
                 </div>
     })
 

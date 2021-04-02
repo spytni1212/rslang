@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Howl } from 'howler' 
 import * as axios from 'axios';
-import { setDifficultWords, setTotalUserCount, setCurrentPage } from '../../../redux/book-reducer';
+import { setDifficultWords, setTotalUserCount, setCurrentPage, removeDifficultWord } from '../../../redux/book-reducer';
 import DifficultWordsPage from './DifficultWordsPage';
 
 class DifficultWordsPageContainer extends React.Component {
@@ -48,6 +49,23 @@ class DifficultWordsPageContainer extends React.Component {
         
     }
 
+    removeWordClickHandler = (wordId) => {
+        this.props.removeDifficultWord(wordId)
+        axios.put(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/words/${wordId}`,{
+            optional: {"difficult": false}
+        }, 
+        {
+            headers: {"Authorization": `Bearer ${this.props.user.token}`}
+        })
+    }
+
+    clickAudioHandler = (src) => {
+        const sound = new Howl({
+            src
+        })
+        sound.play()
+    }
+
     render() {
 
         if (this.props.user.isLogin) {
@@ -57,6 +75,8 @@ class DifficultWordsPageContainer extends React.Component {
                     totalUserCount={this.props.totalUserCount}
                     wordsPerPage = {this.props.wordsPerPage}    
                     onPageChanged= {this.onPageChanged}
+                    clickAudioHandler={this.clickAudioHandler}
+                    removeWordClickHandler={this.removeWordClickHandler}
                 />
             )
         }
@@ -75,4 +95,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {setDifficultWords, setTotalUserCount, setCurrentPage})(DifficultWordsPageContainer);
+export default connect(mapStateToProps, {setDifficultWords, setTotalUserCount, setCurrentPage, removeDifficultWord})(DifficultWordsPageContainer);
