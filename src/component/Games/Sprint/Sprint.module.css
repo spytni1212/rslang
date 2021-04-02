@@ -1,13 +1,8 @@
-.header {
-    background-color: aqua;
-}
-
-.wrapper {
+.mainPage {
+    margin: 0 auto;
+    width: 500px;
+    background-color: #fff;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-a {
-    text-decoration: none;
+    justify-content: center;
+    border: 3px solid #e0deda;
 }
