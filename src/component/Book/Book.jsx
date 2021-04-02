@@ -4,6 +4,7 @@ import BookNavigationContainer from './BookNavigation/BookNavigationContainer'
 import PageWordsContainer from './PageWords/PageWordsContainer'
 import DeleteWordsPageContainer from './DeleteWordsPage/DeleteWordsPageContainer'
 import DifficultWordsPageContainer from './DifficultWords/DifficultWordsPageContainer'
+import SettingsContainer from './Settings/SettingsContainer'
 import s from './Book.module.css'
 
 const Book = (props) => {
@@ -15,6 +16,7 @@ const Book = (props) => {
                 <Route path='/book/textBook' render={() => <PageWordsContainer />} />
                 <Route path='/book/deleteWords' render={() => <DeleteWordsPageContainer />} />
                 <Route path='/book/difficultWords' render={() => <DifficultWordsPageContainer />} />
+                <Route path='/book/settings' render={() => <SettingsContainer />} />
             </div>
         </div>
     )

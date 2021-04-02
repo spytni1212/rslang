@@ -20,30 +20,40 @@ const PageWords = (props) => {
                         <span className={s.textMeaning}>
                             {word.textMeaning} <Button onClick={()=>props.clickAudioHandler(`${apiUrl}/${word.audioMeaning}`)}><VolumeUpIcon /></Button>
                         </span>
-                        <span className={s.textMeaningTranslate}>
-                            {word.textMeaningTranslate}
-                        </span>
+                        {props.settings.isShowTranslate ?
+                            <span className={s.textMeaningTranslate}>
+                                {word.textMeaningTranslate}
+                            </span>
+                            : ''
+                        }
                         <span className={s.textExample}>
                             {word.textExample} <Button onClick={()=>props.clickAudioHandler(`${apiUrl}/${word.audioExample}`)}><VolumeUpIcon /></Button>
                         </span>
-                        <span className={s.textExampleTranslate}>
-                            {word.textExampleTranslate}
-                        </span>
+                        {props.settings.isShowTranslate ?
+                            <span className={s.textExampleTranslate}>
+                                {word.textExampleTranslate}
+                            </span>
+                            : ''
+                        }
+                        
                     </div>
-                    <div className={s.buttonsContainer}>
-                        <Button 
-                            variant="contained" 
-                            color="primary"
-                            onClick={()=>props.difficultWordClickHandler(word._id, index)}
-                        >сложное слово
-                        </Button>
-                        <Button 
-                            variant="contained" 
-                            color="secondary" 
-                            onClick={()=>props.deleteWordClickHandler(word._id, index)}
-                        >удалить слово
-                        </Button>
-                    </div>
+                    {props.settings.isShowButtons ? 
+                        <div className={s.buttonsContainer}>
+                            <Button 
+                                variant="contained" 
+                                color="primary"
+                                onClick={()=>props.difficultWordClickHandler(word._id, index)}
+                            >сложное слово
+                            </Button>
+                            <Button 
+                                variant="contained" 
+                                color="secondary" 
+                                onClick={()=>props.deleteWordClickHandler(word._id, index)}
+                            >удалить слово
+                            </Button>
+                        </div>
+                        : ''
+                    }
                 </div>
     })
 

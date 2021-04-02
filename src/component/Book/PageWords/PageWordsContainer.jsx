@@ -122,6 +122,7 @@ class PageWordsContainer extends React.Component {
             clickAudioHandler={this.clickAudioHandler}
             deleteWordClickHandler={this.deleteWordClickHandler}
             difficultWordClickHandler={this.difficultWordClickHandler}
+            settings={this.props.settings}
         />
             
         )
@@ -139,7 +140,8 @@ let mapStateToProps = (state) => {
         currentPage: state.book.currentPage,
         totalGroup: state.book.totalGroup,
         currentGroup: state.book.currentGroup,
-        user: state.auth
+        user: state.auth,
+        settings: state.settings
     }
 }
 
