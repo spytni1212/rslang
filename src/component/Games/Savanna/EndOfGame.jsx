@@ -1,16 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Modal from '@material-ui/core/Modal';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const useStyles = makeStyles((theme) => ({
   popUp: {
-    position: 'absolute',
-    top: '35%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -19,11 +13,12 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '10px',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    alignItems: 'center'
+    alignItems: 'center',
+    zIndex:'1000'
   },
   text: {
     marginBottom: '20px',
-    textAlign: 'center' 
+    textAlign: 'center'
   },
   footer: {
     display: 'flex',
@@ -35,30 +30,20 @@ const useStyles = makeStyles((theme) => ({
     }
   },
 }));
- 
+
 export default function EndOfGamePopUp(props) {
   const classes = useStyles();
-  const body = (
+
+  return (
     <Box className={classes.popUp}>
       <h2 className={classes.text}>Поздравляю, вот мы и закончили!</h2>
       <p className={classes.text}>
-        Вот сколько баллов, в итоге, удалось набрать: { props.points }/ 200 !
+        Вот сколько баллов, в итоге, удалось набрать: {props.points}/ 200 !
       </p>
       <Box className={classes.footer}>
-        <ArrowBackIcon/>
+        <ArrowBackIcon />
         <h3 onClick={props.handleClose} variant="outlined">Вернуться к выбору игры </h3>
       </Box>
     </Box>
-  );
-
-  return (
-      <Modal
-        open={props.open}
-        onClose={props.handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        {body}
-      </Modal>
   );
 }
