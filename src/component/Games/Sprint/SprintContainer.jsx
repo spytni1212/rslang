@@ -95,11 +95,11 @@ class SprintContainer extends Component {
             
             this.props.setResultInfo({firstWord: firstWord.word, secondWord: secondWord.wordTranslate, result: true});
             
-            this.ul.children[answerItem].style.backgroundColor = 'green';
+            this.ul.children[answerItem].style.backgroundColor = 'rgb(47,207,68)';
 
             if (answerItem === 3) {           
                 for (let i = 0; i <= 3; i++) {
-                    this.ul.children[i].style.backgroundColor = 'white';
+                    this.ul.children[i].style.backgroundColor = 'rgb(108, 117, 125)';
                 }
 
                 if (points < 80) {
@@ -124,7 +124,7 @@ class SprintContainer extends Component {
             this.props.setResultInfo({firstWord: firstWord.word, secondWord: secondWord.wordTranslate, result: false});
 
             for (let i = 0; i <= 3; i++) {
-                this.ul.children[i].style.backgroundColor = 'white';
+                this.ul.children[i].style.backgroundColor = 'rgb(108, 117, 125)';
             }
 
             this.setState({
