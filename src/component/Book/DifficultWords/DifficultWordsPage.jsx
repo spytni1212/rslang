@@ -2,13 +2,13 @@ import React from 'react';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import Button from '@material-ui/core/Button';
 import { Pagination } from '@material-ui/lab';
-import s from './DeleteWordsPage.module.css'
+import s from './DifficultWordsPage.module.css'
 
-const DeleteWordsPage = (props) => {
+const DifficultWordsPage = (props) => {
 
     const apiUrl = 'https://react-learn-words.herokuapp.com'
 
-    let deleteWords = props.deleteWords.map(word => {
+    let difficultWords = props.difficultWords.map(word => {
         return <div key={word.id} className={s.wordContainer}>
                     <div className={s.wordImage} style={{backgroundImage: `url('${apiUrl}/${word.image}')`}}>
                     </div>
@@ -31,8 +31,8 @@ const DeleteWordsPage = (props) => {
                         </span>
                     </div>
                     <div className={s.buttonsContainer}>
-                        <Button variant="contained" color="primary" onClick={()=>props.removeWordClickHandler(word._id)}>восстановить</Button>
-                    </div>
+                        <Button variant="contained" color="primary" onClick={()=> props.removeWordClickHandler(word._id)}>восстановить</Button>
+                    </div> 
                 </div>
     })
 
@@ -53,10 +53,10 @@ const DeleteWordsPage = (props) => {
                 onChange={(e, value) => {props.onPageChanged(value)}}
             />          
             <div className={s.wordsContainer}>
-                {deleteWords}
+                {difficultWords}
             </div>
         </div>
     )
 }
 
-export default DeleteWordsPage
+export default DifficultWordsPage
