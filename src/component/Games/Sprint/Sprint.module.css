@@ -7,3 +7,9 @@
     border-radius: 20px;
     box-shadow: 2px 2px 7px 2px #b4b4c7;
 }
+
+.gameTitle {
+    margin: 15px 0;
+    font-size: 40px;
+    text-align: center;
+}

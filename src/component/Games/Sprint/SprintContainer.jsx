@@ -166,7 +166,11 @@ class SprintContainer extends Component {
                         </div>
                     </div>
                 </Modal>
-
+                <div className={style.gameInstruction}>
+                    <p className={style.gameInstructionRules}>Перед вами слово и перевод. Вам нужно выбрать, правильно это или неправильно.</p>
+                    <p className={style.gameInstructionRules}>1. Используйте мышь, чтобы выбрать.</p>
+                    <p className={style.gameInstructionRules}>2. Используйте клавиши влево и вправо.</p>
+                </div>
                 <div className={style.timer}>{this.state.timeLeft}</div>
                 <div className={style.scoreInfo}>
                     <p className={style.score}>Счет: {this.state.score}</p>

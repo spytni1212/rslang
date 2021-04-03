@@ -7,6 +7,14 @@
     width: 100%;
 }
 
+.gameInstruction {
+    border-bottom: 1px solid #dcccd4;
+}
+
+.gameInstructionRules {
+    font-size: 20px;
+}
+
 .timer {
     font-size: 36px;
     background-color: #fff;
@@ -51,12 +59,15 @@
 .comparedWords {
     display: flex;
     justify-content: space-around;
+    align-items: center;
+    min-height: 110px;
 }
 
 .comparedWords>p {
     font-family: 'Times New Roman', Times, serif;
     font-size: 36px;
     background-color: white;
+    flex: 0 1 50%;
 }
 
 .answerButtons {
