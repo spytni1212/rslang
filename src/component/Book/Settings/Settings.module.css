@@ -1,0 +1,10 @@
+.settingsContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.settingContainer {
+    max-width: 300px;
+    display: flex;
+    align-items: center;
+}

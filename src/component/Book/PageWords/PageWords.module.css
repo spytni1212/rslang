@@ -1,0 +1,89 @@
+.pageContainer {
+    flex-basis: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.wordsContainer {
+    margin: 0 auto;
+    padding: 10px;
+    overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 20px;
+    column-gap: 15px;
+}
+
+.wordContainer {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #b7a5b6;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px 2px #d4c7cd;
+    padding: 10px;
+    background: #fffdfd;
+    color: #2f2929;
+}
+
+.wordImage {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin-right: 1em;
+}
+
+.wordDescription {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.wordTranscription {
+    margin: 0 auto;
+    margin-right: 0.5em;
+    display: flex;
+    align-items: center;
+}
+
+.audioButton {
+    text-decoration: none;
+}
+
+.paginationContainer {
+    margin: 10px 0 5px;
+    display: flex;
+    column-gap: 5px;
+}
+
+.pageNumberContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.page {
+    padding: 0 3px;
+    cursor: pointer;
+}
+
+.page:hover {
+    background-color: rgb(161, 159, 160);
+}
+
+.currentPage {
+    background-color: rgb(161, 159, 160);
+}
+
+.buttonsContainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}

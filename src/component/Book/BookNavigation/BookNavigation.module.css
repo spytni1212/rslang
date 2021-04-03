@@ -1,0 +1,9 @@
+.bookNavigation {
+    display: flex;
+}
+.navigationContainer {
+    width: fit-content;
+    padding:10px;
+    display: flex;
+    flex-direction: column;
+}

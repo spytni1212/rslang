@@ -5,7 +5,9 @@ import { setCorrectWords, setWrongWords } from '../../../redux/savannahReducer/s
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import EndOfGamePopUp from './EndOfGamePopUp';
+import Modal from '../../UIKit/Modal/Modal'
+import ProgressBar from '../../UIKit/ProgressBar/ProgressBar'
+import EndOfGame from './EndOfGame';
 import showNewWords from './showNewWords'
 
 const useStyles = makeStyles({
@@ -64,12 +66,12 @@ let randomNumbersArray = getRandomNumbers();
 const Savannah = (props) => {
     const classes = useStyles()
     const history = useHistory();
-    console.log({props})
+    console.log({ props })
     const wordsInfo = props.wordsInfo
     let wordToCheck, translationToCheck;
 
     const [wordsArray, setWordsArr] = useState(wordsInfo)
-    wordsInfo[0] ? wordToCheck = wordsArray[0].word: wordToCheck = null
+    wordsInfo[0] ? wordToCheck = wordsArray[0].word : wordToCheck = null
     wordsInfo[0] ? translationToCheck = wordsArray[0].wordTranslate : translationToCheck = null
 
     const [buttonDisabled, setButtonDisabled] = useState(true)
@@ -102,7 +104,7 @@ const Savannah = (props) => {
         setStep(prev => prev + 1)
     }
     const handleNext = () => {
-        if (step === 5) {
+        if (step === 20) {
             handleOpen()
         } else {
             const buttons = Array.from(buttonsContainer.current.children)
@@ -114,11 +116,11 @@ const Savannah = (props) => {
     }
     return (
         <Box className={classes.container} p={3}>
-            <EndOfGamePopUp
-                open={open}
-                handleClose={handleClose}
-                points={points}
+            <Modal
+                isOpen={open}
+                children={<EndOfGame points={points} handleClose={handleClose} />}
             />
+            <ProgressBar number={step} />
             <h3 className={classes.title}> Выбери верный перевод слова "{wordToCheck}" </h3>
             <Box className={classes.gameContainer} mb={4} ref={buttonsContainer}>
                 {randomNumbersArray.map((randomNumber, index) => {
