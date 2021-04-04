@@ -39,75 +39,70 @@ const useStyles = makeStyles((theme) =>
 const PageWords = (props) => {
     const classes = useStyles()
     const apiUrl = 'https://react-learn-words.herokuapp.com'
-
     let words = props.words.map((word, index) => {
-        return <div key={index} className={s.wordContainer}>
-            <div className={s.wordDescription}>
-                <Box className={classes.titleContainer} mb={2}>
-                    <div className={s.wordImage} style={{ backgroundImage: `url('${apiUrl}/${word.image}')` }}>
-                    </div>
-                    <Box className={classes.titleContainer}>
-                        <h3 className={s.wordTranscription}>
-                            {word.word} {word.transcription}
-                        </h3>
-                        <Button
-                            size='small'
-                            className={classes.volumeBtn}
-                            onClick={() => props.clickAudioHandler([`${apiUrl}/${word.audio}`, `${apiUrl}/${word.audioMeaning}`, `${apiUrl}/${word.audioExample}`])}
-                            startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
-                        />
+        return (
+            <div key={index} className={s.wordContainer}>
+                <div className={s.wordDescription}>
+                    <Box className={classes.titleContainer} mb={2}>
+                        <div className={s.wordImage} style={{ backgroundImage: `url('${apiUrl}/${word.image}')` }}>
+                        </div>
+                        <Box className={classes.titleContainer}>
+                            <h3 className={s.wordTranscription}>
+                                {word.word} {word.transcription}
+                            </h3>
+                            <Button
+                                size='small'
+                                className={classes.volumeBtn}
+                                onClick={() => props.clickAudioHandler([`${apiUrl}/${word.audio}`, `${apiUrl}/${word.audioMeaning}`, `${apiUrl}/${word.audioExample}`])}
+                                startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
+                            />
+                        </Box>
                     </Box>
-                </Box>
-                <span className={s.textMeaning}>
-                    {word.textMeaning}
-                    {/* <Button
-                        onClick={() => props.clickAudioHandler(`${apiUrl}/${word.audioMeaning}`)}
-                        startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
-                    /> */}
-                </span>
-                {props.settings.isShowTranslate ?
-                    <span className={s.textMeaningTranslate}>
-                        {word.textMeaningTranslate}
+                    <span className={s.textMeaning}>
+                        {word.textMeaning}
                     </span>
-                    : null
-                }
-                <span className={s.textExample}>
-                    {word.textExample}
-                    {/* <Button
-                        onClick={() => props.clickAudioHandler(`${apiUrl}/${word.audioExample}`)}
-                        startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
-                    /> */}
-                </span>
-                {props.settings.isShowTranslate ?
-                    <span className={s.textExampleTranslate}>
-                        {word.textExampleTranslate}
+                    {props.settings.isShowTranslate ?
+                        <span className={s.textMeaningTranslate}>
+                            {word.textMeaningTranslate}
+                        </span>
+                        : null
+                    }
+                    <span className={s.textExample}>
+                        {word.textExample}
                     </span>
-                    : null
-                }
-            </div>
-            {props.settings.isShowButtons ?
-                <div className={s.buttonsContainer}>
-                    <Button
-                        variant="contained"
-                        className={classes.difficultBtn}
-                        color="error"
-                        startIcon={<WarningIcon />}
-                        onClick={() => props.difficultWordClickHandler(word._id)}
-                    >
-                        сложное слово
-                </Button>
-                    <Button
-                        variant="contained"
-                        className={classes.deleteBtn}
-                        startIcon={<DeleteIcon />}
-                        onClick={() => props.deleteWordClickHandler(word._id)}
-                    >
-                        удалить слово
-                </Button>
+                    {props.settings.isShowTranslate ?
+                        <span className={s.textExampleTranslate}>
+                            {word.textExampleTranslate}
+                        </span>
+                        : null
+                    }
                 </div>
-                : null
-            }
-        </div>
+                {props.settings.isShowButtons ?
+                    <div className={s.buttonsContainer}>
+                        <Button
+                            variant="contained"
+                            className={classes.difficultBtn}
+                            color="error"
+                            disabled={!props.isLogin}
+                            startIcon={<WarningIcon />}
+                            onClick={() => props.difficultWordClickHandler(word._id)}
+                        >
+                            сложное слово
+                </Button>
+                        <Button
+                            variant="contained"
+                            className={classes.deleteBtn}
+                            startIcon={<DeleteIcon />}
+                            disabled={!props.isLogin}
+                            onClick={() => props.deleteWordClickHandler(word._id)}
+                        >
+                            удалить слово
+                </Button>
+                    </div>
+                    : null
+                }
+            </div >
+        )
     })
 
     let pagesCount

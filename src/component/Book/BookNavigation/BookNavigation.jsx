@@ -67,7 +67,9 @@ const BookNavigation = (props) => {
                 <Box>
                     <Box className={classes.container}>
                         <SchoolIcon />
-                        <h4>Изучаемые слова</h4>
+                        <NavLink to={`/book/learningWords`}>
+                            <h4>Изучаемые слова</h4>
+                        </NavLink>
                     </Box>
                     <Box className={classes.container}>
                         <WarningIcon />
@@ -87,6 +89,10 @@ const BookNavigation = (props) => {
                         <h3 className={classes.title}>Настройки</h3>
                     </NavLink>
                 </Box>
+                <NavLink to='/games/savannah/userGame'><button>Саванна</button></NavLink>
+                <NavLink to='/games/audioCall/userGame'><button>Аудиовызов</button></NavLink>
+                <NavLink to='/games/sprint/userGame'><button>Спринт</button></NavLink>
+                <NavLink to='/games/authorGame/userGame'><button>Авторская игра</button></NavLink>
             </div>
         </div>
     )
