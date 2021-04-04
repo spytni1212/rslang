@@ -31,10 +31,10 @@ function App() {
 								<Route path='/login' component={LoginContainer} />
 								<Route path='/book' component={Book} />
 								<Route path='/games' component={Games} exact />
-								<Route path='/games/savannah' component={SavannahContainer} />
-								<Route path='/games/audioCall' component={AudioCallContainer} />
-								<Route path='/games/Sprint' component={Sprint} />
-								<Route path='/games/authorGame' component={AuthorGame} />
+								<Route path='/games/savannah/:userGame?' component={SavannahContainer} />
+								<Route path='/games/audioCall/:userGame?' component={AudioCallContainer} />
+								<Route path='/games/Sprint/:userGame?' component={Sprint} />
+								<Route path='/games/authorGame/:userGame?' component={AuthorGame} />
 								<Route path='/statistics' component={Statistics} />
 							</Box>
 							<Footer />
