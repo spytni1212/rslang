@@ -5,7 +5,7 @@ import s from './Navigation.module.css'
 
 const NavigationButton = (props) => {
     return (
-        <Box className={s.navContainer}>
+        <Box className={s.navContainer} onClick={props.toggleDrawer(false)}>
             {props.navDatum.icon}
             <NavLink to={`/${props.navDatum.link}`}>
                 {props.navDatum.name}

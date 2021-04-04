@@ -1,10 +1,12 @@
-
-
+.navigationWrapper {
+    width: 200px;
+    padding: 40px 25px;
+}
 .navigation {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     column-gap: 10px;
-    row-gap: 40px;
+    row-gap: 30px;
 }
 
 .navContainer {
