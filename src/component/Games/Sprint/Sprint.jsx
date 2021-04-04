@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import SprintStart from './SprintStart';
+import React from 'react';
 import SprintContainer from './SprintContainer';
-import SprintResult from './SprintResult';
+import LevelMenu from "../../UIKit/LevelMenu/LevelMenu";
 import { setSprintGameStart, setWordsInfo } from '../../../redux/sprint-reducer';
 import { connect } from 'react-redux';
 import * as axios from 'axios';
 import style from './Sprint.module.css';
 
 const Sprint = (props) => {    
-
-    const [wordsGroup, setWordsGroup] = useState(1);
-
     const getRandomPage = () => {
         const min = 0;
         const max = 29;
@@ -18,25 +14,27 @@ const Sprint = (props) => {
         return Math.round(randomPage);
     }
 
-    useEffect(() => {
-        if (wordsGroup !== '') {
-            axios.get(`https://react-learn-words.herokuapp.com/words?group=${wordsGroup}&page=${getRandomPage()}`)
-                .then(response => {
-                    const wordsInfo = response.data.map(res => ({
-                        id: res.id,
-                        word: res.word,
-                        wordTranslate: res.wordTranslate
-                    }));
-                    props.setWordsInfo(wordsInfo);
-                })
-        }
-    }, [wordsGroup])
+    const handlerButtonStart = (wordsGroup = 1) => {
+        axios.get(`https://react-learn-words.herokuapp.com/words?group=${wordsGroup}&page=${getRandomPage()}`)
+            .then(response => {
+                const wordsInfo = response.data.map(res => ({
+                    id: res.id,
+                    word: res.word,
+                    wordTranslate: res.wordTranslate
+                }));
+                props.setWordsInfo(wordsInfo);
+                props.setSprintGameStart();
+            })
+            .catch(() => {alert('Упс... Что-то пошло не так!')});
+    }
 
     return (
-        <div className={style.mainPage}>
-            {!props.sprintGameStart && !props.sprintGameEnd && <SprintStart setWordsGroup={setWordsGroup} />}
-            {props.sprintGameStart && <SprintContainer />}
-            {props.sprintGameEnd && <SprintResult />}
+        <div>
+            <h1 className={style.gameTitle}>Спринт</h1>
+            <div className={style.mainPage}>
+                {!props.sprintGameStart && !props.sprintGameEnd && <LevelMenu funClickButton={handlerButtonStart} />}
+                {props.sprintGameStart && <SprintContainer />}
+            </div>
         </div>
     )
 }

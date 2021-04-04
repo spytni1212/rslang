@@ -1,9 +1,6 @@
-.navigation {
-    height: 100%;
-    background-color: rgb(137, 108, 163);
-}
 
-nav {
+
+.navigation {
     display: flex;
     align-items: center;
     column-gap: 10px;
@@ -13,10 +10,12 @@ nav {
 .navContainer {
     display: flex;
     align-items: center;
+    column-gap: 10px;
 }
 
 .navContainer a {
     text-decoration: none;
-    color: white;
+    font-size: 16px;
+    font-weight: 600;
 }
 

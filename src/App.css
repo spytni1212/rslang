@@ -2,14 +2,20 @@
   margin:0;
   padding:0;
   box-sizing: border-box;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 .app {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .wrapper {
   max-width: 1200px;
   margin: 0 auto;
+}
+.contentContainer {
+  flex-grow: 1;
+  padding: 0 20px;
+  background: #fdf3f7;
 }
