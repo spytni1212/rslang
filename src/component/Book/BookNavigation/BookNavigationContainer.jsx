@@ -43,6 +43,7 @@ class BookNavigationContainer extends React.Component {
                 currentGroup={this.props.currentGroup}
                 onGroupChanged={this.onGroupChanged}
                 difficultColor={this.props.difficultColor}
+                isLogin={this.props.user.isLogin}
             />
         )
     }
