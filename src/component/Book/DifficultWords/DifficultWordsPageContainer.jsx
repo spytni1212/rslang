@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Howl } from 'howler' 
 import * as axios from 'axios';
 import { setDifficultWords, setTotalUserCount, setCurrentPage, removeDifficultWord } from '../../../redux/book-reducer';
 import DifficultWordsPage from './DifficultWordsPage';
@@ -60,10 +59,18 @@ class DifficultWordsPageContainer extends React.Component {
     }
 
     clickAudioHandler = (src) => {
-        const sound = new Howl({
-            src
-        })
-        sound.play()
+        let audio = new Audio();
+        let current = 0;
+        audio.src = src[0];
+        audio.onended = function() {
+            current++;
+            if (current >= src.length) {
+                return
+            }
+            audio.src = src[current]
+            audio.play()
+        }
+        audio.play();
     }
 
     render() {
@@ -78,6 +85,7 @@ class DifficultWordsPageContainer extends React.Component {
                     clickAudioHandler={this.clickAudioHandler}
                     removeWordClickHandler={this.removeWordClickHandler}
                     difficultColor={this.props.difficultColor}
+                    settings={this.props.settings}
                 />
             )
         }
@@ -93,7 +101,8 @@ let mapStateToProps = (state) => {
         totalUserCount: state.book.totalUserCount,
         wordsPerPage: state.book.wordsPerPage,
         user: state.auth,
-        difficultColor: state.book.difficultColor
+        difficultColor: state.book.difficultColor,
+        settings: state.settings
     }
 }
 
