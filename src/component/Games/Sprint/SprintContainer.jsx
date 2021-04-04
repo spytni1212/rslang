@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import style from './SprintContainer.module.css';
-import { setSprintGameStart, setSprintGameEnd, setTotalScore, setResultInfo } from '../../../redux/sprint-reducer';
+import Modal from "../../UIKit/Modal/Modal";
+import { setSprintGameStart, setSprintGameEnd, setResultInfo, setResetWordsInfo, setResetResultInfo } from '../../../redux/sprint-reducer';
 import { connect } from 'react-redux';
 
 class SprintContainer extends Component {
@@ -11,7 +12,8 @@ class SprintContainer extends Component {
         secondWord: null,
         score: 0,
         answerItem: 0,
-        points: 10
+        points: 10,
+        results: {correct: 0, wrong: 0}
     }
 
     componentWillMount() {
@@ -32,9 +34,9 @@ class SprintContainer extends Component {
         }, 1000)
 
         setTimeout(() => {
-            this.props.setSprintGameStart();
+            this.analysisResults();
             this.props.setSprintGameEnd();
-            this.props.setTotalScore(this.state.score);
+            document.removeEventListener('keydown', this.answerChecker);
         }, 61000)
 
         return this.setState({
@@ -43,8 +45,24 @@ class SprintContainer extends Component {
     }
 
     componentWillUnmount() {
-        document.removeEventListener('keydown', this.answerChecker);
         clearInterval(this.state.timer);
+    }
+
+    analysisResults = () => {
+        let correct = 0, wrong = 0;
+        this.props.resultInfo.map(res => {
+            res.result ? correct++ : wrong ++
+        })
+        this.setState({
+            results: { correct, wrong }
+        });
+    }
+
+    resetStore = () => {
+        this.props.setSprintGameStart();
+        this.props.setSprintGameEnd();
+        this.props.setResetWordsInfo();
+        this.props.setResetResultInfo();
     }
 
     showNextPair = () => {
@@ -64,6 +82,10 @@ class SprintContainer extends Component {
     getListRef = (node) => {this.ul = node};
 
     answerChecker = (e) => {
+        if (e.key && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') {
+            return;
+        }
+
         const { firstWord, secondWord, score, answerItem, points } = this.state;
 
         if ((firstWord.id === secondWord.id && e.target.id === 'correct') ||
@@ -73,11 +95,11 @@ class SprintContainer extends Component {
             
             this.props.setResultInfo({firstWord: firstWord.word, secondWord: secondWord.wordTranslate, result: true});
             
-            this.ul.children[answerItem].style.backgroundColor = 'green';
+            this.ul.children[answerItem].style.backgroundColor = 'rgb(47,207,68)';
 
             if (answerItem === 3) {           
                 for (let i = 0; i <= 3; i++) {
-                    this.ul.children[i].style.backgroundColor = 'white';
+                    this.ul.children[i].style.backgroundColor = 'rgb(108, 117, 125)';
                 }
 
                 if (points < 80) {
@@ -102,7 +124,7 @@ class SprintContainer extends Component {
             this.props.setResultInfo({firstWord: firstWord.word, secondWord: secondWord.wordTranslate, result: false});
 
             for (let i = 0; i <= 3; i++) {
-                this.ul.children[i].style.backgroundColor = 'white';
+                this.ul.children[i].style.backgroundColor = 'rgb(108, 117, 125)';
             }
 
             this.setState({
@@ -116,6 +138,39 @@ class SprintContainer extends Component {
     render() {
         return (
             <div className={style.gamePage}>
+
+                <Modal isOpen={this.props.sprintGameEnd}>
+                    <div className={style.endGame}>
+                        <div>
+                            <p className={style.finalScore}>Ваш результат: {this.state.score}</p>
+                            <p>Вы знаете {this.state.results.correct} слов(-a)</p>
+                            <p>Вы не знаете {this.state.results.wrong} слов(-a)</p>
+                        </div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    {this.props.resultInfo.map((res, index) => {
+                                        const correctAnswer = res.result ? '✓' : 'X';
+                                        return (
+                                            <tr key={index}>
+                                                <td>{res.firstWord}</td>
+                                                <td>{res.secondWord}</td>
+                                                <td>{correctAnswer}</td>
+                                            </tr>
+                                    )})}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <button className={style.beginAgainButton} onClick={this.resetStore}>Начать сначала</button>
+                        </div>
+                    </div>
+                </Modal>
+                <div className={style.gameInstruction}>
+                    <p className={style.gameInstructionRules}>Перед вами слово и перевод. Вам нужно выбрать, правильно это или неправильно.</p>
+                    <p className={style.gameInstructionRules}>1. Используйте мышь, чтобы выбрать.</p>
+                    <p className={style.gameInstructionRules}>2. Используйте клавиши влево и вправо.</p>
+                </div>
                 <div className={style.timer}>{this.state.timeLeft}</div>
                 <div className={style.scoreInfo}>
                     <p className={style.score}>Счет: {this.state.score}</p>
@@ -131,8 +186,8 @@ class SprintContainer extends Component {
                     <p id={`${this.state.secondWord.id}`}>{this.state.secondWord.wordTranslate}</p>
                 </div>
                 <div className={style.answerButtons}>
-                    <button id='correct' className={style.correctButton} onClick={(e) => this.answerChecker(e)}>Правильно</button>
-                    <button id='wrong' className={style.wrongButton} onClick={(e) => this.answerChecker(e)}>Неправильно</button>
+                    <button id='correct' className={style.correctButton} tabIndex={this.props.sprintGameEnd ? -1 : 0} onClick={(e) => this.answerChecker(e)}>Правильно</button>
+                    <button id='wrong' className={style.wrongButton} tabIndex={this.props.sprintGameEnd ? -1 : 0} onClick={(e) => this.answerChecker(e)}>Неправильно</button>
                 </div>
             </div>
         )
@@ -140,14 +195,18 @@ class SprintContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    wordsInfo: state.sprint.wordsInfo
+    sprintGameStart: state.sprint.sprintGameStart,
+    sprintGameEnd: state.sprint.sprintGameEnd,
+    wordsInfo: state.sprint.wordsInfo,
+    resultInfo: state.sprint.resultInfo
 })
 
 const mapDispatchToProps = (dispatch) => ({
     setSprintGameStart: () => dispatch(setSprintGameStart()),
     setSprintGameEnd: () => dispatch(setSprintGameEnd()),
-    setTotalScore: (totalScore) => dispatch(setTotalScore(totalScore)),
-    setResultInfo: (resultInfo) => dispatch(setResultInfo(resultInfo))
+    setResultInfo: (resultInfo) => dispatch(setResultInfo(resultInfo)),
+    setResetWordsInfo: () => dispatch(setResetWordsInfo()),
+    setResetResultInfo: () => dispatch(setResetResultInfo())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SprintContainer)
