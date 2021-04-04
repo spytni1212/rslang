@@ -21,9 +21,9 @@ class RegistrationContainer extends React.Component {
         })
         .catch(err => {
             if (err.response.status === 417) {
-                this.setErrorMessage('пользователь с таким адресом электронной почты уже существует', true)
+                this.setErrorMessage('пользователь с таким адресом электронной почты уже существует')
             } else if (err.response.status === 422) {
-                this.setErrorMessage('не верно указан адрес электронной почты или пароль', true)
+                this.setErrorMessage('не верно указан адрес электронной почты или пароль')
             }
         })
     }
