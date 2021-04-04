@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import BurgerMenu from './BurgerMenu/BurgerMenu'
 import LoginButton from './LoginButton/LoginButton'
-import Navigation from './Navigation/Navigation'
 import s from './Header.module.css'
 
 const useStyles = makeStyles({
@@ -19,12 +18,11 @@ const useStyles = makeStyles({
 })
 
 const HeaderContainer = (props) => {
-    const classes=useStyles()
+    const classes = useStyles()
     return (
         <div className={s.header}>
             <div className={`wrapper ${s.wrapper}`}>
                 <BurgerMenu />
-                <Navigation />
                 <NavLink to='/'>
                     <Box className={classes.logoContainer}>
                         <img src="./penguin.png" alt="penguin icon" className={classes.img} />
