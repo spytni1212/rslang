@@ -29,3 +29,13 @@
   .list li{
     list-style: none
   }
+
+.img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin-right: 1em;
+}
