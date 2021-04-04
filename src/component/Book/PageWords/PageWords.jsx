@@ -60,10 +60,6 @@ const PageWords = (props) => {
                 </Box>
                 <span className={s.textMeaning}>
                     {word.textMeaning}
-                    {/* <Button
-                        onClick={() => props.clickAudioHandler(`${apiUrl}/${word.audioMeaning}`)}
-                        startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
-                    /> */}
                 </span>
                 {props.settings.isShowTranslate ?
                     <span className={s.textMeaningTranslate}>
@@ -73,10 +69,6 @@ const PageWords = (props) => {
                 }
                 <span className={s.textExample}>
                     {word.textExample}
-                    {/* <Button
-                        onClick={() => props.clickAudioHandler(`${apiUrl}/${word.audioExample}`)}
-                        startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
-                    /> */}
                 </span>
                 {props.settings.isShowTranslate ?
                     <span className={s.textExampleTranslate}>
@@ -91,6 +83,7 @@ const PageWords = (props) => {
                         variant="contained"
                         className={classes.difficultBtn}
                         color="error"
+                        disabled={!props.isLogin}
                         startIcon={<WarningIcon />}
                         onClick={() => props.difficultWordClickHandler(word._id)}
                     >
@@ -100,6 +93,7 @@ const PageWords = (props) => {
                         variant="contained"
                         className={classes.deleteBtn}
                         startIcon={<DeleteIcon />}
+                        disabled={!props.isLogin}
                         onClick={() => props.deleteWordClickHandler(word._id)}
                     >
                         удалить слово
