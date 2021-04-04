@@ -1,5 +1,6 @@
 import React from 'react';
-import s from './Main.module.css'
+import Authors from './Authors';
+import s from './Main.module.css';
 
 const Main = () => {
     return (
@@ -16,25 +17,7 @@ const Main = () => {
                         </p>
                     </div>
                 </div>
-                <h3>О КОМАНДЕ</h3>
-                <div className={s.aboutUsContainer}>
-                    <div className={s.personContainer}>
-                        <div className={s.photo}></div>
-                        <p>О вкладе каждого члена команды</p>
-                    </div>
-                    <div className={s.personContainer}>
-                        <div className={s.photo}></div>
-                        <p>О вкладе каждого члена команды</p>
-                    </div>
-                    <div className={s.personContainer}>
-                        <div className={s.photo}></div>
-                        <p>О вкладе каждого члена команды</p>
-                    </div>
-                    <div className={s.personContainer}>
-                        <div className={s.photo}></div>
-                        <p>О вкладе каждого члена команды</p>
-                    </div>
-                </div>
+                <Authors />
             </div>
         </div>
     )

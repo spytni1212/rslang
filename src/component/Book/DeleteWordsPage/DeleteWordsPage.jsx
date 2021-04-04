@@ -39,31 +39,30 @@ const DeleteWordsPage = (props) => {
                             <Button
                                 size='small'
                                 className={classes.volumeBtn}
-                                onClick={() => props.clickAudioHandler(`${apiUrl}/${word.audio}`)}
+                                onClick={() => props.clickAudioHandler([`${apiUrl}/${word.audio}`, `${apiUrl}/${word.audioMeaning}`, `${apiUrl}/${word.audioExample}`])}
                                 startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
                             />
                         </Box>
                     </Box>
                     <span className={s.textMeaning}>
                         {word.textMeaning}
-                        <Button
-                            onClick={() => props.clickAudioHandler(`${apiUrl}/${word.audioMeaning}`)}
-                            startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
-                        />
                     </span>
-                    <span className={s.textMeaningTranslate}>
-                        {word.textMeaningTranslate}
-                    </span>
+                    {props.settings.isShowTranslate ?
+                        <span className={s.textMeaningTranslate}>
+                            {word.textMeaningTranslate}
+                        </span>
+                        : null
+                    }
                     <span className={s.textExample}>
                         {word.textExample}
-                        <Button
-                            onClick={() => props.clickAudioHandler(`${apiUrl}/${word.audioExample}`)}
-                            startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
-                        />
                     </span>
-                    <span className={s.textExampleTranslate}>
-                        {word.textExampleTranslate}
-                    </span>
+                    {props.settings.isShowTranslate ?
+                        <span className={s.textExampleTranslate}>
+                            {word.textExampleTranslate}
+                        </span>
+                        : null
+                    }
+                    <div className={s.circle} style={{ background: props.difficultColor[word.group] }} />
                 </div>
                 <div className={s.buttonsContainer}>
                     <Button

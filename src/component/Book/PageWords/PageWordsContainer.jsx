@@ -99,13 +99,19 @@ class PageWordsContainer extends React.Component {
         }
     }
 
-
-
     clickAudioHandler = (src) => {
-        const sound = new Howl({
-            src
-        })
-        sound.play()
+        let audio = new Audio();
+        let current = 0;
+        audio.src = src[0];
+        audio.onended = function() {
+            current++;
+            if (current >= src.length) {
+                return
+            }
+            audio.src = src[current]
+            audio.play()
+        }
+        audio.play();
     }
 
     render() {
@@ -123,6 +129,7 @@ class PageWordsContainer extends React.Component {
             deleteWordClickHandler={this.deleteWordClickHandler}
             difficultWordClickHandler={this.difficultWordClickHandler}
             settings={this.props.settings}
+            isLogin={this.props.user.isLogin}
         />
             
         )

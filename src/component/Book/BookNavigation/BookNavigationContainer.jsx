@@ -42,6 +42,7 @@ class BookNavigationContainer extends React.Component {
                 totalGroup={this.props.totalGroup}
                 currentGroup={this.props.currentGroup}
                 onGroupChanged={this.onGroupChanged}
+                difficultColor={this.props.difficultColor}
             />
         )
     }
@@ -53,7 +54,8 @@ let mapStateToProps = (state) => {
         totalGroup: state.book.totalGroup,
         currentGroup: state.book.currentGroup,
         currentPage: state.book.currentPage,
-        user: state.auth
+        user: state.auth,
+        difficultColor: state.book.difficultColor
     }
 }
 

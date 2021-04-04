@@ -53,17 +53,13 @@ const PageWords = (props) => {
                             <Button
                                 size='small'
                                 className={classes.volumeBtn}
-                                onClick={() => props.clickAudioHandler(`${apiUrl}/${word.audio}`)}
+                                onClick={() => props.clickAudioHandler([`${apiUrl}/${word.audio}`, `${apiUrl}/${word.audioMeaning}`, `${apiUrl}/${word.audioExample}`])}
                                 startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
                             />
                         </Box>
                     </Box>
                     <span className={s.textMeaning}>
                         {word.textMeaning}
-                        <Button
-                            onClick={() => props.clickAudioHandler(`${apiUrl}/${word.audioMeaning}`)}
-                            startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
-                        />
                     </span>
                     {props.settings.isShowTranslate ?
                         <span className={s.textMeaningTranslate}>
@@ -73,10 +69,6 @@ const PageWords = (props) => {
                     }
                     <span className={s.textExample}>
                         {word.textExample}
-                        <Button
-                            onClick={() => props.clickAudioHandler(`${apiUrl}/${word.audioExample}`)}
-                            startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
-                        />
                     </span>
                     {props.settings.isShowTranslate ?
                         <span className={s.textExampleTranslate}>
@@ -91,8 +83,9 @@ const PageWords = (props) => {
                             variant="contained"
                             className={classes.difficultBtn}
                             color="error"
+                            disabled={!props.isLogin}
                             startIcon={<WarningIcon />}
-                            onClick={()=>props.difficultWordClickHandler(word._id, index)}
+                            onClick={() => props.difficultWordClickHandler(word._id)}
                         >
                             сложное слово
                 </Button>
@@ -100,14 +93,15 @@ const PageWords = (props) => {
                             variant="contained"
                             className={classes.deleteBtn}
                             startIcon={<DeleteIcon />}
-                            onClick={() => props.deleteWordClickHandler(word._id, index)}
+                            disabled={!props.isLogin}
+                            onClick={() => props.deleteWordClickHandler(word._id)}
                         >
                             удалить слово
                 </Button>
                     </div>
                     : null
                 }
-            </div>
+            </div >
         )
     })
 

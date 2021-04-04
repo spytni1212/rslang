@@ -1,5 +1,8 @@
 import React from 'react';
+import { Input } from '../../common/FormsControls'
 import { Form, Field } from 'react-final-form'
+import { required } from '../../utils/validators'
+import s from './RegistrationForm.module.css'
 
 const RegistrationForm = (props) => {
     return (
@@ -8,11 +11,12 @@ const RegistrationForm = (props) => {
         >          
             {(props) => (
                 
-                <form onSubmit={props.handleSubmit}>
+                <form onSubmit={props.handleSubmit} className={s.formContainer}>
                     <div>
                         <Field 
                             name='name'
-                            component='input'
+                            component={Input}
+                            validate={required}
                             type='text'
                             placeholder='введите имя' 
                         />
@@ -20,7 +24,8 @@ const RegistrationForm = (props) => {
                     <div>
                         <Field 
                             name='email'
-                            component='input'
+                            component={Input}
+                            validate={required}
                             type='text'
                             placeholder='введите почту' 
                         />
@@ -28,7 +33,8 @@ const RegistrationForm = (props) => {
                     <div>
                         <Field 
                             name='password' 
-                            component='input'
+                            component={Input}
+                            validate={required}
                             type='text'
                             placeholder='веедите пароль' 
                         />

@@ -52,42 +52,41 @@ const DifficultWordsPage = (props) => {
                             <Button
                                 size='small'
                                 className={classes.volumeBtn}
-                                onClick={() => props.clickAudioHandler(`${apiUrl}/${word.audio}`)}
+                                onClick={() => props.clickAudioHandler([`${apiUrl}/${word.audio}`, `${apiUrl}/${word.audioMeaning}`, `${apiUrl}/${word.audioExample}`])}
                                 startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
                             />
                         </Box>
                     </Box>
                     <span className={s.textMeaning}>
                         {word.textMeaning}
-                        <Button
-                            onClick={() => props.clickAudioHandler(`${apiUrl}/${word.audioMeaning}`)}
-                            startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
-                        />
                     </span>
-                    <span className={s.textMeaningTranslate}>
-                        {word.textMeaningTranslate}
-                    </span>
+                    {props.settings.isShowTranslate ?
+                        <span className={s.textMeaningTranslate}>
+                            {word.textMeaningTranslate}
+                        </span>
+                        : null
+                    }
                     <span className={s.textExample}>
                         {word.textExample}
+                    </span>
+                    {props.settings.isShowTranslate ?
+                        <span className={s.textExampleTranslate}>
+                            {word.textExampleTranslate}
+                        </span>
+                        : null
+                    }
+                        <div className={s.circle} style={{ background: props.difficultColor[word.group] }}></div>
+                    </div>
+                    <div className={s.buttonsContainer}>
                         <Button
-                            onClick={() => props.clickAudioHandler(`${apiUrl}/${word.audioExample}`)}
-                            startIcon={<VolumeUpIcon style={{ color: '#414954' }} />}
-                        />
-                    </span>
-                    <span className={s.textExampleTranslate}>
-                        {word.textExampleTranslate}
-                    </span>
-                </div>
-                <div className={s.buttonsContainer}>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => props.removeWordClickHandler(word._id)}
-                    >
-                        восстановить
+                            variant="contained"
+                            color="primary"
+                            onClick={() => props.removeWordClickHandler(word._id)}
+                        >
+                            восстановить
                     </Button>
+                    </div>
                 </div>
-            </div>
         )
     })
 
@@ -96,22 +95,22 @@ const DifficultWordsPage = (props) => {
 
     pagesCount = Math.ceil(props.totalUserCount / props.wordsPerPage)
     for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
+                    pages.push(i)
+                }
 
     return (
-        <div className={s.pageContainer}>
-            <Pagination
-                className={classes.pagination}
-                count={pages.length}
-                page={props.currentPage}
-                boundaryCount={2}
-                onChange={(e, value) => { props.onPageChanged(value) }}
-            />
-            <div className={s.wordsContainer}>
-                {difficultWords}
-            </div>
-        </div>
+                <div className={s.pageContainer}>
+                    <Pagination
+                        className={classes.pagination}
+                        count={pages.length}
+                        page={props.currentPage}
+                        boundaryCount={2}
+                        onChange={(e, value) => { props.onPageChanged(value) }}
+                    />
+                    <div className={s.wordsContainer}>
+                        {difficultWords}
+                    </div>
+                </div>
     )
 }
 

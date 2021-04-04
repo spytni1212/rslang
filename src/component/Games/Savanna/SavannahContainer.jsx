@@ -13,6 +13,9 @@ const SavannahContainer = ({ ...props }) => {
         const randomPage = min - 0.5 + Math.random() * (max - min + 1);
         return Math.round(randomPage);
     }
+    // if(props.match.params.userGame) {
+
+    // }
 
     const getWordsInfo = (currentGroup) => {
         console.log(currentGroup)

@@ -20,6 +20,7 @@ const useStyles = makeStyles({
     container: {
         margin: '10px 0',
         display: 'flex',
+        alignItems: 'center',
         columnGap: '7px',
     },
     list: {
@@ -41,7 +42,7 @@ const BookNavigation = (props) => {
         groups.push(i)
     }
 
-    groups = groups.map(group => {
+    groups = groups.map((group, id) => {
         return (
             <li key={group}>
                 <Box className={classes.container}>
@@ -49,6 +50,7 @@ const BookNavigation = (props) => {
                     <NavLink to={`/book/textBook`} onClick={() => props.onGroupChanged(group)}>
                         Раздел {group}
                     </NavLink>
+                    <div className={s.circle} style={{background: props.difficultColor[id]}}></div>
                 </Box>
             </li>
         )
@@ -65,7 +67,9 @@ const BookNavigation = (props) => {
                 <Box>
                     <Box className={classes.container}>
                         <SchoolIcon />
-                        <h4>Изучаемые слова</h4>
+                        <NavLink to={`/book/learningWords`}>
+                            <h4>Изучаемые слова</h4>
+                        </NavLink>
                     </Box>
                     <Box className={classes.container}>
                         <WarningIcon />
@@ -85,6 +89,10 @@ const BookNavigation = (props) => {
                         <h3 className={classes.title}>Настройки</h3>
                     </NavLink>
                 </Box>
+                <NavLink to='/games/savannah/userGame'><button>Саванна</button></NavLink>
+                <NavLink to='/games/audioCall/userGame'><button>Аудиовызов</button></NavLink>
+                <NavLink to='/games/sprint/userGame'><button>Спринт</button></NavLink>
+                <NavLink to='/games/authorGame/userGame'><button>Авторская игра</button></NavLink>
             </div>
         </div>
     )
