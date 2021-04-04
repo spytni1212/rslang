@@ -77,6 +77,7 @@ class DifficultWordsPageContainer extends React.Component {
                     onPageChanged= {this.onPageChanged}
                     clickAudioHandler={this.clickAudioHandler}
                     removeWordClickHandler={this.removeWordClickHandler}
+                    difficultColor={this.props.difficultColor}
                 />
             )
         }
@@ -91,7 +92,8 @@ let mapStateToProps = (state) => {
         difficultWords: state.book.difficultWords,
         totalUserCount: state.book.totalUserCount,
         wordsPerPage: state.book.wordsPerPage,
-        user: state.auth
+        user: state.auth,
+        difficultColor: state.book.difficultColor
     }
 }
 

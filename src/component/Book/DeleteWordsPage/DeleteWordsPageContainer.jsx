@@ -76,6 +76,7 @@ class DeleteWordsPageContainer extends React.Component {
                     onPageChanged= {this.onPageChanged}
                     clickAudioHandler={this.clickAudioHandler}
                     removeWordClickHandler={this.removeWordClickHandler}
+                    difficultColor={this.props.difficultColor}
                 />
             )
         }
@@ -90,7 +91,8 @@ let mapStateToProps = (state) => {
         deleteWords: state.book.deleteWords,
         totalUserCount: state.book.totalUserCount,
         wordsPerPage: state.book.wordsPerPage,
-        user: state.auth
+        user: state.auth,
+        difficultColor: state.book.difficultColor
     }
 }
 

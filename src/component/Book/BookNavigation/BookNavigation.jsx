@@ -20,6 +20,7 @@ const useStyles = makeStyles({
     container: {
         margin: '10px 0',
         display: 'flex',
+        alignItems: 'center',
         columnGap: '7px',
     },
     list: {
@@ -41,7 +42,7 @@ const BookNavigation = (props) => {
         groups.push(i)
     }
 
-    groups = groups.map(group => {
+    groups = groups.map((group, id) => {
         return (
             <li key={group}>
                 <Box className={classes.container}>
@@ -49,6 +50,7 @@ const BookNavigation = (props) => {
                     <NavLink to={`/book/textBook`} onClick={() => props.onGroupChanged(group)}>
                         Раздел {group}
                     </NavLink>
+                    <div className={s.circle} style={{background: props.difficultColor[id]}}></div>
                 </Box>
             </li>
         )

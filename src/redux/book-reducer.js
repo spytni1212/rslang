@@ -14,6 +14,7 @@ let initialState = {
     userWords:[],
     deleteWords: [],
     difficultWords: [],
+    difficultColor: ['#00FF00	', '#0000FF', '#008000', '#FF00FF', '#FFA500', '#FF0000'],
     totalPages: 30,
     wordsPerPage: 20,
     totalUserCount: 0,
