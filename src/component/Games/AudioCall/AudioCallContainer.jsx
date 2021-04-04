@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import {
   setAddCorrectWord,
   setAddWrongWord,
-  setAnswer,
   setIndexSelectWord,
   setLevelArr,
   setLevelMove,
@@ -25,19 +24,23 @@ function shuffleArray(array) {
 }
 
 const AudioCallContainer = ({ ...props }) => {
+
+
   const funLevelMove = () => {
 
     const newArrSelectWords = [props.levelArr[props.levelGame.indexSelectWord]];
 
     for (let i = 0; i < 3; i++) {
-      
       newArrSelectWords.push(
         props.levelArr[generateRandom(0, 19, props.levelGame.indexSelectWord)]
       );
     }
+    
+    newArrSelectWords.forEach((obj)=>{
+      return obj.typeButton = 'active'
+    })
 
     shuffleArray(newArrSelectWords)
-
     const objectLevelMove = {
       selectWord: props.levelArr[props.levelGame.indexSelectWord],
       arrSelectWords: newArrSelectWords,
@@ -46,20 +49,62 @@ const AudioCallContainer = ({ ...props }) => {
     props.setLevelMove(objectLevelMove);
   };
 
+
+
   const buttonChoseWord = (word) => {
     if (props.levelGame.indexSelectWord > 19) {
       return;
     }
 
     if (word !== props.selectWord.word) {
-      props.setAnswer(false);
+
+      const arrTypesSelectWords = props.arrSelectWords.map((obj, index)=>{
+
+        if(obj.word == word){
+          obj.typeButton ='wrong'
+        } else {
+          obj.typeButton ='block'
+        }
+
+        return obj
+      })
+
+      console.log(arrTypesSelectWords)
+
+      const objectLevelMove = {
+        selectWord: props.levelArr[props.levelGame.indexSelectWord],
+        arrSelectWords: arrTypesSelectWords,
+        answer: false,
+      };
+      
+      props.setLevelMove(objectLevelMove);
+
 
       const wrongWords = [...props.wrongWords, props.selectWord];
       props.setAddWrongWord(wrongWords);
     }
 
     if (word === props.selectWord.word) {
-      props.setAnswer(true);
+
+      const newArrSelectWords = props.arrSelectWords.map((obj, index)=>{
+        if(obj.word === word){
+          obj.typeButton ='correct'
+        } else {
+          obj.typeButton ='block'
+        }
+
+        return obj
+      })
+
+      console.log(newArrSelectWords)
+
+      const objectLevelMove = {
+        selectWord: props.levelArr[props.levelGame.indexSelectWord],
+        arrSelectWords: newArrSelectWords,
+        answer: true,
+      };
+      
+      props.setLevelMove(objectLevelMove);
 
       const correctWords = [...props.correctWords, props.selectWord];
       props.setAddCorrectWord(correctWords);
@@ -124,6 +169,7 @@ let mapStateToProps = (state) => {
     selectWord: state.audioCall.levelMove.selectWord,
     wrongWords: state.audioCall.levelResult.wrongWords,
     correctWords: state.audioCall.levelResult.correctWords,
+    arrSelectWords: state.audioCall.levelMove.arrSelectWords
   };
 };
 
@@ -134,5 +180,4 @@ export default connect(mapStateToProps, {
   setIndexSelectWord,
   setAddWrongWord,
   setAddCorrectWord,
-  setAnswer,
 })(AudioCallContainer);
