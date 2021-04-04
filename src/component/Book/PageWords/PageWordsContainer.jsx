@@ -99,13 +99,18 @@ class PageWordsContainer extends React.Component {
         }
     }
 
-
-
     clickAudioHandler = (src) => {
+        let currentSound = 0
         const sound = new Howl({
             src
         })
         sound.play()
+        sound.on('end', () => {
+            currentSound++;
+            sound._src = src[currentSound]
+            console.log(sound)
+            sound.play()
+        })
     }
 
     render() {

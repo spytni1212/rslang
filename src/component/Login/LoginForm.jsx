@@ -10,7 +10,7 @@ const LoginForm = (props) => {
                 
                 <form onSubmit={props.handleSubmit}>
                     <div>
-                        <Field 
+                        <Field  
                             name='email'
                             component='input'
                             type='text'

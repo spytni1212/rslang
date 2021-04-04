@@ -33,6 +33,7 @@ const DeleteWordsPage = (props) => {
                     <div className={s.buttonsContainer}>
                         <Button variant="contained" color="primary" onClick={()=>props.removeWordClickHandler(word._id)}>восстановить</Button>
                     </div>
+                    <div className={s.circle} style={{background: props.difficultColor[word.group]}}></div>
                 </div>
     })
 
