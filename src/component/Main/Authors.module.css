@@ -1,0 +1,70 @@
+.aboutUs {}
+
+.aboutUsTitle {
+    text-align: center;
+}
+
+.aboutUsContainer {
+    max-width: 900px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    column-gap: 50px;
+    background-color: #edf0f6;
+}
+
+.personContainer {
+    margin: 20px 0;
+    border-radius: 25px;
+    display: flex;
+    column-gap: 30px;
+    background-color: #fff;
+    flex: 0 1 40%;
+    justify-content: space-around;
+    min-height: 200px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.photo {
+    width: 100px;
+    height: 100px;
+    flex: 0 1 30%;
+    align-self: center;
+}
+
+.photoImage {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.personalInfo {
+    flex: 0 1 60%;
+}
+
+.developerName,
+.developerName:active,
+.developerName:visited {
+    font-size: 26px;
+    color: #000;
+}
+
+.developerName:hover {
+    text-decoration: underline;
+}
+
+.developerPosition {
+    font-size: 20px;
+    color: #c9cdd2;
+}
+
+.developerContribution {
+    font-size: 16px;
+}
+
+.contribution {
+    list-style: none;
+}
+
+.personContainer p {
+    text-align: justify;
+}
