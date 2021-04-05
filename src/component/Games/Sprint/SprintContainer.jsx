@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import style from './SprintContainer.module.css';
 import Modal from "../../UIKit/Modal/Modal";
-import { setSprintGameStart, setSprintGameEnd, setResultInfo, setResetWordsInfo, setResetResultInfo } from '../../../redux/sprint-reducer';
+import { setResetSprintGameStart, setResetSprintGameEnd, setSprintGameEnd, setResultInfo, setResetWordsInfo, setResetResultInfo } from '../../../redux/sprint-reducer';
 import { connect } from 'react-redux';
 
 class SprintContainer extends Component {
     state = {
         timeLeft: null,
         timer: null,
+        timeout: null,
         firstWord: null,
         secondWord: null,
         score: 0,
@@ -33,19 +34,25 @@ class SprintContainer extends Component {
             })
         }, 1000)
 
-        setTimeout(() => {
+        const timeoutGameResults = setTimeout(() => {
             this.analysisResults();
             this.props.setSprintGameEnd();
             document.removeEventListener('keydown', this.answerChecker);
         }, 61000)
 
         return this.setState({
-            timeLeft: 60, timer: timer
+            timeLeft: 60, timer: timer, timeout: timeoutGameResults
         });
     }
 
     componentWillUnmount() {
+        clearTimeout(this.state.timeout);
         clearInterval(this.state.timer);
+        document.removeEventListener('keydown', this.answerChecker);
+        this.props.setResetWordsInfo();
+        this.props.setResetResultInfo();
+        this.props.setResetSprintGameEnd();
+        this.props.setResetSprintGameStart();
     }
 
     analysisResults = () => {
@@ -59,10 +66,7 @@ class SprintContainer extends Component {
     }
 
     resetStore = () => {
-        this.props.setSprintGameStart();
-        this.props.setSprintGameEnd();
-        this.props.setResetWordsInfo();
-        this.props.setResetResultInfo();
+        this.props.setResetSprintGameStart();
     }
 
     showNextPair = () => {
@@ -88,10 +92,10 @@ class SprintContainer extends Component {
 
         const { firstWord, secondWord, score, answerItem, points } = this.state;
 
-        if ((firstWord.id === secondWord.id && e.target.id === 'correct') ||
-            (firstWord.id === secondWord.id && e.key === 'ArrowLeft') ||
-            (firstWord.id !== secondWord.id && e.target.id === 'wrong') ||
-            (firstWord.id !== secondWord.id && e.key === 'ArrowRight')) {
+        if ((firstWord._id === secondWord._id && e.target.id === 'correct') ||
+            (firstWord._id === secondWord._id && e.key === 'ArrowLeft') ||
+            (firstWord._id !== secondWord._id && e.target.id === 'wrong') ||
+            (firstWord._id !== secondWord._id && e.key === 'ArrowRight')) {
             
             this.props.setResultInfo({firstWord: firstWord.word, secondWord: secondWord.wordTranslate, result: true});
             
@@ -182,8 +186,8 @@ class SprintContainer extends Component {
                     </ul>
                 </div>
                 <div className={style.comparedWords}>
-                    <p id={`${this.state.firstWord.id}`}>{this.state.firstWord.word}</p>
-                    <p id={`${this.state.secondWord.id}`}>{this.state.secondWord.wordTranslate}</p>
+                    <p id={`${this.state.firstWord._id}`}>{this.state.firstWord.word}</p>
+                    <p id={`${this.state.secondWord._id}`}>{this.state.secondWord.wordTranslate}</p>
                 </div>
                 <div className={style.answerButtons}>
                     <button id='correct' className={style.correctButton} tabIndex={this.props.sprintGameEnd ? -1 : 0} onClick={(e) => this.answerChecker(e)}>Правильно</button>
@@ -202,8 +206,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    setSprintGameStart: () => dispatch(setSprintGameStart()),
+    setResetSprintGameStart: () => dispatch(setResetSprintGameStart()),
     setSprintGameEnd: () => dispatch(setSprintGameEnd()),
+    setResetSprintGameEnd: () => dispatch(setResetSprintGameEnd()),
     setResultInfo: (resultInfo) => dispatch(setResultInfo(resultInfo)),
     setResetWordsInfo: () => dispatch(setResetWordsInfo()),
     setResetResultInfo: () => dispatch(setResetResultInfo())

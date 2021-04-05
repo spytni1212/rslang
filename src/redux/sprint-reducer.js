@@ -1,5 +1,7 @@
 const SPRINT_GAME_START = 'SPRINT_GAME_START';
+const RESET_SPRINT_GAME_START = 'RESET_SPRINT_GAME_START';
 const SPRINT_GAME_END = 'SPRINT_GAME_END';
+const RESET_SPRINT_GAME_END = 'RESET_SPRINT_GAME_END';
 const WORDS_INFO = 'WORDS_INFO';
 const RESET_WORDS_INFO = 'RESET_WORDS_INFO';
 const RESULT_INFO = 'RESULT_INFO';
@@ -15,9 +17,13 @@ let initialState = {
 const sprintReducer = (state = initialState, action) => {
     switch (action.type) {
         case SPRINT_GAME_START:
-            return {...state, sprintGameStart: !state.sprintGameStart}
+            return {...state, sprintGameStart: true}
+        case RESET_SPRINT_GAME_START:
+            return {...state, sprintGameStart: false}
         case SPRINT_GAME_END:
-            return {...state, sprintGameEnd: !state.sprintGameEnd}
+            return {...state, sprintGameEnd: true}
+        case RESET_SPRINT_GAME_END:
+            return {...state, sprintGameEnd: false}
         case WORDS_INFO:
             return {...state, wordsInfo: action.wordsInfo}
         case RESET_WORDS_INFO:
@@ -32,7 +38,9 @@ const sprintReducer = (state = initialState, action) => {
 }
 
 export const setSprintGameStart = () => ({type: SPRINT_GAME_START});
+export const setResetSprintGameStart = () => ({type: RESET_SPRINT_GAME_START});
 export const setSprintGameEnd = () => ({type: SPRINT_GAME_END});
+export const setResetSprintGameEnd = () => ({type: RESET_SPRINT_GAME_END});
 export const setWordsInfo = (wordsInfo) => ({type: WORDS_INFO, wordsInfo});
 export const setResetWordsInfo = () => ({type: RESET_WORDS_INFO});
 export const setResultInfo = (resultInfo) => ({type: RESULT_INFO, resultInfo});
