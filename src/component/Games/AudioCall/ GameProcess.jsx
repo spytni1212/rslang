@@ -27,11 +27,12 @@ const GameProcess = ({ ...props }) => {
     sound.play();
   };
 
-  const buttonsSelection = props.arrSelectWords.map((object) => (
+  const buttonsSelection = props.arrSelectWords.map((object,index) => (
     <GameButton
       typeButton={object.typeButton}
       funClickButton={props.buttonChoseWord}
       funProp={object.word}
+      key={index}
     >
       {object.wordTranslate}
     </GameButton>

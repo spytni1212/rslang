@@ -10,18 +10,8 @@ import {
   setLevelMove,
   setStartGame,
 } from "../../../redux/audioCall-reducer";
+import {generateRandom, shuffleArray} from "../generalFunctionsForGame"
 
-function generateRandom(min, max, excludeNumber = null) {
-  let num = Math.floor(Math.random() * (max - min + 1)) + min;
-  return num === excludeNumber ? generateRandom(min, max) : num;
-}
-
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-  }
-}
 
 const AudioCallContainer = ({ ...props }) => {
 

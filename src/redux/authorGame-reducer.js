@@ -7,13 +7,13 @@ let initialState = {
 const authorGameReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_START_GAME:
-            return { ...state, start: action.value }
+            return { ...state, start: action.start }
         default:
             return state;
     }
 }
 
-export const setUserData = (boolean) => ({ type: SET_START_GAME, start: boolean })
+export const setStartGame = (boolean) => ({ type: SET_START_GAME, start: boolean })
 
 
 export default authorGameReducer;
