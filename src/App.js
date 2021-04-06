@@ -13,10 +13,10 @@ import Book from './component/Book/Book'
 import Games from './component/Games/Games'
 import Statistics from './component/Statistics/Statistics';
 import AudioCallContainer from './component/Games/AudioCall/AudioCallContainer'
-import AuthorGame from './component/Games/AuthorGame/AuthorGame'
 import SavannahContainer from './component/Games/Savanna/SavannahContainer'
 import Sprint from './component/Games/Sprint/Sprint'
 import "./App.css";
+import AuthorGameContainer from './component/Games/AuthorGame/AuthorGameContainer';
 
 function App() {
 	return (
@@ -34,7 +34,7 @@ function App() {
 								<Route path='/games/savannah/:userGame?' component={SavannahContainer} />
 								<Route path='/games/audioCall/:userGame?' component={AudioCallContainer} />
 								<Route path='/games/Sprint/:userGame?' component={Sprint} />
-								<Route path='/games/authorGame/:userGame?' component={AuthorGame} />
+								<Route path='/games/authorGame/:userGame?' component={AuthorGameContainer} />
 								<Route path='/statistics' component={Statistics} />
 							</Box>
 							<Footer />

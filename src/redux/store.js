@@ -12,7 +12,8 @@ let reducers = combineReducers({
     auth: authReducer,
     savannah: savannahReducer,
     sprint: sprintReducer,
-    settings: settingsReducer
+    settings: settingsReducer,
+    authorGame: audioCallReducer
 })
 
 let store = createStore(reducers, compose(
