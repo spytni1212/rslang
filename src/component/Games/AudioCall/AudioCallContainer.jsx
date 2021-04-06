@@ -10,11 +10,16 @@ import {
   setLevelMove,
   setStartGame,
 } from "../../../redux/audioCall-reducer";
-import {generateRandom, shuffleArray} from "../generalFunctionsForGame"
+import {generateRandom, shuffleArray, getRequestWords} from "../generalFunctionsForGame"
 
 
 const AudioCallContainer = ({ ...props }) => {
 
+  const handlerButtonStart = async(group) => {
+    const arrWords = await getRequestWords(group) 
+    props.setLevelArr(arrWords.data);
+    props.setStartGame(true)
+  };
 
   const funLevelMove = () => {
 
@@ -123,17 +128,6 @@ const AudioCallContainer = ({ ...props }) => {
     });
     props.setAddWrongWord([]);
     props.setAddCorrectWord([]);
-  };
-
-  const handlerButtonStart = (group, page) => {
-    axios
-      .get(
-        `https://react-learn-words.herokuapp.com/words?group=${group}&page=${generateRandom(0, 29)}`
-      )
-      .then((res) => {
-        props.setLevelArr(res.data);
-      })
-      .then(() => props.setStartGame(true));
   };
 
   return (

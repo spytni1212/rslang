@@ -1,3 +1,5 @@
+import axios from "axios";
+
 
 export function generateRandom(min, max, excludeNumber = null) {
   let num = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -11,3 +13,13 @@ export function shuffleArray(array) {
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
+
+
+export const getRequestWords = (group) => {
+    return axios.get(
+      `https://react-learn-words.herokuapp.com/words?group=${group}&page=${generateRandom(
+        0,
+        29
+      )}`
+    );
+  };
