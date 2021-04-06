@@ -7,32 +7,6 @@ const SET_ADD_WRONG_WORD = "SET_ADD_WRONG_WORD";
 const SET_ADD_CORRECT_WORD = "SET_ADD_CORRECT_WORD";
 
 let initialState = {
-  levelsGame: [
-    {
-      name: "Level1",
-      group: 0,
-    },
-    {
-      name: "Level2",
-      group: 1,
-    },
-    {
-      name: "Level3",
-      group: 2,
-    },
-    {
-      name: "Level4",
-      group: 3,
-    },
-    {
-      name: "Level5",
-      group: 4,
-    },
-    {
-      name: "Level6",
-      group: 5,
-    },
-  ],
   gameStart: false,
   levelArr: [],
   levelGame: {
