@@ -1,22 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Howl } from 'howler' 
-import * as axios from 'axios';
+import { userAggregatedWordsAPI, UserWordsAPI } from '../../../api/api'
 import { setDeleteWords, setTotalUserCount, setCurrentPage, removeDeleteWord } from '../../../redux/book-reducer';
 import DeleteWordsPage from './DeleteWordsPage';
 
 class DeleteWordsPageContainer extends React.Component {
 
     componentDidMount() {
+        let filter = {"userWord.optional.delete":{"$eq": true}}
 
         if (this.props.user.isLogin) {
-            axios.get(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/aggregatedWords`,{
-                    headers: {'Authorization': `Bearer ${this.props.user.token}`},
-                    params: {
-                        wordsPerPage: this.props.wordsPerPage,
-                        filter: {"userWord.optional.delete":{"$eq": true}}
-                    }           
-                })
+            userAggregatedWordsAPI.getAggregatedWords(this.props.user.userId, this.props.user.token, this.props.wordsPerPage, filter)
                 .then(response => {
                     if (response.data[0].totalCount.length === 0) {
                         this.props.setTotalUserCount(0)
@@ -24,8 +18,7 @@ class DeleteWordsPageContainer extends React.Component {
                         this.props.setDeleteWords(response.data[0].paginatedResults)
                         console.log(response)
                         this.props.setTotalUserCount(response.data[0].totalCount[0].count)
-                    }
-                    
+                    }                    
                 })
         }
     }
@@ -33,15 +26,10 @@ class DeleteWordsPageContainer extends React.Component {
     onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber)
         let currentPage = pageNumber - 1
- 
-        axios.get(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/aggregatedWords`,{
-            headers: {'Authorization': `Bearer ${this.props.user.token}`},
-            params: { 
-                page: currentPage,
-                wordsPerPage: this.props.wordsPerPage,
-                filter: {"userWord.optional.delete":{"$eq": true}}
-            }           
-        })
+
+        let filter = {"userWord.optional.delete":{"$eq": true}}
+
+        userAggregatedWordsAPI.getAggregatedWords(this.props.user.userId, this.props.user.token, this.props.wordsPerPage, filter, currentPage)
         .then(response => {
             this.props.setDeleteWords(response.data[0].paginatedResults)
             this.props.setTotalUserCount(response.data[0].totalCount[0].count)
@@ -50,12 +38,9 @@ class DeleteWordsPageContainer extends React.Component {
 
     removeWordClickHandler = (wordId) => {
         this.props.removeDeleteWord(wordId)
-        axios.put(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/words/${wordId}`,{
-            optional: {"delete": false}
-        }, 
-        {
-            headers: {"Authorization": `Bearer ${this.props.user.token}`}
-        })
+        let optional = {"delete": false}
+
+        UserWordsAPI.updateUserWords(this.props.user.userId, this.props.user.token, wordId, optional)
     }
 
     clickAudioHandler = (src) => {
