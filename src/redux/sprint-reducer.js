@@ -10,7 +10,7 @@ const RESET_RESULT_INFO = 'RESET_RESULT_INFO';
 let initialState = {
     sprintGameStart: false,
     sprintGameEnd: false,
-    wordsInfo: {},
+    wordsInfo: [],
     resultInfo: [],
 }
 
@@ -27,7 +27,7 @@ const sprintReducer = (state = initialState, action) => {
         case WORDS_INFO:
             return {...state, wordsInfo: action.wordsInfo}
         case RESET_WORDS_INFO:
-            return {...state, wordsInfo: {}}
+            return {...state, wordsInfo: []}
         case RESULT_INFO:
             return {...state, resultInfo: [...state.resultInfo, action.resultInfo]}
         case RESET_RESULT_INFO:

@@ -17,9 +17,10 @@ const Sprint = (props) => {
 
     useEffect(()=>{
         if (props.match.params.userGame) {
+            putLearningWords(props.userWords, props.user);
+            shuffleArray(props.userWords)
             props.setWordsInfo(props.userWords);
             props.setSprintGameStart();
-            putLearningWords(props.userWords, props.user);
         }
     }, [])
 
@@ -31,10 +32,18 @@ const Sprint = (props) => {
                     word: res.word,
                     wordTranslate: res.wordTranslate
                 }));
+                shuffleArray(wordsInfo);
                 props.setWordsInfo(wordsInfo);
                 props.setSprintGameStart();
             })
             .catch(() => {alert('Упс... Что-то пошло не так!')});
+    }
+
+    const shuffleArray = array => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
     }
 
     return (

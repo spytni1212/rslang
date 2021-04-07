@@ -9,6 +9,7 @@ class SprintContainer extends Component {
         timeLeft: null,
         timer: null,
         timeout: null,
+        wordsArray: this.props.wordsInfo.slice(),
         firstWord: null,
         secondWord: null,
         score: 0,
@@ -58,29 +59,30 @@ class SprintContainer extends Component {
     analysisResults = () => {
         let correct = 0, wrong = 0;
         this.props.resultInfo.map(res => {
-            res.result ? correct++ : wrong ++
+            res.result ? correct++ : wrong++
         })
         this.setState({
             results: { correct, wrong }
         });
     }
 
-    resetStore = () => {
+    resetSprintGameStart = () => {
         this.props.setResetSprintGameStart();
     }
 
     showNextPair = () => {
-        let first, second;
+        const first = this.state.wordsArray[0]; 
+        let second;
         if (Math.ceil(Math.random() * 2) === 1) {
-            first = second = this.props.wordsInfo[Math.floor(Math.random() * this.props.wordsInfo.length)];
+            second = this.state.wordsArray[0]
         } else {
-            first = this.props.wordsInfo[Math.floor(Math.random() * this.props.wordsInfo.length)];
             second = this.props.wordsInfo[Math.floor(Math.random() * this.props.wordsInfo.length)];
         }
-        this.setState({
+        this.setState(({ wordsArray }) => ({
+            wordsArray: wordsArray.slice(1),
             firstWord: first,
-            secondWord: second
-        })
+            secondWord: second,
+        }));
     }
 
     getListRef = (node) => {this.ul = node};
@@ -136,13 +138,23 @@ class SprintContainer extends Component {
                 points: 10
             })
         }
-        this.showNextPair();
+
+        if (this.state.wordsArray.length === 0) {
+            clearInterval(this.state.timer);
+            clearTimeout(this.state.timeout);
+            document.removeEventListener('keydown', this.answerChecker);
+            setTimeout(() => {
+                this.analysisResults();
+                this.props.setSprintGameEnd();
+            }, 0); 
+        } else {
+            this.showNextPair();
+        }
     }
 
     render() {
         return (
             <div className={style.gamePage}>
-
                 <Modal isOpen={this.props.sprintGameEnd}>
                     <div className={style.endGame}>
                         <div>
@@ -166,7 +178,7 @@ class SprintContainer extends Component {
                             </table>
                         </div>
                         <div>
-                            <button className={style.beginAgainButton} onClick={this.resetStore}>Начать сначала</button>
+                            <button className={style.beginAgainButton} onClick={this.resetSprintGameStart}>Начать сначала</button>
                         </div>
                     </div>
                 </Modal>
