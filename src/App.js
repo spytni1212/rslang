@@ -4,8 +4,6 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { DefaultTheme } from './theme'
 import Box from '@material-ui/core/Box';
 import HeaderContainer from './component/Header/HeaderContainer';
-import RegistrationContainer from './component/Registration/RegistrationContainer';
-import LoginContainer from './component/Login/LoginContainer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Main from './component/Main/Main'
 import Footer from './component/Footer/Footer'
@@ -27,8 +25,6 @@ function App() {
 							<HeaderContainer />
 							<Box className="contentContainer">
 								<Route path='/' component={Main} exact />
-								<Route path='/registration' component={RegistrationContainer} />
-								<Route path='/login' component={LoginContainer} />
 								<Route path='/book' component={Book} />
 								<Route path='/games' component={Games} exact />
 								<Route path='/games/savannah/:userGame?' component={SavannahContainer} />

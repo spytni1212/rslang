@@ -23,7 +23,7 @@ class RegistrationContainer extends React.Component {
             if (err.response.status === 417) {
                 this.setErrorMessage('пользователь с таким адресом электронной почты уже существует')
             } else if (err.response.status === 422) {
-                this.setErrorMessage('не верно указан адрес электронной почты или пароль')
+                this.setErrorMessage('неверно указан адрес электронной почты или пароль')
             }
         })
     }
@@ -39,7 +39,7 @@ class RegistrationContainer extends React.Component {
     render() {
         return (
             <div>
-                <Registration onSubmit={this.onSubmit}/>
+                <Registration onSubmit={this.onSubmit} onClose={this.props.onClose} />
                 {this.state.isError ? 
                     <Alert severity="error">
                         <AlertTitle>Ошибка</AlertTitle>
