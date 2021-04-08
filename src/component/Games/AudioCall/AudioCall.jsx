@@ -4,13 +4,12 @@ import  GameProcess from "./ GameProcess"
 import LevelMenu from '../../UIKit/LevelMenu/LevelMenu'
 
 const AudioCall = ({levels, ...props}) => {
-
-    const {start} = {...props}
+    const {start, buttonСhoiceLevel} = {...props}
 
     return (
             <div className={`wrapper ${s.wrapper}`}>
                 <h2>Аудиовызов</h2>
-                {!start ? <LevelMenu funClickButton={props.handlerButtonStart} /> : <GameProcess {...props}/>}  
+                {!start ? <LevelMenu funClickButton={buttonСhoiceLevel} /> : <GameProcess {...props}/>}  
             </div>
     )
 }

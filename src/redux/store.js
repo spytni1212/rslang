@@ -9,12 +9,12 @@ import authorGameReducer from './authorGame-reducer';
 
 let reducers = combineReducers({
     audioCall: audioCallReducer,
+    authorGame: authorGameReducer,
     book: bookReducer,
     auth: authReducer,
     savannah: savannahReducer,
     sprint: sprintReducer,
     settings: settingsReducer,
-    authorGame: authorGameReducer
 })
 
 let store = createStore(reducers, compose(
