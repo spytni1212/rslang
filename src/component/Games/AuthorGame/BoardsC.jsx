@@ -67,6 +67,10 @@ function BoardsC({ Boards, changeBoards}) {
   const [columns, setColumns] = useState(Boards);
 
   useEffect(() => {
+    setColumns(Boards)
+  }, [Boards])
+
+  useEffect(() => {
     // if (columns.BoardWords.items.length === 0) {
     //   changeBoards(columns)
     //   return 
