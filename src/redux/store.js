@@ -5,14 +5,16 @@ import audioCallReducer from './audioCall-reducer';
 import bookReducer from './book-reducer';
 import authReducer from './auth-reducer';
 import settingsReducer from './settings-reducer';
+import authorGameReducer from './authorGame-reducer';
 
 let reducers = combineReducers({
     audioCall: audioCallReducer,
+    authorGame: authorGameReducer,
     book: bookReducer,
     auth: authReducer,
     savannah: savannahReducer,
     sprint: sprintReducer,
-    settings: settingsReducer
+    settings: settingsReducer,
 })
 
 let store = createStore(reducers, compose(
