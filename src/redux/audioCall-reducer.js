@@ -84,7 +84,6 @@ export const setCallListChoiceWords = (arr) => ({
   type: SET_CALL_LIST_CHOICE_WORDS,
   arr,
 });
-
 export const setCallAddWrongWord = (words) => ({
   type: SET_CALL_ADD_WRONG_WORD,
   words,

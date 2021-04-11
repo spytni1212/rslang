@@ -5,121 +5,80 @@ import {
   setStartGame,
   setArrWords,
   setSelectWord,
-  setListChoiceWords,
+  setListButtonsWords,
+  setIndexSelectWord,
+  setWordsBords,
+  setBords
 } from "../../../redux/authorGame-reducer";
 import {
-  generateRandom,
   shuffleArray,
   getRequestWords,
 } from "../generalFunctionsForGame";
+import { v4 as uuidv4 } from 'uuid';
 
 const AuthorGameContainer = (props) => {
   const {
     start,
     arrWords,
-    indexSelectWord = null,
+    indexSelectWord,
     selectWord,
-    listСhoiceWords,
+    listButtonsWords,
+    setListButtonsWords,
     setStartGame,
     setArrWords,
     setSelectWord,
-    setListChoiceWords,
+    setIndexSelectWord,
+    setWordsBords,
+    Boards,
+    setBords,
   } = props;
 
   useEffect(() => {}, []);
 
   useEffect(() => {
-    if (start === true) {
+    if(start === true){
       initListСhoiceWords();
     }
-  }, [start]);
+  }, [indexSelectWord]);
 
   const buttonСhoiceLevel = async (group) => {
     const arrWords = await getRequestWords(group);
-    const arrWordsData = arrWords.data.slice();
+    const arrWordsData = arrWords.data;
     shuffleArray(arrWordsData);
     setArrWords(arrWordsData);
-    setSelectWord(indexSelectWord, arrWordsData[indexSelectWord]);
     setStartGame(true);
+    setIndexSelectWord(0);
   };
 
   const buttonNextWord = () => {
-    const index = indexSelectWord + 1;
-    setSelectWord(index, arrWords[index]);
-    initListСhoiceWords();
+    setIndexSelectWord(indexSelectWord + 1);
   };
 
   const initListСhoiceWords = () => {
-    let indexСhoiceWords = [indexSelectWord];
-    for (let i = 0; i < 3; i++)
-      indexСhoiceWords.push(
-        generateRandom(0, arrWords.length-1, indexСhoiceWords)
-      );
-    shuffleArray(indexСhoiceWords);
-    const listСhoiceWords = indexСhoiceWords.map((n) => {
-      return Object.assign({ typeButton: "active" }, arrWords[n]);
-    });
-    setListChoiceWords(listСhoiceWords);
+    setSelectWord(arrWords[indexSelectWord]);
+    let arrayOfStrings = arrWords[indexSelectWord].textExample.split(' ');
+    const arr =  arrayOfStrings.map(word => ({
+        id: uuidv4(),
+        content:  word,
+    }));
+    shuffleArray(arr);
+    setWordsBords(arr)
+    setListButtonsWords(arrayOfStrings);
   };
 
-  const buttonChoiceWord = (obj) => {
-    // console.log(obj);
+  const compostSentence = (arr) => {
+    const arrMap = arr.map((obj)=>{
+      return obj.content
+    }) 
+    console.log(arrMap.join(' '))
+  }
 
-
-    // if (word !== selectWord.word) {
-
-    //   const arrTypesSelectWords = props.arrSelectWords.map((obj, index)=>{
-
-    //     if(obj.word == word){
-    //       obj.typeButton ='wrong'
-    //     } else {
-    //       obj.typeButton ='block'
-    //     }
-
-    //     return obj
-    // })
-
-    // if (word === selectWord.word) {
-
-    //   const newArrSelectWords = props.arrSelectWords.map((obj, index)=>{
-    //     if(obj.word === word){
-    //       obj.typeButton ='correct'
-    //     } else {
-    //       obj.typeButton ='block'
-    //     }
-
-    //     return obj
-    // })
-
-
-
-      // const objectLevelMove = {
-      //   selectWord: props.levelArr[props.levelGame.indexSelectWord],
-      //   arrSelectWords: arrTypesSelectWords,
-      //   answer: false,
-      // };
-      
-      // props.setLevelMove(objectLevelMove);
-
-
-      // const wrongWords = [...props.wrongWords, props.selectWord];
-      // props.setAddWrongWord(wrongWords);
-    // }
-
-      // const objectLevelMove = {
-      //   selectWord: props.levelArr[props.levelGame.indexSelectWord],
-      //   arrSelectWords: newArrSelectWords,
-      //   answer: true,
-      // };
-      
-      // props.setLevelMove(objectLevelMove);
-
-      // const correctWords = [...props.correctWords, props.selectWord];
-      // props.setAddCorrectWord(correctWords);
-
-      // setListChoiceWords(listСhoiceWords);
-    // }
-  };
+  const changeBoards = (obj) => {
+    
+    const copyObj = Object.assign({}, obj);
+    compostSentence(obj.Requested.items)
+    // setBords(copyObj)
+  }
 
   return (
     <AuthorGame
@@ -128,9 +87,11 @@ const AuthorGameContainer = (props) => {
       arrWords={arrWords}
       indexSelectWord={indexSelectWord}
       selectWord={selectWord}
-      listСhoiceWords={listСhoiceWords}
+      listButtonsWords={listButtonsWords}
       buttonNextWord={buttonNextWord}
-      buttonChoiceWord={buttonChoiceWord}
+      Boards={Boards}
+      setWordsBords={setWordsBords}
+      changeBoards={changeBoards}
     />
   );
 };
@@ -141,7 +102,8 @@ let mapStateToProps = (state) => {
     arrWords: state.authorGame.arrWords,
     indexSelectWord: state.authorGame.indexSelectWord,
     selectWord: state.authorGame.selectWord,
-    listСhoiceWords: state.authorGame.listСhoiceWords,
+    listButtonsWords: state.authorGame.listButtonsWords,
+    Boards: state.authorGame.Boards
   };
 };
 
@@ -149,5 +111,8 @@ export default connect(mapStateToProps, {
   setStartGame,
   setArrWords,
   setSelectWord,
-  setListChoiceWords,
+  setIndexSelectWord,
+  setListButtonsWords,
+  setWordsBords,
+  setBords,
 })(AuthorGameContainer);

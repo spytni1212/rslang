@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   word: {
@@ -14,18 +14,18 @@ const useStyles = makeStyles({
       transform: "scale(1.1)",
     },
     "&:disabled": {
-      border: `1px solid #999999`,
+        border: `1px solid #999999`,       
     },
   },
   correct: {
     borderColor: "#1f841f",
     background: "#97e697",
-    color: `black`,
+    color: `black`
   },
   wrong: {
     borderColor: "#e00606",
     background: "#de8d8d",
-    color: `black`,
+    color: `black`
   },
   block: {
     borderColor: "grey",
@@ -35,6 +35,7 @@ const useStyles = makeStyles({
     },
   },
 });
+
 
 const GameButton = ({
   typeButton,

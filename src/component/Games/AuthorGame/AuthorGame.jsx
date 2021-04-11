@@ -5,7 +5,6 @@ import GameProcess from "./GameProcess";
 
 const AuthorGame = (props) => {
   const { start, buttonСhoiceLevel } = props;
-  console.log(start)
   return (
     <div>
       <div className={`wrapper ${s.wrapper}`}>
