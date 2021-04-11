@@ -13,7 +13,7 @@ const Games = () => {
         game2: {
             name: 'Аудиовызов',
             picture: './img/Games/AudioCall.jpg',
-            description: 'Аудиовызов – прослушиваете английское слово и выбираете один из пяти вариантов ответа.',
+            description: 'Аудиовызов – прослушиваете английское слово и выбираете один из четырех вариантов ответа.',
             link: '/games/audioCall'
         },
         game3: {
@@ -23,9 +23,9 @@ const Games = () => {
             link: '/games/sprint'
         },
         game4: {
-            name: 'Авторская игра',
-            picture: './img/Games/Sprint.jpg',
-            description: 'Описание игры',
+            name: 'Паззл',
+            picture: './img/Games/Puzzle.jpg',
+            description: 'Паззл - игра, в которой даны слова, из которых нужно собрать грамматически правильное предложение.',
             link: '/games/authorGame'
         }
     }
