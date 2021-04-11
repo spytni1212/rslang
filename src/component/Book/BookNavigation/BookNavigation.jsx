@@ -50,7 +50,7 @@ const BookNavigation = (props) => {
                     <NavLink to={`/book/textBook`} onClick={() => props.onGroupChanged(group)}>
                         Раздел {group}
                     </NavLink>
-                    <div className={s.circle} style={{background: props.difficultColor[id]}}></div>
+                    <div className={s.circle} style={{ background: props.difficultColor[id] }}></div>
                 </Box>
             </li>
         )
@@ -89,10 +89,16 @@ const BookNavigation = (props) => {
                         <h3 className={classes.title}>Настройки</h3>
                     </NavLink>
                 </Box>
-                <NavLink to='/games/savannah/userGame'><button>Саванна</button></NavLink>
-                <NavLink to='/games/audioCall/userGame'><button>Аудиовызов</button></NavLink>
-                <NavLink to='/games/sprint/userGame'><button>Спринт</button></NavLink>
-                <NavLink to='/games/authorGame/userGame'><button>Авторская игра</button></NavLink>
+                {
+                    props.isLogin ?
+                        <Box>
+                            <NavLink to='/games/savannah/userGame'><button>Саванна</button></NavLink>
+                            <NavLink to='/games/audioCall/userGame'><button>Аудиовызов</button></NavLink>
+                            <NavLink to='/games/sprint/userGame'><button>Спринт</button></NavLink>
+                            <NavLink to='/games/authorGame/userGame'><button>Авторская игра</button></NavLink>
+                        </Box>
+                    : null
+                }
             </div>
         </div>
     )

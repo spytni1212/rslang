@@ -1,183 +1,153 @@
 import React, { useEffect } from "react";
 import AudioCall from "./AudioCall";
-import axios from "axios";
 import { connect } from "react-redux";
 import {
-  setAddCorrectWord,
-  setAddWrongWord,
-  setIndexSelectWord,
-  setLevelArr,
-  setLevelMove,
-  setStartGame,
+  setCallStartGame,
+  setCallArrWords,
+  setCallIndexSelectWord,
+  setCallSelectWord,
+  setCallListChoiceWords,
+  setCallAddWrongWord,
+  setCallAddCorrectWord,
+  setAnswer,
 } from "../../../redux/audioCall-reducer";
-
-function generateRandom(min, max, excludeNumber = null) {
-  let num = Math.floor(Math.random() * (max - min + 1)) + min;
-  return num === excludeNumber ? generateRandom(min, max) : num;
-}
-
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-  }
-}
+import {
+  generateRandom,
+  shuffleArray,
+  getRequestWords,
+  generateRandomArray,
+} from "../generalFunctionsForGame";
 
 const AudioCallContainer = ({ ...props }) => {
+  const {
+    start,
+    arrWords,
+    indexSelectWord,
+    selectWord,
+    listСhoiceWords,
+    wrongWords,
+    correctWords,
+    setCallStartGame,
+    setCallArrWords,
+    setCallIndexSelectWord,
+    setCallSelectWord,
+    setCallListChoiceWords,
+    setCallAddWrongWord,
+    setCallAddCorrectWord,
+    setAnswer,
+    answer
+  } = props;
 
+  useEffect(() => { }, []);
 
-  const funLevelMove = () => {
-
-    const newArrSelectWords = [props.levelArr[props.levelGame.indexSelectWord]];
-
-    for (let i = 0; i < 3; i++) {
-      newArrSelectWords.push(
-        props.levelArr[generateRandom(0, 19, props.levelGame.indexSelectWord)]
-      );
+  useEffect(() => {
+    if (start === true) {
+      if (indexSelectWord === arrWords.length) {
+        return
+      }
+      setCallSelectWord(arrWords[indexSelectWord]);
+      generatorListСhoiceWords();
     }
-    
-    newArrSelectWords.forEach((obj)=>{
-      return obj.typeButton = 'active'
-    })
+  }, [indexSelectWord]);
 
-    shuffleArray(newArrSelectWords)
-    const objectLevelMove = {
-      selectWord: props.levelArr[props.levelGame.indexSelectWord],
-      arrSelectWords: newArrSelectWords,
-      answer: null,
-    };
-    props.setLevelMove(objectLevelMove);
+  const generatorListСhoiceWords = () => {
+    const listСhoiceWords = generateRandomArray(
+      arrWords.length - 1,
+      indexSelectWord
+    ).map((n) => {
+      return Object.assign({ typeButton: "active" }, arrWords[n]);
+    });
+    setCallListChoiceWords(listСhoiceWords);
   };
 
-
-
-  const buttonChoseWord = (word) => {
-    if (props.levelGame.indexSelectWord > 19) {
-      return;
-    }
-
-    if (word !== props.selectWord.word) {
-
-      const arrTypesSelectWords = props.arrSelectWords.map((obj, index)=>{
-
-        if(obj.word == word){
-          obj.typeButton ='wrong'
-        } else {
-          obj.typeButton ='block'
-        }
-
-        return obj
-      })
-
-      console.log(arrTypesSelectWords)
-
-      const objectLevelMove = {
-        selectWord: props.levelArr[props.levelGame.indexSelectWord],
-        arrSelectWords: arrTypesSelectWords,
-        answer: false,
-      };
-      
-      props.setLevelMove(objectLevelMove);
-
-
-      const wrongWords = [...props.wrongWords, props.selectWord];
-      props.setAddWrongWord(wrongWords);
-    }
-
-    if (word === props.selectWord.word) {
-
-      const newArrSelectWords = props.arrSelectWords.map((obj, index)=>{
-        if(obj.word === word){
-          obj.typeButton ='correct'
-        } else {
-          obj.typeButton ='block'
-        }
-
-        return obj
-      })
-
-      console.log(newArrSelectWords)
-
-      const objectLevelMove = {
-        selectWord: props.levelArr[props.levelGame.indexSelectWord],
-        arrSelectWords: newArrSelectWords,
-        answer: true,
-      };
-      
-      props.setLevelMove(objectLevelMove);
-
-      const correctWords = [...props.correctWords, props.selectWord];
-      props.setAddCorrectWord(correctWords);
-    }
+  const buttonСhoiceLevel = async (group) => {
+    const arrWords = await getRequestWords(group);
+    const arrWordsData = arrWords.data.slice();
+    shuffleArray(arrWordsData);
+    setCallArrWords(arrWordsData);
+    setCallStartGame(true);
+    setCallIndexSelectWord(0);
   };
 
   const buttonNextWord = () => {
-    if (props.levelGame.indexSelectWord > 19) {
-      return;
-    }
+    setAnswer(false)
+    setCallIndexSelectWord(indexSelectWord + 1);
+  };
 
-    props.setIndexSelectWord({
-      indexSelectWord: props.levelGame.indexSelectWord + 1,
-    });
+  const buttonChoseWord = (obj) => {
+    setAnswer(true)
+    const funTypesSelectWords = (arr, word, type) => {
+      return arr.map((obj) => {
+        if (obj.word === word) {
+          obj.typeButton = type;
+        } else {
+          obj.typeButton = "block";
+        }
+        return obj;
+      });
+    };
+
+    if (obj.word === selectWord.word) {
+      setCallAddCorrectWord([...props.correctWords, props.selectWord]);
+      return setCallListChoiceWords(
+        funTypesSelectWords(listСhoiceWords, obj.word, "correct")
+      );
+    } else {
+      setCallAddWrongWord([...props.correctWords, selectWord]);
+      return setCallListChoiceWords(
+        funTypesSelectWords(listСhoiceWords, obj.word, "wrong")
+      );
+    }
   };
 
   const buttonEndGame = () => {
-    props.setStartGame(false);
-    props.setLevelMove({
-      selectWord: {},
-      arrSelectWords: [],
-      answer: null,
-    });
-    props.setIndexSelectWord({
-      indexSelectWord: 0,
-    });
-    props.setAddWrongWord([]);
-    props.setAddCorrectWord([]);
-  };
-
-  const handlerButtonStart = (group, page) => {
-    axios
-      .get(
-        `https://react-learn-words.herokuapp.com/words?group=${group}&page=${generateRandom(0, 29)}`
-      )
-      .then((res) => {
-        props.setLevelArr(res.data);
-      })
-      .then(() => props.setStartGame(true));
+    setCallStartGame(false);
+    setCallArrWords([]);
+    setCallIndexSelectWord(null);
+    setCallSelectWord({});
+    setCallListChoiceWords([]);
+    setCallAddWrongWord([]);
+    setCallAddCorrectWord([]);
   };
 
   return (
     <AudioCall
-      handlerButtonStart={handlerButtonStart}
-      levels={props.levels}
-      {...props}
-      funLevelMove={funLevelMove}
+      buttonСhoiceLevel={buttonСhoiceLevel}
       buttonChoseWord={buttonChoseWord}
       buttonNextWord={buttonNextWord}
       buttonEndGame={buttonEndGame}
+      arrWords={arrWords}
+      start={start}
+      selectWord={selectWord}
+      listСhoiceWords={listСhoiceWords}
+      indexSelectWord={indexSelectWord}
+      wrongWords={wrongWords}
+      correctWords={correctWords}
+      answer={answer}
     />
   );
 };
 
 let mapStateToProps = (state) => {
   return {
-    levels: state.audioCall.levelsGame,
-    start: state.audioCall.gameStart,
-    levelArr: state.audioCall.levelArr,
-    levelMove: state.audioCall.levelMove,
-    levelGame: state.audioCall.levelGame,
-    selectWord: state.audioCall.levelMove.selectWord,
+    start: state.audioCall.start,
+    arrWords: state.audioCall.arrWords,
+    indexSelectWord: state.audioCall.indexSelectWord,
+    selectWord: state.audioCall.selectWord,
+    listСhoiceWords: state.audioCall.listСhoiceWords,
     wrongWords: state.audioCall.levelResult.wrongWords,
     correctWords: state.audioCall.levelResult.correctWords,
-    arrSelectWords: state.audioCall.levelMove.arrSelectWords
+    answer: state.audioCall.answer
   };
 };
 
 export default connect(mapStateToProps, {
-  setStartGame,
-  setLevelArr,
-  setLevelMove,
-  setIndexSelectWord,
-  setAddWrongWord,
-  setAddCorrectWord,
+  setCallStartGame,
+  setCallArrWords,
+  setCallIndexSelectWord,
+  setCallSelectWord,
+  setCallListChoiceWords,
+  setCallAddWrongWord,
+  setCallAddCorrectWord,
+  setAnswer
 })(AudioCallContainer);

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
 import { setWordsInfo } from '../../../redux/savannahReducer/savannahReducer'
 import * as axios from 'axios'
 import Savannah from './Savannah';
 import LevelMenu from '../../UIKit/LevelMenu/LevelMenu'
+import putLearningWords from '../putLearningWords';
 
 const SavannahContainer = ({ ...props }) => {
     const [onLevelChoice, setOnLevelChoice] = useState(true)
@@ -13,9 +14,14 @@ const SavannahContainer = ({ ...props }) => {
         const randomPage = min - 0.5 + Math.random() * (max - min + 1);
         return Math.round(randomPage);
     }
-    // if(props.match.params.userGame) {
-
-    // }
+    useEffect(()=>{
+        if (props.match.params.userGame) {
+            props.setWordsInfo(props.userWords)
+            console.log(props.userWords)
+            setOnLevelChoice(false)
+            putLearningWords(props.userWords, props.user)
+        }
+    }, [])
 
     const getWordsInfo = (currentGroup) => {
         console.log(currentGroup)
@@ -27,26 +33,27 @@ const SavannahContainer = ({ ...props }) => {
                     wordTranslate: res.wordTranslate
                 }))
                 props.setWordsInfo(wordsInfo)
-                console.log(wordsInfo)
                 setOnLevelChoice(false)
             })
     }
     return (
         onLevelChoice ?
-            <LevelMenu funClickButton={getWordsInfo} />
-            :
-            (props.wordsInfo ?
+        <LevelMenu funClickButton={getWordsInfo} />
+        :
+        (props.wordsInfo ?
 
-                <Savannah
-                    wordsInfo={props.wordsInfo}
-                />
-                : null)
+            <Savannah
+                wordsInfo={props.wordsInfo}
+            />
+            : null)
     )
 }
 
 const mapStateToProps = (state) => {
     return {
         wordsInfo: state.savannah.wordsInfo,
+        userWords: state.book.userWords,
+        user: state.auth
     }
 }
 
