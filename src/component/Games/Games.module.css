@@ -4,6 +4,11 @@
     align-items: center;
 }
 
+.wrapper>h2 {
+    margin-top: 20px;
+    font-size: 48px;
+}
+
 .gamesContainer {
     max-width: 800px;
     display: flex;
@@ -29,8 +34,8 @@
     margin: 20px 0;
     padding: 10px;
     background-color: #fff;
-    justify-content: space-around;
-    min-height: 300px;
+    justify-content: flex-start;
+    min-height: 350px;
     box-shadow: 0 0 10px rgb(0 0 0 / 50%);
 }
 
@@ -38,7 +43,7 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    margin: 0 auto;
+    margin: 15px auto;
 }
 
 .gamePicture {
@@ -47,11 +52,15 @@
 }
 
 .gameDescription {
+    padding-top: 10px;
     display: flex;
     flex-direction: column;
+    border-top: 1px solid #551A8B;
+    width: 100%;
 }
 
 .gameName {
+    margin-bottom: 10px;
     font-size: 30px;
     text-align: center;
     color: #551A8B;
@@ -62,4 +71,43 @@
     color: #551A8B;
     text-align: center;
     line-height: 1.2;
+}
+
+@media (max-width: 900px) {
+    .gamesContainer {
+        max-width: 600px;
+    }
+    
+    .gameContainer {
+        min-height: 420px;
+    }
+}
+
+@media (max-width: 767px) {
+    .gameLink {
+        flex: 0 1 90%;
+    }
+
+    .gameIcon {
+        width: 180px;
+        height: 180px;
+    }
+
+    .gameName {
+        font-size: 36px;
+    }
+
+    .description {
+        font-size: 22px;
+    }
+
+    .gamesContainer {
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 450px) {
+    .gameContainer {
+        min-height: 480px;
+    }
 }
