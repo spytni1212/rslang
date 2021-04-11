@@ -1,18 +1,23 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
+
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import SchoolIcon from '@material-ui/icons/School';
 import DeleteIcon from '@material-ui/icons/Delete';
 import WarningIcon from '@material-ui/icons/Warning';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+
+import Modal from '../../UIKit/Modal/Modal'
+
+import SettingsContainer from '../Settings/SettingsContainer'
 import s from './BookNavigation.module.css'
 
 const useStyles = makeStyles({
     title: {
         fontFamily: "'Kiwi Maru', serif",
-        fontSize: '20px'
-
+        fontSize: '20px',
+        textAlign: 'center'
     },
     img: {
         width: '40px'
@@ -21,11 +26,15 @@ const useStyles = makeStyles({
         margin: '10px 0',
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'center',
         columnGap: '7px',
     },
     list: {
         fontSize: '16px',
-        listStyleType: 'none'
+        listStyleType: 'none',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
     },
     arrow: {
         width: '16px',
@@ -56,15 +65,29 @@ const BookNavigation = (props) => {
         )
     })
 
+     // start pop-up
+     const [open, setOpen] = React.useState(false);
+     const handleOpen = () => {
+         setOpen(true);
+     };
+     const handleClose = () => {
+         setOpen(false);
+     };
+     // end pop-up
+
     return (
         <div className={s.bookNavigation}>
+            <Modal
+                isOpen={open}
+                children={<SettingsContainer handleClose={handleClose} />}
+            />
             <div className={s.navigationContainer}>
                 <h3 className={classes.title}>Электронный учебник</h3>
                 <ul className={classes.list}>
                     {groups}
                 </ul>
                 <h3 className={classes.title}>Словарь</h3>
-                <Box>
+                <Box style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <Box className={classes.container}>
                         <SchoolIcon />
                         <NavLink to={`/book/learningWords`}>
@@ -85,19 +108,19 @@ const BookNavigation = (props) => {
                     </Box>
                 </Box>
                 <Box className={classes.container}>
-                    <NavLink to={`/book/settings`}>
-                        <h3 className={classes.title}>Настройки</h3>
-                    </NavLink>
+                    {/* <NavLink to={`/book/settings`}> */}
+                        <h3 className={classes.title} style={{cursor: 'pointer'}} onClick={handleOpen}>Настройки</h3>
+                    {/* </NavLink> */}
                 </Box>
                 {
                     props.isLogin ?
-                        <Box>
+                        <Box style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <NavLink to='/games/savannah/userGame'><button>Саванна</button></NavLink>
                             <NavLink to='/games/audioCall/userGame'><button>Аудиовызов</button></NavLink>
                             <NavLink to='/games/sprint/userGame'><button>Спринт</button></NavLink>
                             <NavLink to='/games/authorGame/userGame'><button>Авторская игра</button></NavLink>
                         </Box>
-                    : null
+                        : null
                 }
             </div>
         </div>
