@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SprintContainer from './SprintContainer';
 import LevelMenu from "../../UIKit/LevelMenu/LevelMenu";
 import { setSprintGameStart, setWordsInfo } from '../../../redux/sprint-reducer';
 import { connect } from 'react-redux';
 import * as axios from 'axios';
 import style from './Sprint.module.css';
+import putLearningWords from '../putLearningWords';
 
 const Sprint = (props) => {    
     const getRandomPage = () => {
@@ -14,18 +15,35 @@ const Sprint = (props) => {
         return Math.round(randomPage);
     }
 
+    useEffect(()=>{
+        if (props.match.params.userGame) {
+            putLearningWords(props.userWords, props.user);
+            shuffleArray(props.userWords)
+            props.setWordsInfo(props.userWords);
+            props.setSprintGameStart();
+        }
+    }, [])
+
     const handlerButtonStart = (wordsGroup = 1) => {
         axios.get(`https://react-learn-words.herokuapp.com/words?group=${wordsGroup}&page=${getRandomPage()}`)
             .then(response => {
                 const wordsInfo = response.data.map(res => ({
-                    id: res.id,
+                    _id: res.id,
                     word: res.word,
                     wordTranslate: res.wordTranslate
                 }));
+                shuffleArray(wordsInfo);
                 props.setWordsInfo(wordsInfo);
                 props.setSprintGameStart();
             })
             .catch(() => {alert('Упс... Что-то пошло не так!')});
+    }
+
+    const shuffleArray = array => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
     }
 
     return (
@@ -42,6 +60,8 @@ const Sprint = (props) => {
 const mapStateToProps = (state) => ({
     sprintGameStart: state.sprint.sprintGameStart,
     sprintGameEnd: state.sprint.sprintGameEnd,
+    userWords: state.book.userWords,
+    user: state.auth
 })
 
 const mapDispatchToProps = (dispatch) => ({
