@@ -29,7 +29,7 @@ const classes = useStyles()
 
 const content = [
     {
-        name: 'введите почту',
+        name: 'email',
         placeholder: 'введите почту'
     },
     {
