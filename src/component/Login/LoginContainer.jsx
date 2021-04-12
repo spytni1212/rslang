@@ -40,7 +40,7 @@ class LoginContainer extends React.Component {
     render() {
         return (
             <div>
-                <Login onSubmit={this.onSubmit}/>
+                <Login onSubmit={this.onSubmit} onClose={this.props.onClose} />
                 {this.state.isError ? 
                     <Alert severity="error">
                         <AlertTitle>Ошибка</AlertTitle>
