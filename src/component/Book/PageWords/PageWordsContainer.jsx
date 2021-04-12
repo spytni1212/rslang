@@ -67,6 +67,7 @@ class PageWordsContainer extends React.Component {
     }
 
     clickAudioHandler = (src) => {
+        console.log(src)
         let audio = new Audio();
         let current = 0;
         audio.src = src[0];
@@ -84,25 +85,23 @@ class PageWordsContainer extends React.Component {
     render() {
         return (
             <PageWords 
-            words={this.props.user.isLogin ? this.props.userWords : this.props.words}
-            totalUserCount={this.props.totalUserCount}
-            totalPages={this.props.totalPages}
-            wordsPerPage = {this.props.wordsPerPage}
-            currentPage = {this.props.currentPage}
-            onPageChanged={this.onPageChanged}
-            totalGroup={this.props.totalGroup}
-            currentGroup={this.props.currentGroup}
-            clickAudioHandler={this.clickAudioHandler}
-            deleteWordClickHandler={this.deleteWordClickHandler}
-            difficultWordClickHandler={this.difficultWordClickHandler}
-            settings={this.props.settings}
-            isLogin={this.props.user.isLogin}
-        />
-            
+                words={this.props.user.isLogin ? this.props.userWords : this.props.words}
+                totalUserCount={this.props.totalUserCount}
+                totalPages={this.props.totalPages}
+                wordsPerPage = {this.props.wordsPerPage}
+                currentPage = {this.props.currentPage}
+                onPageChanged={this.onPageChanged}
+                totalGroup={this.props.totalGroup}
+                currentGroup={this.props.currentGroup}
+                clickAudioHandler={this.clickAudioHandler}
+                deleteWordClickHandler={this.deleteWordClickHandler}
+                difficultWordClickHandler={this.difficultWordClickHandler}
+                settings={this.props.settings}
+                isLogin={this.props.user.isLogin}
+            />            
         )
     }
 }
-
 
 let mapStateToProps = (state) => {
     return {
@@ -118,6 +117,5 @@ let mapStateToProps = (state) => {
         settings: state.settings
     }
 }
-
 
 export default connect(mapStateToProps, {setWords, setUserWords, setCurrentPage, deleteWordInUserWords, setTotalUserCount})(PageWordsContainer)

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { userAggregatedWordsAPI, UserWordsAPI } from '../../../api/api'
 import { setDifficultWords, setTotalUserCount, setCurrentPage, removeDifficultWord } from '../../../redux/book-reducer';
 import DifficultWordsPage from './DifficultWordsPage';
-
 class DifficultWordsPageContainer extends React.Component {
 
     componentDidMount() {
@@ -16,10 +15,8 @@ class DifficultWordsPageContainer extends React.Component {
                         this.props.setTotalUserCount(0)
                     } else {
                         this.props.setDifficultWords(response.data[0].paginatedResults)
-                        console.log(response)
                         this.props.setTotalUserCount(response.data[0].totalCount[0].count)
                     }
-                    
                 })
         }
     }
@@ -34,7 +31,6 @@ class DifficultWordsPageContainer extends React.Component {
             this.props.setDifficultWords(response.data[0].paginatedResults)
             this.props.setTotalUserCount(response.data[0].totalCount[0].count)
         })
-        
     }
 
     removeWordClickHandler = (wordId) => {

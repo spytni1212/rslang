@@ -16,7 +16,6 @@ class DeleteWordsPageContainer extends React.Component {
                         this.props.setTotalUserCount(0)
                     } else {
                         this.props.setDeleteWords(response.data[0].paginatedResults)
-                        console.log(response)
                         this.props.setTotalUserCount(response.data[0].totalCount[0].count)
                     }                    
                 })

@@ -17,12 +17,10 @@ class LearningWordsContainer extends React.Component {
                     }           
                 })
                 .then(response => {
-                    console.log(response)
                     if (response.data[0].totalCount.length === 0) {
                         this.props.setTotalUserCount(0)
                     } else {
                         this.props.setLearningWords(response.data[0].paginatedResults)
-                        console.log(response)
                         this.props.setTotalUserCount(response.data[0].totalCount[0].count)
                     }
                     
