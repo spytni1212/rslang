@@ -1,11 +1,16 @@
 .bookNavigation {
     display: flex;
+    margin-top:1em;
 }
 .navigationContainer {
     width: fit-content;
-    padding:10px;
+    height: fit-content;
+    padding:15px 20px;
     display: flex;
     flex-direction: column;
+    background: #f9eaf2;
+    border-radius: 20px;
+    border: 1px solid #ddccd4;
 }
 
 .circle {
