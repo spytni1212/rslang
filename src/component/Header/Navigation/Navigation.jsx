@@ -5,7 +5,7 @@ import TimelineIcon from '@material-ui/icons/Timeline';
 import NavigationButton from './NavigationButton'
 import s from './Navigation.module.css'
 
-const Navigation = () => {
+const Navigation = (props) => {
     const navData = [
         {
             name: "Учебник",
@@ -25,10 +25,10 @@ const Navigation = () => {
     ]
 
     return (
-        <div>
+        <div className={s.navigationWrapper}>
             <nav className={s.navigation}>
                 {navData.map((navDatum) => {
-                    return <NavigationButton navDatum={navDatum} />
+                    return <NavigationButton navDatum={navDatum} toggleDrawer={props.toggleDrawer} />
                 })}
             </nav>
         </div>

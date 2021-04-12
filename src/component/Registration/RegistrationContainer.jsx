@@ -1,29 +1,61 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as axios from 'axios'
+import { Alert, AlertTitle } from '@material-ui/lab';
+import { authAPI } from '../../api/api'
 import { setUserData } from '../../redux/auth-reducer';
 import Registration from './Registration'
 
 class RegistrationContainer extends React.Component {
 
-    onSubmit = (RegistrationData) => {
-        axios.post(`https://react-learn-words.herokuapp.com/users`, RegistrationData)
+    state = {
+        isAuth: false,
+        isError: false,
+        errorMessage: ''
+    }
+
+    onSubmit = (registrationData) => {
+        authAPI.registration(registrationData)
         .then(response => {
-            debugger
-            let { email, id, name } = response.data;
-            this.props.setUserData(email, id, name)
             console.log(response)
+            this.setIsAuth()
         })
         .catch(err => {
             if (err.response.status === 417) {
-                console.log('пользователь с таким адресом электронной почты уже существует')
+                this.setErrorMessage('пользователь с таким адресом электронной почты уже существует')
+            } else if (err.response.status === 422) {
+                this.setErrorMessage('неверно указан адрес электронной почты или пароль')
             }
         })
     }
 
+    setErrorMessage = (message) => {
+        this.setState({errorMessage: message, isError: true})
+    }
+
+    setIsAuth = () => {
+        this.setState({isAuth: true, isError: false})
+    }
+
     render() {
         return (
-            <Registration onSubmit={this.onSubmit}/>
+            <div>
+                <Registration onSubmit={this.onSubmit} onClose={this.props.onClose} />
+                {this.state.isError ? 
+                    <Alert severity="error">
+                        <AlertTitle>Ошибка</AlertTitle>
+                        {this.state.errorMessage}
+                    </Alert>
+                : null 
+                }
+                {this.state.isAuth ?
+                    <Alert severity="success">
+                        <AlertTitle>Успешно</AlertTitle>
+                        Вы успешно зарегистрировались, теперь необходимо войти в аккаунт
+                    </Alert>
+                : null
+                }
+            </div>
+            
         )
     }
 

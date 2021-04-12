@@ -1,0 +1,80 @@
+.finalScore {
+    margin-top: 10px; 
+    font-size: 48px;
+}
+
+.knowWords {
+    font-size: 30px;
+    color: #00ff00;
+}
+
+.unknowWords {
+    font-size: 30px;
+    color: #ff0000;
+}
+
+.resultTable {
+    margin: 10px auto;
+}
+
+.resultTable td {
+    padding: 0 20px;
+    font-size: 24px;
+    width: 0%;
+    text-align: center;
+}
+
+.resultTable td:nth-child(4) {
+    width: 30%;
+}
+
+.beginAgainButton {
+    margin: 20px 0;
+    font-size: 36px;
+    border-radius: 15px;
+    background-color: #bea6d09e;
+    outline: none;
+}
+
+.beginAgainButton:hover {
+    cursor: pointer;
+    background-color: #b790a4;
+    box-shadow: 2px 2px 7px 2px #b4b4c7;    
+}
+
+.beginAgainButton:active {
+    border: none;
+    background-color: #fdf3f7;
+    color: #551A8B;
+}
+
+@media (max-width: 1000px) {
+    .resultTable td {
+        padding: 0 10px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 767px) {
+    .finalScore {
+        font-size: 30px;
+    }
+
+    .knowWords, .unknowWords {
+        font-size: 22px;
+    }
+
+    .resultTable td:nth-child(4) {
+        width: 15%;
+    }
+
+    .resultTable td {
+        padding: 0 5px;
+        font-size: 14px;
+    }
+
+    .beginAgainButton {
+        margin: 10px 10px;
+        font-size: 30px;
+    }
+}

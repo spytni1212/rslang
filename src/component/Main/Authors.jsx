@@ -5,28 +5,28 @@ const Authors = () => {
     const info = {
         dev1: {
             name: 'Артём',
-            photo: './img/Artem.jpg',
+            photo: './img/Authors/Artem.jpg',
             position: 'Teamlead',
             contribution: '- Координация и мотивация команды;  - Разработка электронного учебника со словарем;  - Разработка регистрации на сайте.',
             gitHubLink: 'https://github.com/spytni1212'
         },
         dev2: {
             name: 'Екатерина',
-            photo: './img/Ekaterina.jpg',
+            photo: './img/Authors/Ekaterina.jpg',
             position: 'Developer',
             contribution: '- Разработка игры Savanna;  - Стилизация проекта.',
             gitHubLink: 'https://github.com/katerinafedotova'
         },
         dev3: {
             name: 'Максим',
-            photo: './img/Max.jpg',
+            photo: './img/Authors/Max.jpg',
             position: 'Developer',
             contribution: '- Разработка игры AudioCall;  - Разработка игры Своя игра.',
             gitHubLink: 'https://github.com/ratomsky'
         },
         dev4: {
             name: 'Владислав',
-            photo: './img/Vlad.jpg',
+            photo: './img/Authors/Vlad.jpg',
             position: 'Developer',
             contribution: '- Разработка игры Sprint;  - Реализация раздела "О команде".',
             gitHubLink: 'https://github.com/VladMeleshko'

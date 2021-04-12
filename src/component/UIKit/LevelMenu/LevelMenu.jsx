@@ -37,7 +37,7 @@ const useStyles = makeStyles({
     icon: {
         marginRight: '10px'
     }
-});
+    });
 
 const getlevelPosition = (level) => {
     if (level === 0 || level === 4) {
@@ -72,4 +72,5 @@ const LevelMenu = ({ funClickButton }) => {
         </Box>
     )
 }
+
 export default LevelMenu;

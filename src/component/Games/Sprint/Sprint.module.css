@@ -1,6 +1,6 @@
 .mainPage {
-    margin: 0 auto;
-    width: 500px;
+    margin: 0 auto 20px;
+    max-width: 500px;
     background-color: #fff;
     display: flex;
     justify-content: center;

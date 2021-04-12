@@ -67,7 +67,7 @@
     font-family: 'Times New Roman', Times, serif;
     font-size: 36px;
     background-color: white;
-    flex: 0 1 50%;
+    flex: 0 1 40%;
 }
 
 .answerButtons {
@@ -116,4 +116,28 @@
 .wrongButton:active {
     color: #ff0000;
     background-color: #e00606;
+}
+
+@media (max-width: 390px) {
+    .comparedWords {
+        flex-direction: column;
+    }
+
+    .comparedWords>p {
+        font-size: 30px;
+    }
+
+    .answerButtons {
+        margin: 0 auto;
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .correctButton, .wrongButton {
+        margin: 10px 0px;
+    }
+
+    .points {
+        font-size: 30px;
+    }
 }

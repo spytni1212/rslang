@@ -1,4 +1,4 @@
-.pageContainer {
+.pageContainer {    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,70 +7,8 @@
 
 .wordsContainer {
     margin: 0 auto;
-    overflow-y: scroll;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     row-gap: 20px;
-}
-
-.wordContainer {
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 2px solid black;
-}
-
-.wordImage {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.wordDescription {
-    display: flex;
-    flex-direction: column;
-}
-
-.wordTranscription {
-    margin: auto;
-    display: flex;
-    align-items: center;
-}
-
-.audioButton {
-    text-decoration: none;
-}
-
-.paginationContainer {
-    margin: 10px 0 5px;
-    display: flex;
-    column-gap: 5px;
-}
-
-.pageNumberContainer {
-    display: flex;
-    flex-direction: column;
-}
-
-.page {
-    padding: 0 3px;
-    cursor: pointer;
-}
-
-.page:hover {
-    background-color: rgb(161, 159, 160);
-}
-
-.currentPage {
-    background-color: rgb(161, 159, 160);
-}
-
-.buttonsContainer {
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
 }

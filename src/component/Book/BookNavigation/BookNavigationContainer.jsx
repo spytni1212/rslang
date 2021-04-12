@@ -1,5 +1,5 @@
 import React from 'react';
-import * as axios from 'axios';
+import { wordsAPI, userAggregatedWordsAPI } from '../../../api/api'
 import { connect } from 'react-redux';
 import {setCurrentGroup, setWords, setUserWords, setTotalUserCount, setCurrentPage} from '../../../redux/book-reducer'
 import BookNavigation from './BookNavigation'
@@ -14,22 +14,16 @@ class BookNavigationContainer extends React.Component {
         let currentGroup = groupNumber - 1
         let currentPage = pageNumber - 1
 
+        let filter = {"userWord.optional.delete":{"$not": {"$eq": true}}}        
+
         if(this.props.user.isLogin) {
-            axios.get(`https://react-learn-words.herokuapp.com/users/${this.props.user.userId}/aggregatedWords`,{
-                headers: {'Authorization': `Bearer ${this.props.user.token}`},
-                params: { 
-                    group: currentGroup,
-                    page: currentPage,
-                    wordsPerPage: 20,
-                    filter: {"userWord.optional.delete":{"$not": {"$eq": true}}}
-                }           
-            })
+            userAggregatedWordsAPI.getAllUserAggregatedWords(this.props.user.userId, this.props.user.token, currentGroup, currentPage, filter)
             .then(response => {
                 this.props.setUserWords(response.data[0].paginatedResults)
                 this.props.setTotalUserCount(response.data[0].totalCount[0].count)
             })
         } else {
-            axios.get(`https://react-learn-words.herokuapp.com/words?group=${currentGroup}&page=${currentPage}`)
+            wordsAPI.getWords(currentGroup, currentPage)
             .then(response => {
                this.props.setWords(response.data)           
             })
@@ -42,10 +36,11 @@ class BookNavigationContainer extends React.Component {
                 totalGroup={this.props.totalGroup}
                 currentGroup={this.props.currentGroup}
                 onGroupChanged={this.onGroupChanged}
+                difficultColor={this.props.difficultColor}
+                isLogin={this.props.user.isLogin}
             />
         )
     }
-
 }
 
 let mapStateToProps = (state) => {
@@ -53,7 +48,8 @@ let mapStateToProps = (state) => {
         totalGroup: state.book.totalGroup,
         currentGroup: state.book.currentGroup,
         currentPage: state.book.currentPage,
-        user: state.auth
+        user: state.auth,
+        difficultColor: state.book.difficultColor
     }
 }
 
