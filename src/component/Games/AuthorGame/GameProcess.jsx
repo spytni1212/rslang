@@ -17,6 +17,7 @@ const GameProcess = ({ ...props }) => {
         <br />
         {Boards.BoardWords.items.length !== 0 && <BoardsC Boards={Boards} changeBoards={changeBoards}/>}
         {selectWord.textExample}
+        <button onClick={buttonNextWord}>Проверить</button>
         <button onClick={buttonNextWord}>Дальше</button>
       </div>
     </div>

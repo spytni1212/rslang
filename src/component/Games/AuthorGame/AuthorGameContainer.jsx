@@ -74,10 +74,8 @@ const AuthorGameContainer = (props) => {
   }
 
   const changeBoards = (obj) => {
-    
     const copyObj = Object.assign({}, obj);
     compostSentence(obj.Requested.items)
-    // setBords(copyObj)
   }
 
   return (

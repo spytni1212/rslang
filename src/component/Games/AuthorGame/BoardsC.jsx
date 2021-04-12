@@ -71,12 +71,10 @@ function BoardsC({ Boards, changeBoards}) {
   }, [Boards])
 
   useEffect(() => {
-    // if (columns.BoardWords.items.length === 0) {
-    //   changeBoards(columns)
-    //   return 
-    // }
-    
-    changeBoards(columns)
+    if (columns.BoardWords.items.length === 0) {
+      changeBoards(columns)
+      return 
+    }
   }, [columns])
 
   const clickButton = (id) => {
