@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import s from '../Registration/RegistrationForm.module.css'
 
 const LoginForm = (props) => {
+    console.log(props)
     return (
         <Form
             onSubmit={props.onSubmit}

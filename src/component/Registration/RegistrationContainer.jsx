@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Alert, AlertTitle } from '@material-ui/lab';
-import * as axios from 'axios'
+import { authAPI } from '../../api/api'
 import { setUserData } from '../../redux/auth-reducer';
 import Registration from './Registration'
 
@@ -13,8 +13,8 @@ class RegistrationContainer extends React.Component {
         errorMessage: ''
     }
 
-    onSubmit = (RegistrationData) => {
-        axios.post(`https://react-learn-words.herokuapp.com/users`, RegistrationData)
+    onSubmit = (registrationData) => {
+        authAPI.registration(registrationData)
         .then(response => {
             console.log(response)
             this.setIsAuth()
