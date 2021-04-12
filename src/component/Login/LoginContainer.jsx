@@ -25,6 +25,7 @@ class LoginContainer extends React.Component {
         .catch(err => {
             if (err.response.status === 404) {
                 this.setErrorMessage('пользователь с таким адресом электронной почты не найден')
+                console.log(err.response)
             } else if (err.response.status === 403) {
                 this.setErrorMessage('не верно указан пароль')
             }

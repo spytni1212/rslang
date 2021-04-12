@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Field } from 'react-final-form'
 
 const LoginForm = (props) => {
+    console.log(props)
     return (
         <Form
             onSubmit={props.onSubmit}
