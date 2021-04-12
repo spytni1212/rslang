@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Switch from '@material-ui/core/Switch';
 import { setIsShowTranslate, setIsShowButtons } from '../../../redux/settings-reducer'
 import s from './Settings.module.css'
+import { Button } from '@material-ui/core';
 
 const SettingsContainer = (props) => {
 
@@ -44,6 +45,12 @@ const SettingsContainer = (props) => {
                     />
                 </div>
             </div>
+            <Button  
+                variant="contained"
+                color="primary" 
+                onClick={props.handleClose}
+            >OK
+            </Button>
         </div>
     )
 }
