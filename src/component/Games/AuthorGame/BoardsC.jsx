@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import _ from "lodash";
 
-const onDragEnd = (result, columns, setColumns) => {
+const onDragEnd = (result, columns, setColumns, colorBoard) => {
   if (!result.destination) return;
   const { source, destination } = result;
 
@@ -16,12 +17,12 @@ const onDragEnd = (result, columns, setColumns) => {
       ...columns,
       [source.droppableId]: {
         ...sourceColumn,
-        items: sourceItems
+        items: sourceItems,
       },
       [destination.droppableId]: {
         ...destColumn,
-        items: destItems
-      }
+        items: destItems,
+      },
     });
   } else {
     const column = columns[source.droppableId];
@@ -32,140 +33,165 @@ const onDragEnd = (result, columns, setColumns) => {
       ...columns,
       [source.droppableId]: {
         ...column,
-        items: copiedItems
-      }
+        items: copiedItems,
+      },
     });
   }
 };
 
 const grid = 8;
 
-const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
-  height: '100px',
-  width: '100%',
-  display: 'flex',
+const getListStyle = (isDraggingOver, colorBoard) => ({
+  background: isDraggingOver ? "lightblue" : "lightgrey",
+  // border: `1px solid ${colorBoard}`,
+  height: "60px",
+  width: "100%",
+  display: "flex",
   padding: grid,
-  overflow: 'auto',
+  overflow: "auto",
+  // outline: "2px solid black",
+  borderRadius: "20px"
+});
 
+const getListWordStyle = (isDraggingOver) => ({
+  background: "none",
+  height: "60px",
+  width: "100%",
+  display: "flex",
+  padding: grid,
+  overflow: "auto",
 });
 
 const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: 'none',
-  padding: grid * 2,
-  margin: `0 ${grid}px 0 0`,
-
-  // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
-
-  // styles we need to apply on draggables
+  padding: "0.8em",
+  // background: "#f3d7e6",
+  boxShadow: "2px 2px 7px 2px #b4b4c7",
+  border: "2px #0000002b solid",
+  borderRadius: "10px",
+  outline: "none",
+  cursor: "pointer",
+  transform: "scaleY(1.2)",
+  background: isDragging ? "lightgreen" : "#f3d7e6",
+  
   ...draggableStyle,
 });
 
-function BoardsC({ Boards, changeBoards}) {
+function BoardsC({ Boards, changeBoards, colorBoard, setButtonCheck}) {
   const [columns, setColumns] = useState(Boards);
 
   useEffect(() => {
-    setColumns(Boards)
-  }, [Boards])
+    setColumns(Boards);
+  }, [Boards]);
 
   useEffect(() => {
     if (columns.BoardWords.items.length === 0) {
-      changeBoards(columns)
-      return 
+      changeBoards(columns);
+      return;
+    } else {
+      setButtonCheck(false)
     }
-  }, [columns])
+  }, [columns]);
 
-  const clickButton = (id) => {
-    console.log('click')
-    // const copyColumns = Object.assign({}, columns);
-    // const findBordsWords = copyColumns.BoardWords.items.map((obj, index, array) => {
-    //   if (obj.id === id) {
-    //     return array.splice(index, 1);
-    //   }
-    //   return obj
-    // })
-    // console.log(findBordsWords)
-    // console.log(copyColumns)
-  }
+  const clickButton = (item) => {
+    const RequestedItems = _.cloneDeep(columns.Requested.items);
+    const BoardWordsItems = _.cloneDeep(columns.BoardWords.items);
+
+    const haveItemBoardWords = BoardWordsItems.map((x) => {
+      return x.id;
+    }).indexOf(item.id);
+    console.log(BoardWordsItems.map((x) => {
+      return x.id;
+    }).indexOf(item.id))
+    const haveRequestedItems = RequestedItems.map((x) => x.id).indexOf(item.id);
+
+    if (haveItemBoardWords > -1) {
+      BoardWordsItems.splice(haveItemBoardWords, 1);
+      RequestedItems.push(item);
+    } else if (haveRequestedItems !== -1) {
+      RequestedItems.splice(haveRequestedItems, 1);
+      BoardWordsItems.push(item);
+    }
+
+    setColumns({
+      ...columns,
+      BoardWords: { ...columns.BoardWords, items: BoardWordsItems },
+      Requested: { ...columns.Requested, items: RequestedItems },
+    });
+  };
 
   return (
-    <>
-      <div style={{ height: "100%" }}>
-        Общая
-<DragDropContext
-          onDragEnd={result => onDragEnd(result, columns, setColumns)}
-        >
-          {Object.entries(columns).map(([columnId, column], index) => {
-            return (
-              <div
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
+    <div style={{ height: "100%", width: "100%" }}>
+      <DragDropContext
+        onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+      >
+        {Object.entries(columns).map(([columnId, column], index) => {
+          return (
+            <div
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
 
-                  height: '100%'
-                }}
-                key={columnId}
-              >
-                <h2>{column.name}</h2>
-                <div style={{ margin: 8 }}>
-                  <Droppable droppableId={columnId} key={columnId} direction="horizontal">
-                    {(provided, snapshot) => {
-                      return (
-                        <div
-                          {...provided.droppableProps}
-                          ref={provided.innerRef}
-                          style={getListStyle(snapshot.isDraggingOver)}
-                        >
-                          {column.items.map((item, index) => {
-                            return (
-                              <Draggable
-                                key={item.id}
-                                draggableId={item.id}
-                                index={index}
-                              >
-                                {(provided, snapshot) => {
-                                  return (
-                                    <>
-                                      <div
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                        style={{
-                                          padding: "0.8em",
-                                          background: "#f3d7e6",
-                                          boxShadow: "2px 2px 7px 2px #b4b4c7",
-                                          border: "2px #0000002b solid",
-                                          borderRadius: "10px",
-                                          outline: "none",
-                                          cursor: "pointer",
-                                          ...provided.draggableProps.style
-                                        }}
-                                        onClick={() => { clickButton(item.id) }}
-                                      >
-                                        {item.content}
-                                      </div>
-                                    </>
-                                  );
-                                }}
-                              </Draggable>
-                            );
-                          })}
-                          {provided.placeholder}
-                        </div>
-                      );
-                    }}
-                  </Droppable>
-                </div>
+                height: "100%",
+              }}
+              key={columnId}
+            >
+              <h4>{column.name}</h4>
+              <div style={{ margin: 8 }}>
+                <Droppable
+                  droppableId={columnId}
+                  key={columnId}
+                  direction="horizontal"
+                >
+                  {(provided, snapshot) => {
+                    return (
+                      <div
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                        style={
+                          column.style === "requested"
+                            ? getListStyle(snapshot.isDraggingOver, colorBoard)
+                            : getListWordStyle(snapshot.isDraggingOver)
+                        }
+                      >
+                        {column.items.map((item, index) => {
+                          return (
+                            <Draggable
+                              key={item.id}
+                              draggableId={item.id}
+                              index={index}
+                            >
+                              {(provided, snapshot) => {
+                                return (
+                                  <>
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                      style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+                                      onClick={() => {
+                                        clickButton(item);
+                                      }}
+                                    >
+                                      {item.content}
+                                    </div>
+                                  </>
+                                );
+                              }}
+                            </Draggable>
+                          );
+                        })}
+                        {provided.placeholder}
+                      </div>
+                    );
+                  }}
+                </Droppable>
               </div>
-            );
-          })}
-        </DragDropContext>
-      </div>
-    </>
-  )
+            </div>
+          );
+        })}
+      </DragDropContext>
+    </div>
+  );
 }
 
 export default BoardsC;
-
