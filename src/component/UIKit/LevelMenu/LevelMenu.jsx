@@ -11,7 +11,11 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         alignItems: 'center',
         width: '500px',
-        margin: '0 auto'
+        margin: '0 auto',
+        maxWidth: '500px',
+        backgroundColor: '#fff',
+        borderRadius: '20px',
+        boxShadow: '2px 2px 7px 2px #b4b4c7'
     },
     title: {
         marginBottom: '1.2em',
@@ -55,7 +59,6 @@ const LevelMenu = ({ funClickButton }) => {
 
     return (
         <Box className={classes.levelsContainer} p={3}>
-            <h3 className={classes.title}>Выбери уровень сложности </h3>
             {arrLevels.map((level, index) => {
                 return (
                     <Box

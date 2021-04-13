@@ -2,11 +2,17 @@ import React from 'react';
 import SchoolIcon from '@material-ui/icons/School';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import TimelineIcon from '@material-ui/icons/Timeline';
+import HomeIcon from '@material-ui/icons/Home';
 import NavigationButton from './NavigationButton'
 import s from './Navigation.module.css'
 
 const Navigation = (props) => {
     const navData = [
+        {
+            name: "Главная",
+            icon: <HomeIcon style={{ color: '#414954' }} />,
+            link: ""
+        },
         {
             name: "Учебник",
             icon: <SchoolIcon style={{ color: '#414954' }} />,
