@@ -5,6 +5,7 @@ import * as axios from 'axios'
 import Savannah from './Savannah';
 import LevelMenu from '../../UIKit/LevelMenu/LevelMenu'
 import putLearningWords from '../putLearningWords';
+import s from '../style.module.css'
 
 const SavannahContainer = ({ ...props }) => {
     const [onLevelChoice, setOnLevelChoice] = useState(true)
@@ -14,7 +15,7 @@ const SavannahContainer = ({ ...props }) => {
         const randomPage = min - 0.5 + Math.random() * (max - min + 1);
         return Math.round(randomPage);
     }
-    useEffect(()=>{
+    useEffect(() => {
         if (props.match.params.userGame) {
             props.setWordsInfo(props.userWords)
             console.log(props.userWords)
@@ -38,14 +39,17 @@ const SavannahContainer = ({ ...props }) => {
     }
     return (
         onLevelChoice ?
-        <LevelMenu funClickButton={getWordsInfo} />
-        :
-        (props.wordsInfo ?
+            <>
+                <h2 className={s.levelsTitle}>Саванна</h2>
+                <LevelMenu funClickButton={getWordsInfo} />
+            </>
+            :
+            (props.wordsInfo ?
 
-            <Savannah
-                wordsInfo={props.wordsInfo}
-            />
-            : null)
+                <Savannah
+                    wordsInfo={props.wordsInfo}
+                />
+                : null)
     )
 }
 

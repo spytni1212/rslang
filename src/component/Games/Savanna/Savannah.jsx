@@ -11,15 +11,51 @@ import EndOfGame from './EndOfGame';
 import showNewWords from './showNewWords'
 
 const useStyles = makeStyles({
+    bgContainer: {
+        position: 'absolute',
+        top: '0',
+        bottom: '0',
+        right: '0',
+        left: '0',
+        "&::before": {
+            content: '""',
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(/img/Games/savannah.jpeg)',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            opacity: '0.5',
+            position: 'absolute',
+            top: '0',
+            bottom: '0',
+            right: '0',
+            left: '0',
+        }
+    },
     container: {
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        zIndex: '10',
+        '& h3, & div, & button': {
+            zIndex: '10',
+        }
     },
+    // bg: {
+    //     position: 'absolute',
+    //     top: '0',
+    //     bottom: '0',
+    //     right: '0',
+    //     left: '0',
+    //     backgroundImage: 'linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(/img/Games/savannah.jpeg)',
+    //     backgroundSize: 'cover',
+    //     backgroundRepeat: 'no-repeat',
+    //     backgroundPosition: 'center',
+    //     // opacity: '0.5'
+    // },
     gameContainer: {
         display: 'flex',
         justifyContent: 'center',
+        alignItems: 'center',
         columnGap: '1em',
         rowGap: '1em',
         flexWrap: 'wrap'
@@ -44,15 +80,17 @@ const useStyles = makeStyles({
         cursor: 'pointer',
         "&:hover": {
             transform: 'scale(1.1)'
-        }
+        },
     },
     correct: {
         borderColor: '#1f841f',
-        background: '#97e697'
+        background: '#97e697',
+        color: `black`
     },
     wrong: {
         borderColor: '#e00606',
-        background: '#de8d8d'
+        background: '#de8d8d',
+        color: `black`
     }
 });
 
@@ -66,7 +104,6 @@ let randomNumbersArray = getRandomNumbers();
 const Savannah = (props) => {
     const classes = useStyles()
     const history = useHistory();
-    console.log({ props })
     const wordsInfo = props.wordsInfo
     let wordToCheck, translationToCheck;
 
@@ -115,36 +152,38 @@ const Savannah = (props) => {
         }
     }
     return (
-        <Box className={classes.container} p={3}>
-            <Modal
-                isOpen={open}
-                children={<EndOfGame points={points} handleClose={handleClose} />}
-            />
-            <ProgressBar number={step} />
-            <h3 className={classes.title}> Выбери верный перевод слова "{wordToCheck}" </h3>
-            <Box className={classes.gameContainer} mb={4} ref={buttonsContainer}>
-                {randomNumbersArray.map((randomNumber, index) => {
-                    return (
-                        <button
-                            key={index}
-                            className={classes.word}
-                            data-id={wordsArray[randomNumber].wordTranslate}
-                            onClick={handleCheck}
-                            disabled={!buttonDisabled}
-                        >
-                            {wordsArray[randomNumber].wordTranslate}
-                        </button>
-                    )
-                })}
+        <Box className={classes.bgContainer} p={3}>
+            <Box className={classes.container}>
+                <ProgressBar number={step} />
+                <h3 className={classes.title}> Выбери верный перевод слова "{wordToCheck}" </h3>
+                <Box className={classes.gameContainer} mb={4} ref={buttonsContainer}>
+                    {randomNumbersArray.map((randomNumber, index) => {
+                        return (
+                            <button
+                                key={index}
+                                className={classes.word}
+                                data-id={wordsArray[randomNumber].wordTranslate}
+                                onClick={handleCheck}
+                                disabled={!buttonDisabled}
+                            >
+                                {index + 1}. {wordsArray[randomNumber].wordTranslate}
+                            </button>
+                        )
+                    })}
+                </Box>
+                <Button
+                    variant="contained"
+                    className={classes.checkButton}
+                    disabled={buttonDisabled}
+                    onClick={handleNext}
+                >
+                    Продолжить
+                </Button>
             </Box>
-            <Button
-                variant="contained"
-                className={classes.checkButton}
-                disabled={buttonDisabled}
-                onClick={handleNext}
-            >
-                Продолжить
-            </Button>
+            <Modal
+                    isOpen={open}
+                    children={<EndOfGame points={points} handleClose={handleClose} />}
+                />
         </Box>
     )
 }

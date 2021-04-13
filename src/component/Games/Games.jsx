@@ -33,7 +33,6 @@ const Games = () => {
     return (
         <div>
             <div className={`wrapper ${s.wrapper}`}>
-               <h2>ПОИГРАЕМ?</h2>
                <div className={s.gamesContainer}>
                     {[0, 1, 2, 3].map(i => {
                         return (
