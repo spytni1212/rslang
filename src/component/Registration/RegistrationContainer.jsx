@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Alert, AlertTitle } from '@material-ui/lab';
-import * as axios from 'axios'
+import { authAPI } from '../../api/api'
 import { setUserData } from '../../redux/auth-reducer';
 import Registration from './Registration'
 
@@ -13,8 +13,8 @@ class RegistrationContainer extends React.Component {
         errorMessage: ''
     }
 
-    onSubmit = (RegistrationData) => {
-        axios.post(`https://react-learn-words.herokuapp.com/users`, RegistrationData)
+    onSubmit = (registrationData) => {
+        authAPI.registration(registrationData)
         .then(response => {
             console.log(response)
             this.setIsAuth()
@@ -23,7 +23,7 @@ class RegistrationContainer extends React.Component {
             if (err.response.status === 417) {
                 this.setErrorMessage('пользователь с таким адресом электронной почты уже существует')
             } else if (err.response.status === 422) {
-                this.setErrorMessage('не верно указан адрес электронной почты или пароль')
+                this.setErrorMessage('неверно указан адрес электронной почты или пароль')
             }
         })
     }
@@ -39,7 +39,7 @@ class RegistrationContainer extends React.Component {
     render() {
         return (
             <div>
-                <Registration onSubmit={this.onSubmit}/>
+                <Registration onSubmit={this.onSubmit} onClose={this.props.onClose} />
                 {this.state.isError ? 
                     <Alert severity="error">
                         <AlertTitle>Ошибка</AlertTitle>

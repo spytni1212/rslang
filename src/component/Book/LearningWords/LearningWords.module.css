@@ -1,4 +1,5 @@
-.pageContainer {    
+.pageContainer {
+    flex-basis: 85%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,80 +8,10 @@
 
 .wordsContainer {
     margin: 0 auto;
-    overflow-y: scroll;
+    padding: 10px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     row-gap: 20px;
-}
-
-.wordContainer {
-    position: relative;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 2px solid black;
-}
-
-.wordImage {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.wordDescription {
-    display: flex;
-    flex-direction: column;
-}
-
-.wordTranscription {
-    margin: auto;
-    display: flex;
-    align-items: center;
-}
-
-.audioButton {
-    text-decoration: none;
-}
-
-.paginationContainer {
-    margin: 10px 0 5px;
-    display: flex;
-    column-gap: 5px;
-}
-
-.pageNumberContainer {
-    display: flex;
-    flex-direction: column;
-}
-
-.page {
-    padding: 0 3px;
-    cursor: pointer;
-}
-
-.page:hover {
-    background-color: rgb(161, 159, 160);
-}
-
-.currentPage {
-    background-color: rgb(161, 159, 160);
-}
-
-.buttonsContainer {
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-}
-
-.circle {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
+    column-gap: 15px;
 }
