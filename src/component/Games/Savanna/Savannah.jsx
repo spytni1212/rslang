@@ -36,7 +36,7 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         alignItems: 'center',
         zIndex: '10',
-        '& h3, & div, & button': {
+        '& h2, & div, & button': {
             zIndex: '10',
         }
     },
@@ -54,6 +54,7 @@ const useStyles = makeStyles({
     checkButton: {
         margin: '0 auto',
         background: '#d69eadf5',
+        fontSize: '16px',
         "&:hover": {
             background: '#d69eadf !important'
         }
@@ -65,6 +66,7 @@ const useStyles = makeStyles({
         border: '2px #0000002b solid',
         borderRadius: '10px',
         outline: 'none',
+        fontSize: '16px',
         cursor: 'pointer',
         "&:hover": {
             transform: 'scale(1.1)'
@@ -189,7 +191,7 @@ const Savannah = (props) => {
         <Box className={classes.bgContainer} p={3}>
             <Box className={classes.container}>
                 <ProgressBar number={step} />
-                <h3 className={classes.title}> Выбери верный перевод слова "{wordToCheck}" </h3>
+                <h2 className={classes.title}> Выбери верный перевод слова "{wordToCheck}" </h2>
                 <Box className={classes.gameContainer} mb={4} ref={buttonsContainer}>
                     {randomNumbersArray.map((randomNumber, index) => {
                         return (

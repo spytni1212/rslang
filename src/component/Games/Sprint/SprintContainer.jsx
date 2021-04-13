@@ -189,7 +189,7 @@ class SprintContainer extends Component {
                 </div>
                 <div className={style.timer}>{this.state.timeLeft}</div>
                 <div className={style.scoreInfo}>
-                    <p className={style.score}>Счет: {this.state.score}</p>
+                    <h2 className={style.score}>Счет: {this.state.score}</h2>
                     <p className={style.points}>+{this.state.points} за правильный ответ</p>
                     <ul ref={this.getListRef} className={style.answersList}>
                         {[1, 2, 3, 4].map(item => {

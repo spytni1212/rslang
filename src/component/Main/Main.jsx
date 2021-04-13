@@ -6,7 +6,7 @@ const Main = () => {
     return (
         <div>
             <div className={`wrapper ${s.wrapper}`}>
-                <h2>НЕКОГДА ОБЪЯСНЯТЬ, БЫСТРЕЕ УЧИ АНГЛИЙСКИЙ!</h2>
+                <h2 style={{marginTop: '20px', color: '#551a8b'}}>НЕКОГДА ОБЪЯСНЯТЬ, БЫСТРЕЕ УЧИ АНГЛИЙСКИЙ!</h2>
                 <div className={s.promoContainer}>
                     <div className={s.videoContainer}>
                         video(photo)

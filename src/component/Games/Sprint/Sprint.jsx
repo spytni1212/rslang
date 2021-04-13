@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as axios from 'axios';
 import style from './Sprint.module.css';
 import putLearningWords from '../putLearningWords';
+import '../style.css'
 
 const Sprint = (props) => {    
     const getRandomPage = () => {
@@ -48,7 +49,7 @@ const Sprint = (props) => {
 
     return (
         <div>
-            <h1 className={style.gameTitle}>Спринт</h1>
+            <h2 className="levelsTitle">Спринт</h2>
             <div className={style.mainPage}>
                 {!props.sprintGameStart && !props.sprintGameEnd && <LevelMenu funClickButton={handlerButtonStart} />}
                 {props.sprintGameStart && <SprintContainer />}

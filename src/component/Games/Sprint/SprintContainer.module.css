@@ -1,5 +1,6 @@
 .gamePage {
     margin: 0 auto;
+    padding: 1em;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -12,11 +13,12 @@
 }
 
 .gameInstructionRules {
-    font-size: 20px;
+    font-size: 17px;
+    margin: 0 0 10px;
 }
 
 .timer {
-    font-size: 36px;
+    font-size: 20px;
     background-color: #fff;
     border-radius: 20px;
 }
@@ -33,8 +35,8 @@
     margin: 0 1px;
     list-style: none;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     background-color: #6c757d;
 }
 
@@ -44,16 +46,17 @@
 
 .scoreInfo {
     background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
 }
 
 .score {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 36px;
+    font-size: 20px;
 }
 
 .points {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 36px;
+    font-size: 20px;
 }
 
 .comparedWords {
@@ -65,7 +68,7 @@
 
 .comparedWords>p {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 36px;
+    font-size: 26px;
     background-color: white;
     flex: 0 1 40%;
 }
@@ -79,7 +82,8 @@
 
 .correctButton, .wrongButton {
     color: #fff;
-    font-size: 30px;
+    padding: 5px 10px;
+    font-size: 22px;
     cursor: pointer;
     box-shadow: 2px 2px 7px 2px #b4b4c7;
     border-radius: 10px;
@@ -100,7 +104,7 @@
 
 .correctButton {
     border: 1px solid #1f841f;
-    background-color: #97e697;
+    background-color: #8cd68c;
 }
 
 .correctButton:active {

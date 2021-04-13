@@ -42,9 +42,9 @@ const Games = () => {
                                         <img className={s.gamePicture} src={games[`game${i + 1}`].picture} alt={games[`game${i + 1}`].name}/>
                                     </div>
                                     <div className={s.gameDescription}>
-                                        <div className={s.gameName}>{games[`game${i + 1}`].name}</div>
+                                        <h2 className={s.gameName}>{games[`game${i + 1}`].name}</h2>
                                         <div className={s.description}>{games[`game${i + 1}`].description}</div>
-                                    </div>
+                                    </div>  
                                 </div>
                             </NavLink>
                         )
