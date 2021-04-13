@@ -73,7 +73,7 @@ const BookNavigation = (props) => {
         return (
             <li key={group} data-id={id+1}>
                 <Box className={classes.container} >
-                    <ArrowBackIosIcon className={classes.arrow} to={`/book`} onClick={() => {
+                    <ArrowBackIosIcon className={classes.arrow} onClick={() => {
                         props.onGroupChanged(group);
                     }} />
                     <NavLink to={`/book`} onClick={() => props.onGroupChanged(group)}>
