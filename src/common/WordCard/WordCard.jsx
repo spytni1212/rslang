@@ -43,29 +43,33 @@ const WordCard = (props) => {
 
     const renderSwitchButton = (nameCard) => {
         switch (nameCard) {
-            case 'mainCard':
-                return (
-                    <div className={s.buttonsContainer}>                    
-                        <Button
-                            variant="contained"
-                            className={classes.difficultBtn}
-                            color="error"
-                            disabled={!props.isLogin}
-                            startIcon={<WarningIcon />}
-                            onClick={() => props.difficultWordClickHandler(props.word._id)}
-                        >
-                            сложное слово
-                        </Button>
-                        <Button
-                            variant="contained"
-                            className={classes.deleteBtn}
-                            startIcon={<DeleteIcon />}
-                            disabled={!props.isLogin}
-                            onClick={() => props.deleteWordClickHandler(props.word._id)}
-                        >удалить слово
-                        </Button>
-                    </div>
-                )
+            case 'mainCard':                
+                if (props.settings.isShowButtons) {
+                    return (
+                        
+                        <div className={s.buttonsContainer}>                    
+                            <Button
+                                variant="contained"
+                                className={classes.difficultBtn}
+                                color="error"
+                                disabled={!props.isLogin}
+                                startIcon={<WarningIcon />}
+                                onClick={() => props.difficultWordClickHandler(props.word._id)}
+                            >
+                                сложное слово
+                            </Button>
+                            <Button
+                                variant="contained"
+                                className={classes.deleteBtn}
+                                startIcon={<DeleteIcon />}
+                                disabled={!props.isLogin}
+                                onClick={() => props.deleteWordClickHandler(props.word._id)}
+                            >удалить слово
+                            </Button>
+                        </div>
+                    )
+                }
+                break
             case 'difficultCard':
                 return (
                     <Button
@@ -133,10 +137,7 @@ const WordCard = (props) => {
                     : null
                 }
             </div>
-            {props.settings.isShowButtons ?
-                renderSwitchButton(props.cardName)
-                : null
-            }
+            {renderSwitchButton(props.cardName)}            
         </div >
     )
 }
