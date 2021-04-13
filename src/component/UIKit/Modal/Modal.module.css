@@ -10,6 +10,8 @@
 }
 
 .modalContainer {
+  height: 600px;
+  overflow-y: scroll;
   width: 50%;
   background-color: white;
   position: absolute;

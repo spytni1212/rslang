@@ -33,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EndOfGamePopUp(props) {
   const classes = useStyles();
+  console.log(props.correctWords)
+  console.log(props.wrongWords)
 
   return (
     <Box className={classes.popUp}>

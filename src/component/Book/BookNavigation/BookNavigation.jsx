@@ -22,7 +22,7 @@ import s from './BookNavigation.module.css'
 const useStyles = makeStyles({
     title: {
         fontFamily: "'Kiwi Maru', serif",
-        fontSize: '20px',
+        fontSize: '19px',
     },
     img: {
         width: '40px'

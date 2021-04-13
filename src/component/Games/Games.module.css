@@ -30,19 +30,19 @@
     flex-direction: column;
     align-items: center;
     border-radius: 25px;
-    margin: 20px 0 0;
+    margin-bottom: 20px;
     padding: 1em;
     background-color: #fff;
     justify-content: flex-start;
-    min-height: 260px;
+    min-height: 250px;
     box-shadow: 0 0 10px rgb(0 0 0 / 50%);
 }
 
 .gameIcon {
-    width: 80px;
-    height: 80px;
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
-    margin: 15px auto;
+    margin: 0 auto 15px;
 }
 
 .gamePicture {
@@ -66,10 +66,9 @@
 }
 
 .description {
-    font-size: 17px;
     color: #551A8B;
     text-align: center;
-    line-height: 1.2;
+    line-height: 1.1;
 }
 
 @media (max-width: 900px) {

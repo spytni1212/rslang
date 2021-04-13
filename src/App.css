@@ -5,6 +5,11 @@
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
 }
+h2 {
+  color: #551a8b;
+  font-size: 23px;
+  letter-spacing: 1px;
+}
 .app {
   display: flex;
   flex-direction: column;
@@ -18,6 +23,6 @@
 .contentContainer {
   position: relative;
   flex-grow: 1;
-  padding: 0 20px;
+  padding: 20px;
   background: #fdf3f7;
 }

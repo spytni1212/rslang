@@ -120,25 +120,27 @@ const Savannah = (props) => {
     const handleCheck = (e) => {
         let currentButton;
         if (e.type !== 'click') {
-            console.log(Array.from(buttonsContainer.current.children))
             const pressedButton = Array.from(buttonsContainer.current.children).filter(
                 (child) => child.dataset.index === e.key,
             );
             [currentButton] = pressedButton;
         } else {
-        currentButton = e.target
+            currentButton = e.target
         }
-        console.log( translationToCheck)
-        console.log(currentButton)
 
-        const wordClicked = currentButton.dataset.id
+        const wordClicked = currentButton.dataset.word
+        const wordId = currentButton.dataset.id
+        const wordToSend = {
+            id: wordId,
+            word: wordClicked,
+        }
         if (wordClicked === translationToCheck) {
             currentButton.classList.add(classes.correct)
             setPoints(prev => prev + 10)
-            props.setCorrectWords(wordClicked)
+            props.setCorrectWords(wordToSend)
         } else {
             currentButton.classList.add(classes.wrong)
-            props.setWrongWords(wordClicked)
+            props.setWrongWords(wordToSend)
         }
         setButtonDisabled(false)
         setStep(prev => prev + 1)
@@ -198,8 +200,9 @@ const Savannah = (props) => {
                             <button
                                 key={index}
                                 className={classes.word}
-                                data-id={wordsArray[randomNumber].wordTranslate}
-                                data-index={index+1}
+                                data-word={wordsArray[randomNumber].wordTranslate}
+                                data-id={wordsArray[randomNumber].id}
+                                data-index={index + 1}
                                 onClick={handleCheck}
                                 disabled={!buttonDisabled}
                             >
@@ -219,7 +222,13 @@ const Savannah = (props) => {
             </Box>
             <Modal
                 isOpen={open}
-                children={<EndOfGame points={points} handleClose={handleClose} />}
+                children={
+                    <EndOfGame
+                        points={points} 
+                        handleClose={handleClose} 
+                        correctWords={props.correctWords}
+                        wrongWords={props.wrongWords}
+                />}
             />
         </Box>
     )
