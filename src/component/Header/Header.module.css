@@ -5,6 +5,7 @@
 }
 h1 {
     font-family: 'Kiwi Maru', serif;
+    font-size: 25px;
 }
 .wrapper {
     display: flex;
