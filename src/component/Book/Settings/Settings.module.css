@@ -1,6 +1,11 @@
 .settingsContainer {
     display: flex;
     flex-direction: column;
+    row-gap: 16px;
+    padding: 25px;
+    align-items: center;
+    position: relative;
+    z-index: 1000;
 }
 
 .settingContainer {

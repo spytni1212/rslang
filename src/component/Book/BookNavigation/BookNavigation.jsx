@@ -1,18 +1,28 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
+
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import SchoolIcon from '@material-ui/icons/School';
 import DeleteIcon from '@material-ui/icons/Delete';
 import WarningIcon from '@material-ui/icons/Warning';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SpellcheckIcon from '@material-ui/icons/Spellcheck';
+import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
+import SettingsIcon from '@material-ui/icons/Settings';
+import Modal from '../../UIKit/Modal/Modal'
+
+import SettingsContainer from '../Settings/SettingsContainer'
 import s from './BookNavigation.module.css'
 
 const useStyles = makeStyles({
     title: {
         fontFamily: "'Kiwi Maru', serif",
-        fontSize: '20px'
-
+        fontSize: '20px',
     },
     img: {
         width: '40px'
@@ -21,11 +31,15 @@ const useStyles = makeStyles({
         margin: '10px 0',
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'center',
         columnGap: '7px',
     },
     list: {
         fontSize: '16px',
-        listStyleType: 'none'
+        listStyleType: 'none',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
     },
     arrow: {
         width: '16px',
@@ -56,51 +70,105 @@ const BookNavigation = (props) => {
         )
     })
 
+    // start pop-up
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+    // end pop-up
+
     return (
         <div className={s.bookNavigation}>
+            <Modal
+                isOpen={open}
+                children={<SettingsContainer handleClose={handleClose} />}
+            />
             <div className={s.navigationContainer}>
-                <h3 className={classes.title}>Электронный учебник</h3>
-                <ul className={classes.list}>
-                    {groups}
-                </ul>
-                <h3 className={classes.title}>Словарь</h3>
-                <Box>
-                    <Box className={classes.container}>
-                        <SchoolIcon />
-                        <NavLink to={`/book/learningWords`}>
-                            <h4>Изучаемые слова</h4>
-                        </NavLink>
-                    </Box>
-                    <Box className={classes.container}>
-                        <WarningIcon />
-                        <NavLink to={`/book/difficultWords`}>
-                            <h4>Сложные слова</h4>
-                        </NavLink>
-                    </Box>
-                    <Box className={classes.container}>
-                        <DeleteIcon />
-                        <NavLink to={`/book/deleteWords`}>
-                            <h4>Удаленные слова</h4>
-                        </NavLink>
-                    </Box>
-                </Box>
-                <Box className={classes.container}>
-                    <NavLink to={`/book/settings`}>
-                        <h3 className={classes.title}>Настройки</h3>
-                    </NavLink>
-                </Box>
+                <Accordion style={{ background: '#e2cbd9' }}>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                    >
+                        <Box className={classes.container}>
+                            <SchoolIcon />
+                            <h3 className={classes.title}>Электронный учебник</h3>
+                        </Box>
+                    </AccordionSummary>
+                    <AccordionDetails style={{ flexDirection: 'column' }}>
+                        <ul className={classes.list}>
+                            {groups}
+                        </ul>
+                    </AccordionDetails>
+                </Accordion>
+                <Accordion style={{ background: '#e2cbd9' }}>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                    >
+                        <Box className={classes.container}>
+                            <SpellcheckIcon />
+                            <h3 className={classes.title}>Словарь</h3>
+                        </Box>
+                    </AccordionSummary>
+                    <AccordionDetails style={{ flexDirection: 'column' }}>
+                        <Box style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <Box className={classes.container}>
+                                <SchoolIcon />
+                                <NavLink to={`/book/learningWords`}>
+                                    <h4>Изучаемые слова</h4>
+                                </NavLink>
+                            </Box>
+                            <Box className={classes.container}>
+                                <WarningIcon />
+                                <NavLink to={`/book/difficultWords`}>
+                                    <h4>Сложные слова</h4>
+                                </NavLink>
+                            </Box>
+                            <Box className={classes.container}>
+                                <DeleteIcon />
+                                <NavLink to={`/book/deleteWords`}>
+                                    <h4>Удаленные слова</h4>
+                                </NavLink>
+                            </Box>
+                        </Box>
+                    </AccordionDetails>
+                </Accordion>
                 {
                     props.isLogin ?
-                        <Box>
-                            <NavLink to='/games/savannah/userGame'><button>Саванна</button></NavLink>
-                            <NavLink to='/games/audioCall/userGame'><button>Аудиовызов</button></NavLink>
-                            <NavLink to='/games/sprint/userGame'><button>Спринт</button></NavLink>
-                            <NavLink to='/games/authorGame/userGame'><button>Авторская игра</button></NavLink>
-                        </Box>
-                    : null
+                        <Accordion style={{ background: '#e2cbd9' }}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
+                                <Box className={classes.container}>
+                                    <SportsEsportsIcon />
+                                    <h3 style={{ fontFamily: "'Kiwi Maru', serif", fontSize: '20px', }}>Игры</h3>
+
+                                </Box>
+                            </AccordionSummary>
+                            <AccordionDetails style={{ flexDirection: 'column' }}>
+                                <Box style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '10px' }}>
+                                    <NavLink to='/games/savannah/userGame'>Саванна</NavLink>
+                                    <NavLink to='/games/audioCall/userGame'>Аудиовызов</NavLink>
+                                    <NavLink to='/games/sprint/userGame'>Спринт</NavLink>
+                                    <NavLink to='/games/authorGame/userGame'>Авторская игра</NavLink>
+                                </Box>
+                            </AccordionDetails>
+                        </Accordion>
+                        : null
                 }
+                <Box className={classes.container} style={{justifyContent: 'flex-start', padding: '14px'}}>
+                    <SettingsIcon/>
+                    <h3 className={classes.title} style={{ cursor: 'pointer' }} onClick={handleOpen}>Настройки</h3>
+                </Box>
             </div>
-        </div>
+        </div >
     )
 }
 

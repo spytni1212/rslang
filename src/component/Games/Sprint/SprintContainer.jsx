@@ -3,6 +3,7 @@ import style from './SprintContainer.module.css';
 import Modal from "../../UIKit/Modal/Modal";
 import { setResetSprintGameStart, setResetSprintGameEnd, setSprintGameEnd, setResultInfo, setResetWordsInfo, setResetResultInfo } from '../../../redux/sprint-reducer';
 import { connect } from 'react-redux';
+import GameResults from '../../UIKit/GameResults/GameResults';
 
 class SprintContainer extends Component {
     state = {
@@ -167,31 +168,12 @@ class SprintContainer extends Component {
         return (
             <div className={style.gamePage}>
                 <Modal isOpen={this.props.sprintGameEnd}>
-                    <div className={style.endGame}>
-                        <div>
-                            <p className={style.finalScore}>Ваш результат: {this.state.score}</p>
-                            <p>Вы знаете {this.state.results.correct} слов(-a)</p>
-                            <p>Вы не знаете {this.state.results.wrong} слов(-a)</p>
-                        </div>
-                        <div>
-                            <table>
-                                <tbody>
-                                    {this.props.resultInfo.map((res, index) => {
-                                        const correctAnswer = res.result ? '✓' : 'X';
-                                        return (
-                                            <tr key={index}>
-                                                <td>{res.firstWord}</td>
-                                                <td>{res.secondWord}</td>
-                                                <td>{correctAnswer}</td>
-                                            </tr>
-                                    )})}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div>
-                            <button className={style.beginAgainButton} onClick={this.resetSprintGameStart}>Начать сначала</button>
-                        </div>
-                    </div>
+                    <GameResults 
+                        score={this.state.score}
+                        results={this.state.results}
+                        resultInfo={this.props.resultInfo}
+                        endGame={this.resetSprintGameStart}
+                    />
                 </Modal>
                 <div className={style.gameInstruction}>
                     <p className={style.gameInstructionRules}>Перед вами слово и перевод. Вам нужно выбрать, правильно это или неправильно.</p>

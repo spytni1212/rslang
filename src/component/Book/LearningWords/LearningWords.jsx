@@ -1,43 +1,31 @@
 import React from 'react';
-import VolumeUpIcon from '@material-ui/icons/VolumeUp';
-import Button from '@material-ui/core/Button';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Pagination } from '@material-ui/lab';
 import s from './LearningWords.module.css'
+import WordCard from '../../../common/WordCard/WordCard'
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        pagination: {
+            margin: '1em',
+        }
+}))
 
 const LearningWords = (props) => {
+    const classes = useStyles()
 
-    const apiUrl = 'https://react-learn-words.herokuapp.com'
-
-    let learningWords = props.learningWords.map(word => {
-        return <div key={word.id} className={s.wordContainer}>
-                    <div className={s.wordImage} style={{backgroundImage: `url('${apiUrl}/${word.image}')`}}>
-                    </div>
-                    <div className={s.wordDescription}>
-                        <span className={s.wordTranscription}>
-                            {word.word} {word.transcription} 
-                            <Button size='small' onClick={() => props.clickAudioHandler([`${apiUrl}/${word.audio}`, `${apiUrl}/${word.audioMeaning}`, `${apiUrl}/${word.audioExample}`])}><VolumeUpIcon /></Button>
-                        </span>
-                        <span className={s.textMeaning}>
-                            {word.textMeaning}
-                        </span>
-                        {props.settings.isShowTranslate ?
-                            <span className={s.textMeaningTranslate}>
-                                {word.textMeaningTranslate}
-                            </span>
-                            : null
-                        }
-                        <span className={s.textExample}>
-                            {word.textExample}
-                        </span>
-                        {props.settings.isShowTranslate ?
-                            <span className={s.textExampleTranslate}>
-                                {word.textExampleTranslate}
-                            </span>
-                            : null
-                        }
-                    </div>
-                    <div className={s.circle} style={{background: props.difficultColor[word.group]}}></div>
-                </div>
+    let learningWords = props.learningWords.map((word, index) => {
+        return (
+            <WordCard
+                key = {index}
+                cardName = 'learningCard'
+                word = {word}
+                index = {index}
+                clickAudioHandler = {props.clickAudioHandler}
+                settings = {props.settings}
+                difficultColor = {props.difficultColor}
+            />   
+        )
     })
 
     let pagesCount
@@ -51,6 +39,7 @@ const LearningWords = (props) => {
     return (
         <div className={s.pageContainer}>
             <Pagination 
+                className={classes.pagination}
                 count={pages.length} 
                 page={props.currentPage} 
                 boundaryCount={2} 
