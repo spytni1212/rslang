@@ -21,20 +21,20 @@ function App() {
 		<div className="app">
 			<BrowserRouter>
 				<CssBaseline>
-						<ThemeProvider theme={DefaultTheme}>
-							<HeaderContainer />
-							<Box className="contentContainer">
-								<Route path='/' component={Main} exact />
-								<Route path='/book' component={Book} />
-								<Route path='/games' component={Games} exact />
-								<Route path='/games/savannah/:userGame?' component={SavannahContainer} />
-								<Route path='/games/audioCall/:userGame?' component={AudioCallContainer} />
-								<Route path='/games/Sprint/:userGame?' component={Sprint} />
-								<Route path='/games/authorGame/:userGame?' component={AuthorGameContainer} />
-								<Route path='/statistics' component={Statistics} />
-							</Box>
-							<Footer />
-						</ThemeProvider>
+					<ThemeProvider theme={DefaultTheme}>
+						<HeaderContainer />
+						<Box className="contentContainer">
+							<Route path='/' component={Main} exact />
+							<Route path='/book' component={Book} />
+							<Route path='/games' component={Games} exact />
+							<Route path='/games/savannah/:userGame?' component={SavannahContainer} />
+							<Route path='/games/audioCall/:userGame?' component={AudioCallContainer} />
+							<Route path='/games/Sprint/:userGame?' component={Sprint} />
+							<Route path='/games/authorGame/:userGame?' component={AuthorGameContainer} />
+							<Route path='/statistics' component={Statistics} />
+						</Box>
+						<Footer />
+					</ThemeProvider>
 				</CssBaseline>
 			</BrowserRouter>
 		</div>

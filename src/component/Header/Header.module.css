@@ -1,10 +1,11 @@
 .header {
     background: linear-gradient( 0deg, #dcccd4 0%, #fcf2f7 40%, #fcf2f7 54%, #dcccd4 100%);
-    height: 60px;
+    height: 70px;
     padding: 0.8em;
 }
 h1 {
     font-family: 'Kiwi Maru', serif;
+    font-size: 25px;
 }
 .wrapper {
     display: flex;

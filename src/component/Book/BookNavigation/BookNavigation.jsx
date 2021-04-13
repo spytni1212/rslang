@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import { NavLink } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,7 +22,7 @@ import s from './BookNavigation.module.css'
 const useStyles = makeStyles({
     title: {
         fontFamily: "'Kiwi Maru', serif",
-        fontSize: '20px',
+        fontSize: '19px',
     },
     img: {
         width: '40px'
@@ -41,6 +41,11 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         alignItems: 'center'
     },
+    activeItem: {
+        width: '100%',
+        background: 'linear-gradient(45deg, #fcf2f7, transparent)',
+        borderRadius: '10px'
+    },
     arrow: {
         width: '16px',
         cursor: 'pointer'
@@ -49,19 +54,29 @@ const useStyles = makeStyles({
 
 const BookNavigation = (props) => {
     const classes = useStyles()
+    const ref = useRef()
     let groupCount = props.totalGroup;
     let groups = []
 
     for (let i = 1; i <= groupCount; i++) {
         groups.push(i)
     }
-
+    
+    useEffect(()=> {
+        const items = Array.from(ref.current.children)
+        items.forEach(item => item.classList.remove(classes.activeItem))
+        const activeItem = items.filter((child)=> +child.dataset.id === props.currentGroup)
+        const [itemToHighlight] = activeItem
+        itemToHighlight.classList.add(classes.activeItem)
+    })
     groups = groups.map((group, id) => {
         return (
-            <li key={group}>
-                <Box className={classes.container}>
-                    <ArrowBackIosIcon className={classes.arrow} o={`/book/textBook`} onClick={() => props.onGroupChanged(group)} />
-                    <NavLink to={`/book/textBook`} onClick={() => props.onGroupChanged(group)}>
+            <li key={group} data-id={id+1}>
+                <Box className={classes.container} >
+                    <ArrowBackIosIcon className={classes.arrow} onClick={() => {
+                        props.onGroupChanged(group);
+                    }} />
+                    <NavLink to={`/book`} onClick={() => props.onGroupChanged(group)}>
                         Раздел {group}
                     </NavLink>
                     <div className={s.circle} style={{ background: props.difficultColor[id] }}></div>
@@ -79,7 +94,6 @@ const BookNavigation = (props) => {
         setOpen(false);
     };
     // end pop-up
-
     return (
         <div className={s.bookNavigation}>
             <Modal
@@ -99,7 +113,7 @@ const BookNavigation = (props) => {
                         </Box>
                     </AccordionSummary>
                     <AccordionDetails style={{ flexDirection: 'column' }}>
-                        <ul className={classes.list}>
+                        <ul className={classes.list} ref={ref}>
                             {groups}
                         </ul>
                     </AccordionDetails>

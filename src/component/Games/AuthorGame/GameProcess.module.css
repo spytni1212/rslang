@@ -1,9 +1,14 @@
 .wrapper{
     height: 100%;
-    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center; 
+    padding: 20px 0px;
+}
+
+.result {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-   
+    row-gap: 20px;
 }

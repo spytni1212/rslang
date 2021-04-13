@@ -12,13 +12,11 @@ import {
   setButtonCheck,
   setSentence,
   setButtonNext,
-  addResult
+  addResult,
 } from "../../../redux/authorGame-reducer";
-import {
-  shuffleArray,
-  getRequestWords,
-} from "../generalFunctionsForGame";
-import { v4 as uuidv4 } from 'uuid';
+import { shuffleArray, getRequestWords } from "../generalFunctionsForGame";
+import { v4 as uuidv4 } from "uuid";
+import _ from "lodash";
 
 const AuthorGameContainer = (props) => {
   const {
@@ -42,15 +40,22 @@ const AuthorGameContainer = (props) => {
     sentence,
     setButtonNext,
     addResult,
-    result
+    result,
+    userWords
   } = props;
 
   useEffect(() => {
-
+    if (props.match.params.userGame) {
+      const copyUserWords = _.cloneDeep(userWords);
+      shuffleArray(copyUserWords);
+      setArrWords(copyUserWords);
+      setStartGame(true);
+      setIndexSelectWord(0);
+    }
   }, []);
 
   useEffect(() => {
-    if(start === true){
+    if (start === true) {
       initListСhoiceWords();
     }
   }, [indexSelectWord]);
@@ -66,16 +71,16 @@ const AuthorGameContainer = (props) => {
 
   const buttonNextWord = () => {
     setIndexSelectWord(indexSelectWord + 1);
-    setButtonNext(false)
+    setButtonNext(false);
   };
 
   const initListСhoiceWords = () => {
-    setButtonCheck(false)
+    setButtonCheck(false);
     setSelectWord(arrWords[indexSelectWord]);
-    let arrayOfStrings = arrWords[indexSelectWord].textExample.split(' ');
-    const arr =  arrayOfStrings.map(word => ({
-        id: uuidv4(),
-        content:  word,
+    let arrayOfStrings = arrWords[indexSelectWord].textExample.split(" ");
+    const arr = arrayOfStrings.map((word) => ({
+      id: uuidv4(),
+      content: word,
     }));
     shuffleArray(arr);
     setWordsBords(arr);
@@ -83,35 +88,35 @@ const AuthorGameContainer = (props) => {
   };
 
   const compostSentence = (arr) => {
-    const arrMap = arr.map((obj)=>{
-      return obj.content
-    }) 
-    setSentence(arrMap.join(' '))
-  }
+    const arrMap = arr.map((obj) => {
+      return obj.content;
+    });
+    setSentence(arrMap.join(" "));
+  };
 
   const changeBoards = (obj) => {
     const copyObj = Object.assign({}, obj);
-    compostSentence(copyObj.Requested.items)
-    setButtonCheck(true)
-  }
+    compostSentence(copyObj.Requested.items);
+    setButtonCheck(true);
+  };
 
   const handlerButtonCheck = () => {
     const resultObj = {
       composed: sentence,
-      sentence: selectWord.textExample
-    }
-    if(sentence === selectWord.textExample) {
-      resultObj.right = true
+      sentence: selectWord.textExample,
+    };
+    if (sentence === selectWord.textExample) {
+      resultObj.right = true;
     } else {
-      resultObj.right = false
+      resultObj.right = false;
     }
-    addResult(resultObj)
-    setButtonNext(true)
-  }
-   
+    addResult(resultObj);
+    setButtonNext(true);
+  };
+
   const EndGame = () => {
-    setButtonNext(false)
-  }
+    setButtonNext(false);
+  };
 
   return (
     <AuthorGame
@@ -146,7 +151,8 @@ let mapStateToProps = (state) => {
     ButtonNext: state.authorGame.ButtonNext,
     sentence: state.authorGame.sentence,
     colorBoard: state.authorGame.colorBoard,
-    result: state.authorGame.result
+    result: state.authorGame.result,
+    userWords: state.book.userWords
   };
 };
 
@@ -161,5 +167,5 @@ export default connect(mapStateToProps, {
   setButtonCheck,
   setSentence,
   setButtonNext,
-  addResult
+  addResult,
 })(AuthorGameContainer);

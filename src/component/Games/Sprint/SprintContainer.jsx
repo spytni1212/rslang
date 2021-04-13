@@ -3,6 +3,7 @@ import style from './SprintContainer.module.css';
 import Modal from "../../UIKit/Modal/Modal";
 import { setResetSprintGameStart, setResetSprintGameEnd, setSprintGameEnd, setResultInfo, setResetWordsInfo, setResetResultInfo } from '../../../redux/sprint-reducer';
 import { connect } from 'react-redux';
+import GameResults from '../../UIKit/GameResults/GameResults';
 
 class SprintContainer extends Component {
     state = {
@@ -56,6 +57,12 @@ class SprintContainer extends Component {
         this.props.setResetSprintGameStart();
     }
 
+    gameSounds = (src) => {
+        const audio = new Audio();
+        audio.src = src;
+        audio.autoplay = true;
+    }
+
     analysisResults = () => {
         let correct = 0, wrong = 0;
         this.props.resultInfo.map(res => {
@@ -93,6 +100,8 @@ class SprintContainer extends Component {
         }
 
         const { firstWord, secondWord, score, answerItem, points } = this.state;
+        let path;
+        this.props.path ? path = '../../' : path = '../';
 
         if ((firstWord._id === secondWord._id && e.target.id === 'correct') ||
             (firstWord._id === secondWord._id && e.key === 'ArrowLeft') ||
@@ -126,6 +135,7 @@ class SprintContainer extends Component {
                     answerItem: answerItem + 1
                 });
             }
+            if (this.state.wordsArray.length !== 0) this.gameSounds(`${path}audio/sprint/correct.mp3`);
         } else {
             this.props.setResultInfo({firstWord: firstWord.word, secondWord: secondWord.wordTranslate, result: false});
 
@@ -137,6 +147,7 @@ class SprintContainer extends Component {
                 answerItem: 0,
                 points: 10
             })
+            if (this.state.wordsArray.length !== 0) this.gameSounds(`${path}audio/sprint/wrong.mp3`);
         }
 
         if (this.state.wordsArray.length === 0) {
@@ -146,6 +157,7 @@ class SprintContainer extends Component {
             setTimeout(() => {
                 this.analysisResults();
                 this.props.setSprintGameEnd();
+                this.gameSounds(`${path}audio/sprint/results.mp3`);
             }, 0); 
         } else {
             this.showNextPair();
@@ -156,31 +168,12 @@ class SprintContainer extends Component {
         return (
             <div className={style.gamePage}>
                 <Modal isOpen={this.props.sprintGameEnd}>
-                    <div className={style.endGame}>
-                        <div>
-                            <p className={style.finalScore}>Ваш результат: {this.state.score}</p>
-                            <p>Вы знаете {this.state.results.correct} слов(-a)</p>
-                            <p>Вы не знаете {this.state.results.wrong} слов(-a)</p>
-                        </div>
-                        <div>
-                            <table>
-                                <tbody>
-                                    {this.props.resultInfo.map((res, index) => {
-                                        const correctAnswer = res.result ? '✓' : 'X';
-                                        return (
-                                            <tr key={index}>
-                                                <td>{res.firstWord}</td>
-                                                <td>{res.secondWord}</td>
-                                                <td>{correctAnswer}</td>
-                                            </tr>
-                                    )})}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div>
-                            <button className={style.beginAgainButton} onClick={this.resetSprintGameStart}>Начать сначала</button>
-                        </div>
-                    </div>
+                    <GameResults 
+                        score={this.state.score}
+                        results={this.state.results}
+                        resultInfo={this.props.resultInfo}
+                        endGame={this.resetSprintGameStart}
+                    />
                 </Modal>
                 <div className={style.gameInstruction}>
                     <p className={style.gameInstructionRules}>Перед вами слово и перевод. Вам нужно выбрать, правильно это или неправильно.</p>
@@ -189,7 +182,7 @@ class SprintContainer extends Component {
                 </div>
                 <div className={style.timer}>{this.state.timeLeft}</div>
                 <div className={style.scoreInfo}>
-                    <p className={style.score}>Счет: {this.state.score}</p>
+                    <h2 className={style.score}>Счет: {this.state.score}</h2>
                     <p className={style.points}>+{this.state.points} за правильный ответ</p>
                     <ul ref={this.getListRef} className={style.answersList}>
                         {[1, 2, 3, 4].map(item => {

@@ -44,35 +44,35 @@ const grid = 8;
 const getListStyle = (isDraggingOver, colorBoard) => ({
   background: isDraggingOver ? "lightblue" : "lightgrey",
   // border: `1px solid ${colorBoard}`,
-  height: "60px",
-  width: "100%",
+  minHeight: "70px",
+  width: "700px",
   display: "flex",
   padding: grid,
-  overflow: "auto",
-  // outline: "2px solid black",
-  borderRadius: "20px"
+  borderRadius: "20px",
+  flexWrap: "wrap"
 });
 
 const getListWordStyle = (isDraggingOver) => ({
   background: "none",
-  height: "60px",
+  minHeight: "70px",
   width: "100%",
+  // maxWidth: "400px",
   display: "flex",
   padding: grid,
-  overflow: "auto",
+  // overflow: "auto",
+  // flexWrap: `wrap`,
+  jusctyfyContent: "center", 
 });
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   padding: "0.8em",
-  // background: "#f3d7e6",
+  height: "fit-content",
   boxShadow: "2px 2px 7px 2px #b4b4c7",
   border: "2px #0000002b solid",
   borderRadius: "10px",
   outline: "none",
   cursor: "pointer",
-  transform: "scaleY(1.2)",
   background: isDragging ? "lightgreen" : "#f3d7e6",
-  
   ...draggableStyle,
 });
 
@@ -120,7 +120,7 @@ function BoardsC({ Boards, changeBoards, colorBoard, setButtonCheck}) {
   };
 
   return (
-    <div style={{ height: "100%", width: "100%" }}>
+    <div style={{width: "100%" }}>
       <DragDropContext
         onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
       >
@@ -130,8 +130,6 @@ function BoardsC({ Boards, changeBoards, colorBoard, setButtonCheck}) {
               style={{
                 flexDirection: "row",
                 alignItems: "center",
-
-                height: "100%",
               }}
               key={columnId}
             >

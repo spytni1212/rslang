@@ -17,6 +17,8 @@ import {
   getRequestWords,
   generateRandomArray,
 } from "../generalFunctionsForGame";
+import { useHistory } from "react-router-dom";
+import _ from "lodash";
 
 const AudioCallContainer = ({ ...props }) => {
   const {
@@ -35,15 +37,26 @@ const AudioCallContainer = ({ ...props }) => {
     setCallAddWrongWord,
     setCallAddCorrectWord,
     setAnswer,
-    answer
+    answer,
+    userWords,
   } = props;
 
-  useEffect(() => { }, []);
+  let history = useHistory();
+
+  useEffect(() => {
+    if (props.match.params.userGame) {
+      const copyUserWords = _.cloneDeep(userWords)
+      shuffleArray(copyUserWords);
+      setCallArrWords(copyUserWords);
+      setCallStartGame(true);
+      setCallIndexSelectWord(0);
+    }
+  }, []);
 
   useEffect(() => {
     if (start === true) {
       if (indexSelectWord === arrWords.length) {
-        return
+        return;
       }
       setCallSelectWord(arrWords[indexSelectWord]);
       generatorListСhoiceWords();
@@ -70,12 +83,12 @@ const AudioCallContainer = ({ ...props }) => {
   };
 
   const buttonNextWord = () => {
-    setAnswer(false)
+    setAnswer(false);
     setCallIndexSelectWord(indexSelectWord + 1);
   };
 
   const buttonChoseWord = (obj) => {
-    setAnswer(true)
+    setAnswer(true);
     const funTypesSelectWords = (arr, word, type) => {
       return arr.map((obj) => {
         if (obj.word === word) {
@@ -108,6 +121,9 @@ const AudioCallContainer = ({ ...props }) => {
     setCallListChoiceWords([]);
     setCallAddWrongWord([]);
     setCallAddCorrectWord([]);
+    if (props.match.params.userGame) {
+      history.push("/book");
+    }
   };
 
   return (
@@ -137,7 +153,8 @@ let mapStateToProps = (state) => {
     listСhoiceWords: state.audioCall.listСhoiceWords,
     wrongWords: state.audioCall.levelResult.wrongWords,
     correctWords: state.audioCall.levelResult.correctWords,
-    answer: state.audioCall.answer
+    answer: state.audioCall.answer,
+    userWords: state.book.userWords
   };
 };
 
@@ -149,5 +166,5 @@ export default connect(mapStateToProps, {
   setCallListChoiceWords,
   setCallAddWrongWord,
   setCallAddCorrectWord,
-  setAnswer
+  setAnswer,
 })(AudioCallContainer);

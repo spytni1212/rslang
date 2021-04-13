@@ -6,6 +6,7 @@ import s from "./GameProcess.module.css";
 import BoardsC from "./BoardsC";
 import Button from "@material-ui/core/Button";
 
+
 const GameProcess = ({ ...props }) => {
   const {
     buttonNextWord,
@@ -25,12 +26,11 @@ const GameProcess = ({ ...props }) => {
   } = props;
 
   return (
-    <div >
+    <div className={s.wrapper}>
       <Modal isOpen={indexSelectWord === arrWords.length}>
         <button>Закрыть</button>
       </Modal>
       <ProgressBar number={indexSelectWord} />
-      {selectWord.textExample}
       {!ButtonNext && <h2>{selectWord.textExampleTranslate}</h2>}
       {!ButtonNext ? (
         <BoardsC
@@ -40,11 +40,11 @@ const GameProcess = ({ ...props }) => {
           setButtonCheck={setButtonCheck}
         />
       ) : (
-        <div>
+        <div className={s.result}> 
           <h1>{result[result.length - 1].right ? "Правильно" : "Неправильно"}</h1>
           
-          <p>{result[result.length - 1].sentence}</p>
-          {!result[result.length - 1].right && <p>Ваш вариант:{result[result.length - 1].composed}</p>}
+          <p><b>Правильный вариант: &nbsp;</b> {result[result.length - 1].sentence}</p>
+          {!result[result.length - 1].right && <p><b>Ваш вариант:&nbsp;</b> {result[result.length - 1].composed}</p>}
         </div>
       )}
 
@@ -68,7 +68,7 @@ const GameProcess = ({ ...props }) => {
           onClick={buttonNextWord}
           variant="contained"
           style={{
-            margin: "0 auto",
+            margin: "20px auto",
             background: "#d69eadf5",
             "&:hover": {
               background: "#d69eadf !important",
