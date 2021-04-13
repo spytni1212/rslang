@@ -8,13 +8,15 @@ import {
   setListButtonsWords,
   setIndexSelectWord,
   setWordsBords,
-  setBords
+  setBords,
+  setButtonCheck,
+  setSentence,
+  setButtonNext,
+  addResult,
 } from "../../../redux/authorGame-reducer";
-import {
-  shuffleArray,
-  getRequestWords,
-} from "../generalFunctionsForGame";
-import { v4 as uuidv4 } from 'uuid';
+import { shuffleArray, getRequestWords } from "../generalFunctionsForGame";
+import { v4 as uuidv4 } from "uuid";
+import _ from "lodash";
 
 const AuthorGameContainer = (props) => {
   const {
@@ -31,12 +33,29 @@ const AuthorGameContainer = (props) => {
     setWordsBords,
     Boards,
     setBords,
+    setButtonCheck,
+    ButtonСheck,
+    ButtonNext,
+    setSentence,
+    sentence,
+    setButtonNext,
+    addResult,
+    result,
+    userWords
   } = props;
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (props.match.params.userGame) {
+      const copyUserWords = _.cloneDeep(userWords);
+      shuffleArray(copyUserWords);
+      setArrWords(copyUserWords);
+      setStartGame(true);
+      setIndexSelectWord(0);
+    }
+  }, []);
 
   useEffect(() => {
-    if(start === true){
+    if (start === true) {
       initListСhoiceWords();
     }
   }, [indexSelectWord]);
@@ -52,33 +71,52 @@ const AuthorGameContainer = (props) => {
 
   const buttonNextWord = () => {
     setIndexSelectWord(indexSelectWord + 1);
+    setButtonNext(false);
   };
 
   const initListСhoiceWords = () => {
+    setButtonCheck(false);
     setSelectWord(arrWords[indexSelectWord]);
-    let arrayOfStrings = arrWords[indexSelectWord].textExample.split(' ');
-    const arr =  arrayOfStrings.map(word => ({
-        id: uuidv4(),
-        content:  word,
+    let arrayOfStrings = arrWords[indexSelectWord].textExample.split(" ");
+    const arr = arrayOfStrings.map((word) => ({
+      id: uuidv4(),
+      content: word,
     }));
     shuffleArray(arr);
-    setWordsBords(arr)
+    setWordsBords(arr);
     setListButtonsWords(arrayOfStrings);
   };
 
   const compostSentence = (arr) => {
-    const arrMap = arr.map((obj)=>{
-      return obj.content
-    }) 
-    console.log(arrMap.join(' '))
-  }
+    const arrMap = arr.map((obj) => {
+      return obj.content;
+    });
+    setSentence(arrMap.join(" "));
+  };
 
   const changeBoards = (obj) => {
-    
     const copyObj = Object.assign({}, obj);
-    compostSentence(obj.Requested.items)
-    // setBords(copyObj)
-  }
+    compostSentence(copyObj.Requested.items);
+    setButtonCheck(true);
+  };
+
+  const handlerButtonCheck = () => {
+    const resultObj = {
+      composed: sentence,
+      sentence: selectWord.textExample,
+    };
+    if (sentence === selectWord.textExample) {
+      resultObj.right = true;
+    } else {
+      resultObj.right = false;
+    }
+    addResult(resultObj);
+    setButtonNext(true);
+  };
+
+  const EndGame = () => {
+    setButtonNext(false);
+  };
 
   return (
     <AuthorGame
@@ -92,6 +130,11 @@ const AuthorGameContainer = (props) => {
       Boards={Boards}
       setWordsBords={setWordsBords}
       changeBoards={changeBoards}
+      ButtonСheck={ButtonСheck}
+      ButtonNext={ButtonNext}
+      handlerButtonCheck={handlerButtonCheck}
+      setButtonCheck={setButtonCheck}
+      result={result}
     />
   );
 };
@@ -103,7 +146,13 @@ let mapStateToProps = (state) => {
     indexSelectWord: state.authorGame.indexSelectWord,
     selectWord: state.authorGame.selectWord,
     listButtonsWords: state.authorGame.listButtonsWords,
-    Boards: state.authorGame.Boards
+    Boards: state.authorGame.Boards,
+    ButtonСheck: state.authorGame.ButtonСheck,
+    ButtonNext: state.authorGame.ButtonNext,
+    sentence: state.authorGame.sentence,
+    colorBoard: state.authorGame.colorBoard,
+    result: state.authorGame.result,
+    userWords: state.book.userWords
   };
 };
 
@@ -115,4 +164,8 @@ export default connect(mapStateToProps, {
   setListButtonsWords,
   setWordsBords,
   setBords,
+  setButtonCheck,
+  setSentence,
+  setButtonNext,
+  addResult,
 })(AuthorGameContainer);

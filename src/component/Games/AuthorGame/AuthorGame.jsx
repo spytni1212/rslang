@@ -6,14 +6,12 @@ import GameProcess from "./GameProcess";
 const AuthorGame = (props) => {
   const { start, buttonСhoiceLevel } = props;
   return (
-    <div>
-      <div className={`wrapper ${s.wrapper}`}>
-        {start === false ? (
-          <LevelMenu funClickButton={buttonСhoiceLevel} />
-        ) : (
-          <GameProcess {...props}/>
-        )}
-      </div>
+    <div className={`${s.wrapper}`}>
+      {start === false ? (
+        <LevelMenu funClickButton={buttonСhoiceLevel} />
+      ) : (
+        <GameProcess {...props} />
+      )}
     </div>
   );
 };
