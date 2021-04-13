@@ -73,10 +73,10 @@ const BookNavigation = (props) => {
         return (
             <li key={group} data-id={id+1}>
                 <Box className={classes.container} >
-                    <ArrowBackIosIcon className={classes.arrow} o={`/book/textBook`} onClick={() => {
+                    <ArrowBackIosIcon className={classes.arrow} to={`/book`} onClick={() => {
                         props.onGroupChanged(group);
                     }} />
-                    <NavLink to={`/book/textBook`} onClick={() => props.onGroupChanged(group)}>
+                    <NavLink to={`/book`} onClick={() => props.onGroupChanged(group)}>
                         Раздел {group}
                     </NavLink>
                     <div className={s.circle} style={{ background: props.difficultColor[id] }}></div>

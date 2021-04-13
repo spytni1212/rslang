@@ -1,3 +1,7 @@
+.footer {
+    background: #fcf2f7;
+    border-top: 2px #8a6b7b solid;
+}
 .footerWrapper {
     margin: 0 auto;
     max-width: 1200px;
@@ -5,8 +9,6 @@
     justify-content: center;
     align-items: center;
     column-gap: 30px;
-    background: #fcf2f7;
-    border-top: 2px #8a6b7b solid;
     padding: 1em 0;
 }
 
