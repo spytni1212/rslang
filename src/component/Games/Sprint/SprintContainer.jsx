@@ -57,6 +57,12 @@ class SprintContainer extends Component {
         this.props.setResetSprintGameStart();
     }
 
+    gameSounds = (src) => {
+        const audio = new Audio();
+        audio.src = src;
+        audio.autoplay = true;
+    }
+
     analysisResults = () => {
         let correct = 0, wrong = 0;
         this.props.resultInfo.map(res => {
@@ -94,6 +100,8 @@ class SprintContainer extends Component {
         }
 
         const { firstWord, secondWord, score, answerItem, points } = this.state;
+        let path;
+        this.props.path ? path = '../../' : path = '../';
 
         if ((firstWord._id === secondWord._id && e.target.id === 'correct') ||
             (firstWord._id === secondWord._id && e.key === 'ArrowLeft') ||
@@ -127,6 +135,7 @@ class SprintContainer extends Component {
                     answerItem: answerItem + 1
                 });
             }
+            if (this.state.wordsArray.length !== 0) this.gameSounds(`${path}audio/sprint/correct.mp3`);
         } else {
             this.props.setResultInfo({firstWord: firstWord.word, secondWord: secondWord.wordTranslate, result: false});
 
@@ -138,6 +147,7 @@ class SprintContainer extends Component {
                 answerItem: 0,
                 points: 10
             })
+            if (this.state.wordsArray.length !== 0) this.gameSounds(`${path}audio/sprint/wrong.mp3`);
         }
 
         if (this.state.wordsArray.length === 0) {
@@ -147,6 +157,7 @@ class SprintContainer extends Component {
             setTimeout(() => {
                 this.analysisResults();
                 this.props.setSprintGameEnd();
+                this.gameSounds(`${path}audio/sprint/results.mp3`);
             }, 0); 
         } else {
             this.showNextPair();
