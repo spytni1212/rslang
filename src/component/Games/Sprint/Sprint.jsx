@@ -51,7 +51,7 @@ const Sprint = (props) => {
             <h1 className={style.gameTitle}>Спринт</h1>
             <div className={style.mainPage}>
                 {!props.sprintGameStart && !props.sprintGameEnd && <LevelMenu funClickButton={handlerButtonStart} />}
-                {props.sprintGameStart && <SprintContainer />}
+                {props.sprintGameStart && <SprintContainer path={props.match.params.userGame} />}
             </div>
         </div>
     )

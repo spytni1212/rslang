@@ -60,12 +60,12 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    min-height: 110px;
+    min-height: 160px;
 }
 
 .comparedWords>p {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 36px;
+    font-size: 34px;
     background-color: white;
     flex: 0 1 40%;
 }
@@ -121,6 +121,7 @@
 @media (max-width: 390px) {
     .comparedWords {
         flex-direction: column;
+        min-height: 140px;
     }
 
     .comparedWords>p {
