@@ -13,7 +13,7 @@ const Book = (props) => {
         <div className={s.book}>
             <div className={`wrapper ${s.wrapper}`}>
                 <BookNavigationContainer />
-                <Route path='/book/textBook' render={() => <PageWordsContainer />} />
+                <Route path='/book' exact render={() => <PageWordsContainer />} />
                 <Route path='/book/deleteWords' render={() => <DeleteWordsPageContainer />} />
                 <Route path='/book/difficultWords' render={() => <DifficultWordsPageContainer />} />
                 <Route path='/book/learningWords' render={() => <LearningWordsContainer />} />

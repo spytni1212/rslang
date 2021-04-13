@@ -10,6 +10,7 @@ const useStyles = makeStyles({
     borderRadius: "10px",
     outline: "none",
     cursor: "pointer",
+    fontSize: "16px",
     "&:hover": {
       transform: "scale(1.1)",
     },

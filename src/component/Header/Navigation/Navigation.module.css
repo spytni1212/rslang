@@ -7,6 +7,7 @@
     flex-direction: column;
     column-gap: 10px;
     row-gap: 30px;
+    padding: 10px;
 }
 
 .navContainer {
@@ -20,4 +21,7 @@
     font-size: 16px;
     font-weight: 600;
 }
-
+.activeItem {
+    background: linear-gradient(45deg, #d4aec0, transparent);
+    border-radius: 10px;
+}

@@ -4,6 +4,7 @@ import Box from '@material-ui/core/Box';
 import s from './Navigation.module.css'
 
 const NavigationButton = (props) => {
+    
     return (
         <Box className={s.navContainer} onClick={props.toggleDrawer(false)}>
             {props.navDatum.icon}

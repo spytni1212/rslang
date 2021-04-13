@@ -1,15 +1,15 @@
 .finalScore {
     margin-top: 10px; 
-    font-size: 48px;
+    font-size: 25px;
 }
 
 .knowWords {
-    font-size: 30px;
-    color: #00ff00;
+    font-size: 18px;
+    color: #3ea83e;
 }
 
 .unknowWords {
-    font-size: 30px;
+    font-size: 18px;
     color: #ff0000;
 }
 
@@ -19,7 +19,6 @@
 
 .resultTable td {
     padding: 0 20px;
-    font-size: 24px;
     width: 0%;
     text-align: center;
 }
@@ -30,7 +29,8 @@
 
 .beginAgainButton {
     margin: 20px 0;
-    font-size: 36px;
+    padding:10px;
+    font-size: 20px;
     border-radius: 15px;
     background-color: #bea6d09e;
     outline: none;
@@ -51,19 +51,10 @@
 @media (max-width: 1000px) {
     .resultTable td {
         padding: 0 10px;
-        font-size: 18px;
     }
 }
 
 @media (max-width: 767px) {
-    .finalScore {
-        font-size: 30px;
-    }
-
-    .knowWords, .unknowWords {
-        font-size: 22px;
-    }
-
     .resultTable td:nth-child(4) {
         width: 15%;
     }
@@ -75,6 +66,5 @@
 
     .beginAgainButton {
         margin: 10px 10px;
-        font-size: 30px;
     }
 }

@@ -23,9 +23,9 @@ const Games = () => {
             link: '/games/sprint'
         },
         game4: {
-            name: 'Паззл',
+            name: 'Пазл',
             picture: './img/Games/Puzzle.jpg',
-            description: 'Паззл - игра, в которой даны слова, из которых нужно собрать грамматически правильное предложение.',
+            description: 'Пазл - игра, в которой даны слова, из которых нужно собрать грамматически правильное предложение.',
             link: '/games/authorGame'
         }
     }
@@ -33,7 +33,6 @@ const Games = () => {
     return (
         <div>
             <div className={`wrapper ${s.wrapper}`}>
-               <h2>ПОИГРАЕМ?</h2>
                <div className={s.gamesContainer}>
                     {[0, 1, 2, 3].map(i => {
                         return (
@@ -43,9 +42,9 @@ const Games = () => {
                                         <img className={s.gamePicture} src={games[`game${i + 1}`].picture} alt={games[`game${i + 1}`].name}/>
                                     </div>
                                     <div className={s.gameDescription}>
-                                        <div className={s.gameName}>{games[`game${i + 1}`].name}</div>
+                                        <h2 className={s.gameName}>{games[`game${i + 1}`].name}</h2>
                                         <div className={s.description}>{games[`game${i + 1}`].description}</div>
-                                    </div>
+                                    </div>  
                                 </div>
                             </NavLink>
                         )
