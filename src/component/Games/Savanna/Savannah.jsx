@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setCorrectWords, setWrongWords } from '../../../redux/savannahReducer/savannahReducer'
@@ -40,18 +40,6 @@ const useStyles = makeStyles({
             zIndex: '10',
         }
     },
-    // bg: {
-    //     position: 'absolute',
-    //     top: '0',
-    //     bottom: '0',
-    //     right: '0',
-    //     left: '0',
-    //     backgroundImage: 'linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(/img/Games/savannah.jpeg)',
-    //     backgroundSize: 'cover',
-    //     backgroundRepeat: 'no-repeat',
-    //     backgroundPosition: 'center',
-    //     // opacity: '0.5'
-    // },
     gameContainer: {
         display: 'flex',
         justifyContent: 'center',
@@ -104,6 +92,7 @@ let randomNumbersArray = getRandomNumbers();
 const Savannah = (props) => {
     const classes = useStyles()
     const history = useHistory();
+    const WORDS_NUMBER = 20;
     const wordsInfo = props.wordsInfo
     let wordToCheck, translationToCheck;
 
@@ -127,21 +116,33 @@ const Savannah = (props) => {
     };
     // end pop-up
     const handleCheck = (e) => {
-        const target = e.target
-        const wordClicked = target.dataset.id
+        let currentButton;
+        if (e.type !== 'click') {
+            console.log(Array.from(buttonsContainer.current.children))
+            const pressedButton = Array.from(buttonsContainer.current.children).filter(
+                (child) => child.dataset.index === e.key,
+            );
+            [currentButton] = pressedButton;
+        } else {
+        currentButton = e.target
+        }
+        console.log( translationToCheck)
+        console.log(currentButton)
+
+        const wordClicked = currentButton.dataset.id
         if (wordClicked === translationToCheck) {
-            target.classList.add(classes.correct)
+            currentButton.classList.add(classes.correct)
             setPoints(prev => prev + 10)
             props.setCorrectWords(wordClicked)
         } else {
-            target.classList.add(classes.wrong)
+            currentButton.classList.add(classes.wrong)
             props.setWrongWords(wordClicked)
         }
         setButtonDisabled(false)
         setStep(prev => prev + 1)
     }
     const handleNext = () => {
-        if (step === 20) {
+        if (step === WORDS_NUMBER) {
             handleOpen()
         } else {
             const buttons = Array.from(buttonsContainer.current.children)
@@ -151,6 +152,39 @@ const Savannah = (props) => {
             setButtonDisabled(true)
         }
     }
+
+    //start hotkeys
+    const handleDigitsPress = (event) => {
+        const buttons = Array.from(buttonsContainer.current.children)
+        const isEnabled = buttons.every((button) => button.getAttribute('disabled') === null);
+        if (isEnabled && (event.key === '1' || event.key === '2' || event.key === '3' || event.key === '4')) {
+            handleCheck(event);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('keypress', handleDigitsPress);
+        return () => {
+            window.removeEventListener('keypress', handleDigitsPress);
+        };
+    }, [handleDigitsPress]);
+
+    const handleEnterPress = (event) => {
+        const buttons = Array.from(buttonsContainer.current.children)
+        const isEnabled = buttons.every((button) => button.getAttribute('disabled') === null);
+        if (!isEnabled && (event.key === 'Enter')) {
+            handleNext();
+        }
+    };
+    useEffect(() => {
+        window.addEventListener('keypress', handleEnterPress);
+        return () => {
+            window.removeEventListener('keypress', handleEnterPress);
+        };
+    }, [handleEnterPress]);
+
+    //end hotkeys
+
     return (
         <Box className={classes.bgContainer} p={3}>
             <Box className={classes.container}>
@@ -163,6 +197,7 @@ const Savannah = (props) => {
                                 key={index}
                                 className={classes.word}
                                 data-id={wordsArray[randomNumber].wordTranslate}
+                                data-index={index+1}
                                 onClick={handleCheck}
                                 disabled={!buttonDisabled}
                             >
@@ -181,9 +216,9 @@ const Savannah = (props) => {
                 </Button>
             </Box>
             <Modal
-                    isOpen={open}
-                    children={<EndOfGame points={points} handleClose={handleClose} />}
-                />
+                isOpen={open}
+                children={<EndOfGame points={points} handleClose={handleClose} />}
+            />
         </Box>
     )
 }
