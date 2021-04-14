@@ -24,3 +24,17 @@
 .promoDescription p {
     text-align: justify;
 }
+
+@media (max-width: 767px) {
+    .promoContainer {
+        flex-direction: column;
+    }
+
+    .videoContainer {
+        margin-bottom: 20px;
+    }
+
+    .wrapper {
+        text-align: center;
+    }
+}
