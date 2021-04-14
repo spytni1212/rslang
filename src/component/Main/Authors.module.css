@@ -1,0 +1,130 @@
+.aboutUsTitle {
+    text-align: center;
+}
+
+.aboutUsContainer {
+    max-width: 900px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 30px;
+}
+
+.personContainer {
+    margin: 20px 0 0;
+    min-height: 225px;
+    padding: 1em;
+    border-radius: 25px;
+    display: flex;
+    column-gap: 30px;
+    background-color: #fff;
+    flex: 0 1 40%;
+    justify-content: space-around;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.photo {
+    width: 100px;
+    flex: 0 1 30%;
+    align-self: center;
+}
+
+.photoImage {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.personalInfo {
+    flex: 0 1 60%;
+}
+
+.developerName,
+.developerName:active,
+.developerName:visited {
+    font-size: 26px;
+    color: #000;
+}
+
+.developerName:hover {
+    text-decoration: underline;
+}
+
+.developerPosition {
+    font-size: 20px;
+    color: #c9cdd2;
+}
+
+.developerContribution {
+    font-size: 16px;
+}
+
+.contribution {
+    list-style: none;
+}
+
+.personContainer p {
+    text-align: justify;
+}
+
+@media (max-width: 800px) {
+    .wrapper {
+        flex-direction: column;
+    }
+
+    .personContainer {
+        flex-direction: column;
+    }
+
+    .personalInfo {
+        justify-content: center;
+    }
+
+    .personalInfo p {
+        text-align: center;
+    }
+}
+
+@media (max-width: 767px) {
+    .aboutUs {
+        width: 100%;
+        align-items: center;
+    }
+
+    .aboutUsContainer {
+        align-items: center;
+    }
+
+    .aboutUsContainer {
+        flex-direction: column;
+    }
+
+    .personContainer {
+        width: 65%;
+        align-items: center;
+    }
+
+    .photo {
+        display: flex;
+        flex: 0 1 20%;
+    }
+}
+
+@media (max-width: 650px) {
+    .personContainer {
+        flex-direction: column;
+        align-items: center;
+        text-align: left;
+        min-height: 329px;
+    }
+
+    .personalInfo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+    }
+
+    .developerContribution {
+        align-self: flex-start;
+    }
+}

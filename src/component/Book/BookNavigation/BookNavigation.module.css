@@ -1,0 +1,20 @@
+.bookNavigation {
+    display: flex;
+    margin-top:1em;
+}
+.navigationContainer {
+    width: fit-content;
+    height: fit-content;
+    padding:15px 20px;
+    display: flex;
+    flex-direction: column;
+    background: #f9eaf2;
+    border-radius: 20px;
+    border: 1px solid #ddccd4;
+}
+
+.circle {
+    width: 14px;
+    height: 14px;
+    border-radius: 20%;
+}

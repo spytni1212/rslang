@@ -1,0 +1,27 @@
+.navigationWrapper {
+    width: 200px;
+    padding: 40px 25px;
+}
+.navigation {
+    display: flex;
+    flex-direction: column;
+    column-gap: 10px;
+    row-gap: 30px;
+    padding: 10px;
+}
+
+.navContainer {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.navContainer a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+.activeItem {
+    background: linear-gradient(45deg, #d4aec0, transparent);
+    border-radius: 10px;
+}

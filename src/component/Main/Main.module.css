@@ -1,0 +1,41 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 30px;
+}
+
+.promoContainer {
+    display: flex;
+    align-items: center;
+    column-gap: 50px;
+}
+
+.videoContainer {
+    width: 500px;
+    height: 250px;
+    background-color: rgb(156, 156, 216);
+}
+
+.promoDescription {
+    max-width: 300px;
+}
+
+.promoDescription p {
+    text-align: justify;
+}
+
+@media (max-width: 767px) {
+    .promoContainer {
+        flex-direction: column;
+    }
+
+    .videoContainer {
+        margin-bottom: 20px;
+        width: 480px;
+    }
+
+    .wrapper {
+        text-align: center;
+    }
+}

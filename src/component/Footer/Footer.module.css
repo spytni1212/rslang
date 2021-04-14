@@ -1,0 +1,46 @@
+.footer {
+    background: #fcf2f7;
+    border-top: 2px #8a6b7b solid;
+}
+.footerWrapper {
+    margin: 0 auto;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 30px;
+    padding: 1em 0;
+}
+
+.githubContainer {
+    display: flex;
+}
+
+.githubContainer a span:hover {
+    color: #000000;
+}
+
+.text {
+    font-weight: bold;
+}
+
+.rsschool {
+    height: 26px;
+    width: 70px;
+    background-repeat: no-repeat;
+}
+
+a {
+    text-decoration: none;
+}
+
+@media (max-width: 630px) {
+    .text {
+        font-size: 14px;
+    }
+}
+@media(max-width:500px){
+    .footerWrapper{
+        column-gap: 10px;
+    }
+}

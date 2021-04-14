@@ -1,0 +1,17 @@
+.header {
+    background-color: aqua;
+}
+
+.wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+.cardList {
+    justify-content: center;
+    display: flex;
+}

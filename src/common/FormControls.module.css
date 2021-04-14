@@ -1,0 +1,15 @@
+.input {
+    padding: 8px;
+    border-radius: 8px;
+    width: 100%;
+}
+.formControl {
+    width: 100%;
+}
+.formControl.error input {
+    border: 1px solid red;
+}
+
+.formControl.error span {
+    color: red
+}
