@@ -2,7 +2,6 @@ import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff'; 
 import Form from '../UIKit/Form'
-import LoginForm from './LoginForm'
 
 const useStyles = makeStyles({
     content:{
@@ -43,7 +42,6 @@ const content = [
                 <HighlightOffIcon className={classes.closeIcon} onClick={props.onClose} />
                 <h2>Войти в аккаунт</h2>
                 <Form onSubmit={props.onSubmit} textfields={content} buttonName="войти" />
-                {/* <LoginForm  onSubmit={props.onSubmit}/> */}
             </div>
         </div>
     )

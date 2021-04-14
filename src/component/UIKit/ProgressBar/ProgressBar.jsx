@@ -6,7 +6,10 @@ const ProgressBar = ({ number }) => {
     backgroundColor: "#e0e0de",
     borderRadius: 50,
     margin: 15,
-    border: '1px solid #a9a0a0'
+    border: '1px solid #a9a0a0',
+    '&media(max-width:600px)': {
+      width: '75%'
+    }
   };
 
   const fillerStyles = {

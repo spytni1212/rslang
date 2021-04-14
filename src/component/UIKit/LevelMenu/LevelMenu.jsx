@@ -10,12 +10,12 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '500px',
         margin: '0 auto',
-        maxWidth: '500px',
+        maxWidth: '450px',
+        width: '100%',
         backgroundColor: '#fff',
         borderRadius: '20px',
-        boxShadow: '2px 2px 7px 2px #b4b4c7'
+        boxShadow: '2px 2px 7px 2px #b4b4c7',
     },
     title: {
         marginBottom: '1.2em',

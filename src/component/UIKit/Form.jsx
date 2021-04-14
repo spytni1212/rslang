@@ -9,7 +9,7 @@ const FormComponent = (props) => {
         return <Field
             name={textfield.name}
             component={Input}
-            type='text'
+            type={textfield.name === 'password' ? 'password' : 'text'}
             placeholder={textfield.placeholder}
         />
     })
@@ -19,19 +19,19 @@ const FormComponent = (props) => {
         <Form
             onSubmit={props.onSubmit}
         >
-            {(props) => 
+            {(props) =>
             (
-            <form onSubmit={props.handleSubmit} className={s.formContainer}>
-                {fields}
-                <Button
-                    type='submit'
-                    variant='contained'
-                    color='primary'
-                    className={s.submitBtn}
-                >
-                    {btnName}
-                </Button>
-            </form>
+                <form onSubmit={props.handleSubmit} className={s.formContainer}>
+                    {fields}
+                    <Button
+                        type='submit'
+                        variant='contained'
+                        color='primary'
+                        className={s.submitBtn}
+                    >
+                        {btnName}
+                    </Button>
+                </form>
             )}
         </Form>
     )

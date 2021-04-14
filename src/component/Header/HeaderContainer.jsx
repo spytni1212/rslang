@@ -10,6 +10,7 @@ import s from './Header.module.css'
 const useStyles = makeStyles({
     logoContainer: {
         display: 'flex',
+        alignItems: 'center',
         columnGap: '10px'
     },
     img: {

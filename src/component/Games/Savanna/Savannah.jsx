@@ -50,6 +50,7 @@ const useStyles = makeStyles({
     },
     title: {
         marginBottom: '1.2em',
+        textAlign: 'center'
     },
     checkButton: {
         margin: '0 auto',

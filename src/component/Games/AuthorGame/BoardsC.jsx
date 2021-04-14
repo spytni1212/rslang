@@ -43,9 +43,8 @@ const grid = 8;
 
 const getListStyle = (isDraggingOver, colorBoard) => ({
   background: isDraggingOver ? "lightblue" : "lightgrey",
-  // border: `1px solid ${colorBoard}`,
   minHeight: "70px",
-  width: "1000px",
+  width: "90vw",
   display: "flex",
   padding: grid,
   borderRadius: "20px",
@@ -56,11 +55,9 @@ const getListWordStyle = (isDraggingOver) => ({
   background: "none",
   minHeight: "70px",
   width: "100%",
-  // maxWidth: "400px",
   display: "flex",
   padding: grid,
-  // overflow: "auto",
-  // flexWrap: `wrap`,
+  flexWrap: `wrap`,
   jusctyfyContent: "center", 
 });
 

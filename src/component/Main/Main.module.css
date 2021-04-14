@@ -32,6 +32,7 @@
 
     .videoContainer {
         margin-bottom: 20px;
+        width: 480px;
     }
 
     .wrapper {
