@@ -6,6 +6,11 @@ const SET_CALL_LIST_CHOICE_WORDS = "SET_CALL_LIST_CHOICE_WORDS";
 const SET_ANSWER = "SET_ANSWER"
 const SET_CALL_ADD_WRONG_WORD = "SET_CALL_ADD_WRONG_WORD";
 const SET_CALL_ADD_CORRECT_WORD = "SET_CALL_ADD_CORRECT_WORD";
+const SET_RESULT_INFO = "SET_RESULT_INFO";
+const SET_RESET_RESULT_INFO = "SET_RESET_RESULT_INFO";
+const SET_RESULTS = "SET_RESULTS";
+const SET_SCORE = "SET_SCORE";
+
 
 let initialState = {
   start: false,
@@ -18,6 +23,9 @@ let initialState = {
     correctWords: [],
     wrongWords: [],
   },
+  resultInfo: [],
+  results: {correct: 0, wrong: 0},
+  score: 0
 };
 
 const audioCallReducer = (state = initialState, action) => {
@@ -59,6 +67,14 @@ const audioCallReducer = (state = initialState, action) => {
         answer: action.value
       }
     }
+    case SET_RESULT_INFO:
+            return {...state, resultInfo: [...state.resultInfo, action.resultInfo]}
+    case SET_RESET_RESULT_INFO:
+            return {...state, resultInfo: []}
+    case SET_RESULTS: 
+            return {...state, results: action.results} 
+    case SET_SCORE:
+            return {...state, score: action.score}                       
     default:
       return state;
   }
@@ -96,5 +112,9 @@ export const setAnswer = (value) => ({
   type: SET_ANSWER,
   value,
 });
+export const setResultInfo = (resultInfo) => ({type: SET_RESULT_INFO, resultInfo});
+export const setResetResultInfo = () => ({type: SET_RESET_RESULT_INFO});
+export const setResult = (results) => ({type: SET_RESULTS, results})
+export const setScore = (score) => ({type: SET_SCORE, score})
 
 export default audioCallReducer;

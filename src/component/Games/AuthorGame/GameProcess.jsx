@@ -5,7 +5,18 @@ import GameButton from "../../UIKit/GameButton/GameButton";
 import s from "./GameProcess.module.css";
 import BoardsC from "./BoardsC";
 import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
 
+const useStyles = makeStyles({
+  checkButton: {
+    margin: "0 auto",
+    background: "lightblue",
+    fontSize: "16px",
+    "&:hover": {
+      background: "#d69eadf !important",
+    },
+  },
+})
 
 const GameProcess = ({ ...props }) => {
   const {
@@ -23,12 +34,18 @@ const GameProcess = ({ ...props }) => {
     colorBoard,
     setButtonCheck,
     result,
+    EndGame,
   } = props;
+
+const classes = useStyles();
 
   return (
     <div className={s.wrapper}>
       <Modal isOpen={indexSelectWord === arrWords.length}>
-        <button>Закрыть</button>
+        <div>
+          
+        </div>
+        <button onClick={()=>{EndGame()}}>Закрыть</button>
       </Modal>
       <ProgressBar number={indexSelectWord} />
       {!ButtonNext && <h2>{selectWord.textExampleTranslate}</h2>}
@@ -53,13 +70,7 @@ const GameProcess = ({ ...props }) => {
           onClick={handlerButtonCheck}
           disabled={!ButtonСheck}
           variant="contained"
-          style={{
-            margin: "0 auto",
-            background: "#d69eadf5",
-            "&:hover": {
-              background: "#d69eadf !important",
-            },
-          }}
+          className={classes.checkButton}
         >
           Проверить
         </Button>
@@ -68,8 +79,9 @@ const GameProcess = ({ ...props }) => {
           onClick={buttonNextWord}
           variant="contained"
           style={{
-            margin: "20px auto",
-            background: "#d69eadf5",
+            margin: "0 auto",
+            background: "lightblue",
+            fontSize: "16px",
             "&:hover": {
               background: "#d69eadf !important",
             },

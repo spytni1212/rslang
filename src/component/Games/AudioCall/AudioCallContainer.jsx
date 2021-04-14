@@ -10,6 +10,10 @@ import {
   setCallAddWrongWord,
   setCallAddCorrectWord,
   setAnswer,
+  setResetResultInfo,
+  setResultInfo,
+  setResult,
+  setScore
 } from "../../../redux/audioCall-reducer";
 import {
   generateRandom,
@@ -36,9 +40,16 @@ const AudioCallContainer = ({ ...props }) => {
     setCallListChoiceWords,
     setCallAddWrongWord,
     setCallAddCorrectWord,
+    setResetResultInfo,
     setAnswer,
     answer,
     userWords,
+    setResultInfo,
+    resultInfo,
+    results,
+    score,
+    setResult,
+    setScore
   } = props;
 
   let history = useHistory();
@@ -102,11 +113,19 @@ const AudioCallContainer = ({ ...props }) => {
 
     if (obj.word === selectWord.word) {
       setCallAddCorrectWord([...props.correctWords, props.selectWord]);
+      setResultInfo({firstWord: selectWord.word, secondWord: obj.word, result: true})
+      const newCorrect = results.correct+1
+      setResult({correct: newCorrect, wrong: results.wrong})
+      const newScore = score+10
+      setScore(newScore)
       return setCallListChoiceWords(
         funTypesSelectWords(listСhoiceWords, obj.word, "correct")
       );
     } else {
       setCallAddWrongWord([...props.correctWords, selectWord]);
+      setResultInfo({firstWord: selectWord.word, secondWord: obj.word, result: false})
+      const newWrong = results.wrong+1
+      setResult({correct: results.correct, wrong: newWrong})
       return setCallListChoiceWords(
         funTypesSelectWords(listСhoiceWords, obj.word, "wrong")
       );
@@ -121,6 +140,9 @@ const AudioCallContainer = ({ ...props }) => {
     setCallListChoiceWords([]);
     setCallAddWrongWord([]);
     setCallAddCorrectWord([]);
+    setResetResultInfo();
+    setResult({})
+    setScore(0)
     if (props.match.params.userGame) {
       history.push("/book");
     }
@@ -140,6 +162,9 @@ const AudioCallContainer = ({ ...props }) => {
       wrongWords={wrongWords}
       correctWords={correctWords}
       answer={answer}
+      resultInfo={resultInfo}
+      results={results}
+      score={score}
     />
   );
 };
@@ -154,7 +179,10 @@ let mapStateToProps = (state) => {
     wrongWords: state.audioCall.levelResult.wrongWords,
     correctWords: state.audioCall.levelResult.correctWords,
     answer: state.audioCall.answer,
-    userWords: state.book.userWords
+    userWords: state.book.userWords,
+    resultInfo: state.audioCall.resultInfo,
+    results: state.audioCall.results,
+    score: state.audioCall.score
   };
 };
 
@@ -167,4 +195,8 @@ export default connect(mapStateToProps, {
   setCallAddWrongWord,
   setCallAddCorrectWord,
   setAnswer,
+  setResetResultInfo,
+  setResultInfo,
+  setResult,
+  setScore,
 })(AudioCallContainer);

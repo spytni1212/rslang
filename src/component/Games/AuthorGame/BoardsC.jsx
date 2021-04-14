@@ -45,7 +45,7 @@ const getListStyle = (isDraggingOver, colorBoard) => ({
   background: isDraggingOver ? "lightblue" : "lightgrey",
   // border: `1px solid ${colorBoard}`,
   minHeight: "70px",
-  width: "700px",
+  width: "1000px",
   display: "flex",
   padding: grid,
   borderRadius: "20px",
