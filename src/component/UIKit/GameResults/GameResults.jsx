@@ -2,6 +2,7 @@ import React from 'react';
 import style from './GameResults.module.css';
 
 const GameResults = (props) => {
+    console.log(props)
     return (
         <div className={style.endGame}>
             <div>

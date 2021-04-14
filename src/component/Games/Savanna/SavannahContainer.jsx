@@ -18,7 +18,6 @@ const SavannahContainer = ({ ...props }) => {
     useEffect(() => {
         if (props.match.params.userGame) {
             props.setWordsInfo(props.userWords)
-            console.log(props.userWords)
             setOnLevelChoice(false)
             putLearningWords(props.userWords, props.user)
         }
@@ -30,8 +29,8 @@ const SavannahContainer = ({ ...props }) => {
             .then(response => {
                 const wordsInfo = response.data.map(res => ({
                     id: res.id,
-                    word: res.word,
-                    wordTranslate: res.wordTranslate
+                    firstWord: res.word,
+                    secondWord: res.wordTranslate
                 }))
                 props.setWordsInfo(wordsInfo)
                 setOnLevelChoice(false)

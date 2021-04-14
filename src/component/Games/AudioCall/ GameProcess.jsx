@@ -127,19 +127,6 @@ const GameProcess = ({ ...props }) => {
   return (
     <div className={classes.bgContainer}>
       <div className={classes.container}>
-        <Modal isOpen={indexSelectWord === arrWords.length}>
-          <div className={s.wrapperList}>
-            <div className={s.list}>
-              <p>Correct</p>
-              {listCorrectWords}
-            </div>
-            <div className={s.list}>
-              <p>Wrong in</p>
-              {listWrongWords}
-            </div>
-          </div>
-          <button onClick={props.buttonEndGame}>OK</button>
-        </Modal>
         <ProgressBar number={indexSelectWord} />
         <div>
           {answer ? (
@@ -175,6 +162,19 @@ const GameProcess = ({ ...props }) => {
         >
           {indexSelectWord === arrWords.length - 1 ? "Результат" : "Дальше"}
         </Button>
+        <Modal isOpen={indexSelectWord === arrWords.length}>
+          <div className={s.wrapperList}>
+            <div className={s.list}>
+              <p>Correct</p>
+              {listCorrectWords}
+            </div>
+            <div className={s.list}>
+              <p>Wrong in</p>
+              {listWrongWords}
+            </div>
+          </div>
+          <button onClick={props.buttonEndGame}>OK</button>
+        </Modal>
       </div>
     </div>
   );
