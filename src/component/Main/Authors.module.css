@@ -66,6 +66,24 @@
     text-align: justify;
 }
 
+@media (max-width: 800px) {
+    .wrapper {
+        flex-direction: column;
+    }
+
+    .personContainer {
+        flex-direction: column;
+    }
+
+    .personalInfo {
+        justify-content: center;
+    }
+
+    .personalInfo p {
+        text-align: center;
+    }
+}
+
 @media (max-width: 767px) {
     .aboutUs {
         width: 100%;
