@@ -74,6 +74,7 @@ class SprintContainer extends Component {
     }
 
     resetSprintGameStart = () => {
+        if (this.props.path) this.props.history.push("/book");
         this.props.setResetSprintGameStart();
     }
 

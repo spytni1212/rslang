@@ -6,9 +6,12 @@ import { connect } from 'react-redux';
 import * as axios from 'axios';
 import style from './Sprint.module.css';
 import putLearningWords from '../putLearningWords';
-import '../style.css'
+import '../style.css';
+import { useHistory } from "react-router-dom";
 
 const Sprint = (props) => {    
+    const history = useHistory();
+
     const getRandomPage = () => {
         const min = 0;
         const max = 29;
@@ -52,7 +55,10 @@ const Sprint = (props) => {
             <h2 className="levelsTitle">Спринт</h2>
             <div className={style.mainPage}>
                 {!props.sprintGameStart && !props.sprintGameEnd && <LevelMenu funClickButton={handlerButtonStart} />}
-                {props.sprintGameStart && <SprintContainer path={props.match.params.userGame} />}
+                {props.sprintGameStart && <SprintContainer 
+                    path={props.match.params.userGame}
+                    history={history}
+                 />}
             </div>
         </div>
     )
