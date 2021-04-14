@@ -34,9 +34,9 @@ const Games = () => {
         <div>
             <div className={`wrapper ${s.wrapper}`}>
                <div className={s.gamesContainer}>
-                    {[0, 1, 2, 3].map(i => {
+                    {[0, 1, 2, 3].map((i, index) => {
                         return (
-                            <NavLink to={games[`game${i + 1}`].link} className={s.gameLink}>
+                            <NavLink to={games[`game${i + 1}`].link} className={s.gameLink} key={index}>
                                 <div key={i} className={s.gameContainer}>
                                     <div className={s.gameIcon}>
                                         <img className={s.gamePicture} src={games[`game${i + 1}`].picture} alt={games[`game${i + 1}`].name}/>

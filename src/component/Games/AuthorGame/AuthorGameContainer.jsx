@@ -17,6 +17,7 @@ import {
 import { shuffleArray, getRequestWords } from "../generalFunctionsForGame";
 import { v4 as uuidv4 } from "uuid";
 import _ from "lodash";
+import { useHistory } from "react-router-dom";
 
 const AuthorGameContainer = (props) => {
   const {
@@ -44,6 +45,8 @@ const AuthorGameContainer = (props) => {
     userWords
   } = props;
 
+  let history = useHistory();
+
   useEffect(() => {
     if (props.match.params.userGame) {
       const copyUserWords = _.cloneDeep(userWords);
@@ -56,6 +59,9 @@ const AuthorGameContainer = (props) => {
 
   useEffect(() => {
     if (start === true) {
+      if (indexSelectWord === arrWords.length) {
+        return;
+      }
       initListСhoiceWords();
     }
   }, [indexSelectWord]);
@@ -116,6 +122,10 @@ const AuthorGameContainer = (props) => {
 
   const EndGame = () => {
     setButtonNext(false);
+    setStartGame(false);
+    if (props.match.params.userGame) {
+      history.push("/book");
+    }
   };
 
   return (
@@ -135,6 +145,7 @@ const AuthorGameContainer = (props) => {
       handlerButtonCheck={handlerButtonCheck}
       setButtonCheck={setButtonCheck}
       result={result}
+      EndGame={EndGame}
     />
   );
 };

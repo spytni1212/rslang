@@ -34,6 +34,7 @@ let initialState = {
   ButtonСheck: false,
   ButtonNext: false,
   result: [],
+  showRules: false,
 };
 
 const authorGameReducer = (state = initialState, action) => {
