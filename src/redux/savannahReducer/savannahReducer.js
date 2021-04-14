@@ -5,6 +5,7 @@ const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_CURRENT_GROUP = 'SET_CURRENT_GROUP'
 const SET_CORRECT_WORDS = 'SET_CORRECT_WORDS'
 const SET_WRONG_WORDS = 'SET_WRONG_WORDS'
+const SET_RESULT_INFO = 'SET_RESULT_INFO'
 
 
 let initialState = {
@@ -12,7 +13,8 @@ let initialState = {
     currentGroup: 0,
     currentPage: 0,
     correctWords: [],
-    wrongWords: []
+    wrongWords: [],
+    resultInfo: []
 }
 
 const savannahReducer = (state = initialState, action) => {
@@ -32,6 +34,9 @@ const savannahReducer = (state = initialState, action) => {
         case SET_WRONG_WORDS: {
             return { ...state, wrongWords: [...state.wrongWords, action.wrongWords] }
         }
+        case SET_RESULT_INFO: {
+            return { ...state, resultInfo: [...state.resultInfo, action.resultInfo] }
+        }
         default:
             return state
     }
@@ -44,5 +49,6 @@ export const setCurrentGroup = (currentGroup) => ({ type: SET_CURRENT_GROUP, cur
 export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage })
 export const setCorrectWords = (correctWords) => ({ type: SET_CORRECT_WORDS, correctWords })
 export const setWrongWords = (wrongWords) => ({ type: SET_WRONG_WORDS, wrongWords })
+export const setResultInfo = (resultInfo) => ({ type: SET_RESULT_INFO, resultInfo })
 
 export default savannahReducer;

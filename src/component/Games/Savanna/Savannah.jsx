@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { setCorrectWords, setWrongWords } from '../../../redux/savannahReducer/savannahReducer'
+import { setCorrectWords, setWrongWords, setResultInfo } from '../../../redux/savannahReducer/savannahReducer'
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -9,6 +9,7 @@ import Modal from '../../UIKit/Modal/Modal'
 import ProgressBar from '../../UIKit/ProgressBar/ProgressBar'
 import EndOfGame from './EndOfGame';
 import showNewWords from './showNewWords'
+import GameResults from '../../UIKit/GameResults/GameResults'
 
 const useStyles = makeStyles({
     bgContainer: {
@@ -94,17 +95,20 @@ let randomNumbersArray = getRandomNumbers();
 const Savannah = (props) => {
     const classes = useStyles()
     const history = useHistory();
+    console.log(props.wordsInfo)
     const WORDS_NUMBER = 20;
     const wordsInfo = props.wordsInfo
     let wordToCheck, translationToCheck;
 
     const [wordsArray, setWordsArr] = useState(wordsInfo)
-    wordsInfo[0] ? wordToCheck = wordsArray[0].word : wordToCheck = null
-    wordsInfo[0] ? translationToCheck = wordsArray[0].wordTranslate : translationToCheck = null
-
+    wordsInfo[0] ? wordToCheck = wordsArray[0].firstWord : wordToCheck = null
+    wordsInfo[0] ? translationToCheck = wordsArray[0].secondWord : translationToCheck = null
+    console.log(wordsArray)
     const [buttonDisabled, setButtonDisabled] = useState(true)
     const [step, setStep] = useState(0)
     const [points, setPoints] = useState(0)
+    const [correctAnswersNum, setCorrectAnswersNum] = useState(0)
+    const [wrongAnswersNum, setWrongAnswersNum] = useState(0)
     const buttonsContainer = useRef()
 
     // start pop-up
@@ -137,10 +141,18 @@ const Savannah = (props) => {
         if (wordClicked === translationToCheck) {
             currentButton.classList.add(classes.correct)
             setPoints(prev => prev + 10)
-            props.setCorrectWords(wordToSend)
+            setCorrectAnswersNum(prev => prev + 1)
+            const resultWord = wordsArray.find(word => word.id === wordId)
+            // console.log(wordsArray)
+            props.setResultInfo({...resultWord, result: true})
+            // console.log(props.setResultInfo)
+            // props.setCorrectWords(wordToSend)
         } else {
             currentButton.classList.add(classes.wrong)
-            props.setWrongWords(wordToSend)
+            setWrongAnswersNum(prev => prev + 1)
+            const resultWord = wordsArray.find(word => word.id === wordId)
+            props.setResultInfo({...resultWord, result: false})
+            // props.setWrongWords(wordToSend)
         }
         setButtonDisabled(false)
         setStep(prev => prev + 1)
@@ -186,7 +198,9 @@ const Savannah = (props) => {
             window.removeEventListener('keypress', handleEnterPress);
         };
     }, [handleEnterPress]);
-
+    console.log(props.correctWords);
+    console.log(props.wordsInfo)
+    console.log(props.wrongWords)
     //end hotkeys
 
     return (
@@ -200,13 +214,13 @@ const Savannah = (props) => {
                             <button
                                 key={index}
                                 className={classes.word}
-                                data-word={wordsArray[randomNumber].wordTranslate}
+                                data-word={wordsArray[randomNumber].secondWord}
                                 data-id={wordsArray[randomNumber].id}
                                 data-index={index + 1}
                                 onClick={handleCheck}
                                 disabled={!buttonDisabled}
                             >
-                                {index + 1}. {wordsArray[randomNumber].wordTranslate}
+                                {index + 1}. {wordsArray[randomNumber].secondWord}
                             </button>
                         )
                     })}
@@ -223,12 +237,19 @@ const Savannah = (props) => {
             <Modal
                 isOpen={open}
                 children={
-                    <EndOfGame
-                        points={points} 
-                        handleClose={handleClose} 
-                        correctWords={props.correctWords}
-                        wrongWords={props.wrongWords}
-                />}
+                    //     <EndOfGame
+                    //         points={points} 
+                    //         handleClose={handleClose} 
+                    //         correctWords={props.correctWords}
+                    //         wrongWords={props.wrongWords}
+                    // />
+                    <GameResults
+                        score={points}
+                        endGame={handleClose}
+                        results={{ correct: correctAnswersNum, wrong: wrongAnswersNum }}
+                        resultInfo={props.resultInfo}
+                    />
+                }
             />
         </Box>
     )
@@ -238,6 +259,7 @@ const mapStateToProps = (state) => {
     return {
         correctWords: state.savannah.correctWords,
         wrongWords: state.savannah.wrongWords,
+        resultInfo: state.savannah.resultInfo,
     }
 }
-export default connect(mapStateToProps, { setCorrectWords, setWrongWords })(Savannah);
+export default connect(mapStateToProps, { setCorrectWords, setWrongWords, setResultInfo })(Savannah);
